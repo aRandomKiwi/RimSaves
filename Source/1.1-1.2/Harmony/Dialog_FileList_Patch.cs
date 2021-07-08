@@ -305,33 +305,62 @@ namespace aRandomKiwi.ARS
                                 current.Delete();
                             }
 
-                            //Suppression de tous les previews associés
-                            //Constitution liste des previews stockant le VF specifié
+                            //Delete all associated previews
+                            //Constitution list of previews storing the specified VF
                             string text2 = Utils.getBasePathRSPreviews();
-                            string curPrefix = Settings.curFolder + Utils.VFOLDERSEP;
+                            string curPrefix = "";
+
+                            if (Settings.curFolder != "Default")
+                                curPrefix = Settings.curFolder + Utils.VFOLDERSEP;
+
                             DirectoryInfo directoryInfo = new DirectoryInfo(text2);
                             IOrderedEnumerable<FileInfo> res;
-                            res = from f in directoryInfo.GetFiles()
-                                  where f.Extension == ".jpg" && f.FullName.Contains(curPrefix)
-                                  orderby f.LastWriteTime descending
-                                  select f;
+                            //Handling default folder removing
+                            if (curPrefix == "")
+                            {
+                                res = from f in directoryInfo.GetFiles()
+                                      where f.Extension == ".jpg" && !f.FullName.Contains(Utils.VFOLDERSEP)
+                                      orderby f.LastWriteTime descending
+                                      select f;
+                            }
+                            else
+                            {
+                                res = from f in directoryInfo.GetFiles()
+                                      where f.Extension == ".jpg" && f.FullName.Contains(curPrefix)
+                                      orderby f.LastWriteTime descending
+                                      select f;
+                            }
 
-                            //Pareil pour les previews
+                            //Same for previews
                             foreach (var file in res)
                             {
                                 file.Delete();
                             }
 
-                            //Pareil pour les meta
+                            //Same for meta
                             text2 = Utils.getBasePathRSMeta();
-                            curPrefix = Settings.curFolder + Utils.VFOLDERSEP;
-                            directoryInfo = new DirectoryInfo(text2);
-                            res = from f in directoryInfo.GetFiles()
-                                  where f.Extension == ".dat" && f.FullName.Contains(curPrefix)
-                                  orderby f.LastWriteTime descending
-                                  select f;
+                            curPrefix = "";
 
-                            //Pareil pour les previews
+                            if (Settings.curFolder != "Default")
+                                curPrefix = Settings.curFolder + Utils.VFOLDERSEP;
+
+                            directoryInfo = new DirectoryInfo(text2);
+
+                            if (curPrefix == "")
+                            {
+                                res = from f in directoryInfo.GetFiles()
+                                      where f.Extension == ".dat" && !f.FullName.Contains(Utils.VFOLDERSEP)
+                                      orderby f.LastWriteTime descending
+                                      select f;
+                            }
+                            else
+                            {
+                                res = from f in directoryInfo.GetFiles()
+                                      where f.Extension == ".dat" && f.FullName.Contains(curPrefix)
+                                      orderby f.LastWriteTime descending
+                                      select f;
+                            }
+
                             foreach (var file in res)
                             {
                                 file.Delete();

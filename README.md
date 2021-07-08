@@ -4,11 +4,11 @@
 
 <p align="center">
 	<a href="https://github.com/aRandomKiwi/RimThemes/releases">
-		<img src="https://img.shields.io/badge/release-2020R1 rev4-4BC51D.svg?style=flat" alt="2020R1 rev4" />
+		<img src="https://img.shields.io/badge/release-2020R1 rev4-4BC51D.svg?style=flat" alt="2020R1 rev5" />
     </a>
 	<img src="https://img.shields.io/github/downloads-pre/aRandomKiwi/RimThemes/total.svg?style=popout-square&color=green" alt="Github Total Downloads" />
 	<a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1713367505">
-		<img src="https://img.shields.io/badge/RimWorld-1.2-purple.svg?longCache=true&style=plastic)" alt="Compatible Rimworld 1.2" />
+		<img src="https://img.shields.io/badge/RimWorld-1.3-purple.svg?longCache=true&style=plastic)" alt="Compatible Rimworld 1.3" />
     </a>
 	<a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1713367505">
 		<img src="https://img.shields.io/badge/documentation-%F0%9F%94%8D-blue?style=flat" />
