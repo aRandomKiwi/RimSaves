@@ -1,0 +1,4 @@
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Down For Me\Assemblies\DownForMe.dll
+C:\Users\kiwi\Desktop\Dev RMMods\Down For Me\obj\Debug\DownForMe.csproj.CoreCompileInputs.cache
+C:\Users\kiwi\Desktop\Dev RMMods\Down For Me\obj\Debug\DownForMe.csproj.CopyComplete
+C:\Users\kiwi\Desktop\Dev RMMods\Down For Me\obj\Debug\DownForMe.dll
