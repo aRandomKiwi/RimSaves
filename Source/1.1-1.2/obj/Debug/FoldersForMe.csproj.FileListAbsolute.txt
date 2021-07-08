@@ -1,4 +1,0 @@
-C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Folders For Me\Assemblies\FoldersForMe.dll
-C:\Users\kiwi\Desktop\Dev RMMods\Folders For Me\obj\Debug\FoldersForMe.csproj.CoreCompileInputs.cache
-C:\Users\kiwi\Desktop\Dev RMMods\Folders For Me\obj\Debug\FoldersForMe.csproj.CopyComplete
-C:\Users\kiwi\Desktop\Dev RMMods\Folders For Me\obj\Debug\FoldersForMe.dll
