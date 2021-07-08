@@ -306,6 +306,7 @@
     <Compile Include="Dialogs\Dialog_ShowPreview.cs" />
     <Compile Include="GCQS.cs" />
     <Compile Include="Harmony\Game_Patch.cs" />
+    <Compile Include="Harmony\LetterStack_Patch.cs" />
     <Compile Include="Harmony\SaveLoad_Patchs.cs" />
     <Compile Include="Harmony\OptionListingUtility_Patch.cs" />
     <Compile Include="Harmony\Current_Patch.cs" />

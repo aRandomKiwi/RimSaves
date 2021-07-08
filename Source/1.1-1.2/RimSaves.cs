@@ -6,6 +6,7 @@ using RimWorld;
 using System.IO;
 using System;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace aRandomKiwi.ARS
 {

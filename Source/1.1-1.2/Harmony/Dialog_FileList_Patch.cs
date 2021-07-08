@@ -9,6 +9,7 @@ using Verse.AI;
 using System.IO;
 using System.Diagnostics;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace aRandomKiwi.ARS
 {
@@ -18,11 +19,21 @@ namespace aRandomKiwi.ARS
         public class get_InitialSize
         {
             [HarmonyPrefix]
-            public static bool Listener(Dialog_FileList __instance, ref Vector2 __result)
+            public static bool Listener(Dialog_FileList __instance, ref Vector2 __result, ref string ___typingName)
             {
                 __result = new Vector2(1000f, 700f);
                 Utils.initDialog = true;
                 Utils.selectedSave = "";
+                if (Settings.uniqueSaveName)
+                {
+                    //If already contain suffix then we remove it and happend the new one
+                    Regex rgx = new Regex(@"\.[0-9]{5,}$");
+                    if (rgx.IsMatch(___typingName))
+                    {
+                        ___typingName = rgx.Replace(___typingName, "");
+                    }
+                    ___typingName += Utils.getUniqueSuffix();
+                }
                 return false;
             }
         }

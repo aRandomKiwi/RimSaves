@@ -12,6 +12,9 @@ namespace aRandomKiwi.ARS
         public static int nbAutosave = 5;
         public static int keyBinding = 1;
         public static bool disableAutosave = false;
+        public static bool uniqueQuicksaveName = false;
+        public static bool uniqueSaveName = false;
+        public static bool saveOnNegativeIncident = false;
 
 
         public static void DoSettingsWindowContents(Rect inRect)
@@ -24,6 +27,9 @@ namespace aRandomKiwi.ARS
             list.Label("ARS_SettingsGeneralSection".Translate());
             list.GapLine();
 
+            list.CheckboxLabeled("ARS_SettingsQuicksaveOnNegativeIncident".Translate(), ref saveOnNegativeIncident);
+            list.CheckboxLabeled("ARS_SettingsUniqueQuicksaveName".Translate(), ref uniqueQuicksaveName);
+            list.CheckboxLabeled("ARS_SettingsUniqueSavenameOnSave".Translate(), ref uniqueSaveName);
             list.CheckboxLabeled("ARS_SettingsDisableAutosaves".Translate(), ref disableAutosave);
 
             list.Label("ARS_SettingsNbAutosave".Translate(Settings.nbAutosave));
@@ -50,7 +56,10 @@ namespace aRandomKiwi.ARS
             Scribe_Values.Look<int>(ref nbAutosave, "nbAutosave", 5);
             Scribe_Values.Look<int>(ref keyBinding, "keyBinding", 1);
             Scribe_Values.Look<bool>(ref disableAutosave, "disableAutosave", false);
-            
+            Scribe_Values.Look<bool>(ref uniqueQuicksaveName, "uniqueQuicksaveName", false);
+            Scribe_Values.Look<bool>(ref uniqueSaveName, "uniqueSaveName", false);
+            Scribe_Values.Look<bool>(ref saveOnNegativeIncident, "saveOnNegativeIncident", false);
+
         } 
     }
 }
