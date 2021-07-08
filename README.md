@@ -1,10 +1,10 @@
 <p align="center">
-    <img src="https://i.imgur.com/7VPl8pW.png" alt="RimSaves" />
+    <img src="https://i.imgur.com/GXnUlck.png" alt="RimSaves" />
 </p>
 
 <p align="center">
 	<a href="https://github.com/aRandomKiwi/RimThemes/releases">
-		<img src="https://img.shields.io/badge/release-2020R1 rev4-4BC51D.svg?style=flat" alt="2020R1 rev5" />
+		<img src="https://img.shields.io/badge/release-NX rev1-4BC51D.svg?style=flat" alt="NX rev1" />
     </a>
 	<img src="https://img.shields.io/github/downloads-pre/aRandomKiwi/RimThemes/total.svg?style=popout-square&color=green" alt="Github Total Downloads" />
 	<a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1713367505">
