@@ -308,13 +308,28 @@ namespace aRandomKiwi.ARS
                             //Suppression de tous les previews associés
                             //Constitution liste des previews stockant le VF specifié
                             string text2 = Utils.getBasePathRSPreviews();
-                            string curPrefix = Settings.curFolder + Utils.VFOLDERSEP;
+                            string curPrefix = "";
+
+                            if(Settings.curFolder != "Default")
+                                curPrefix = Settings.curFolder + Utils.VFOLDERSEP;
+
                             DirectoryInfo directoryInfo = new DirectoryInfo(text2);
                             IOrderedEnumerable<FileInfo> res;
-                            res = from f in directoryInfo.GetFiles()
-                                  where f.Extension == ".jpg" && f.FullName.Contains(curPrefix)
-                                  orderby f.LastWriteTime descending
-                                  select f;
+                            //Handling default folder removing
+                            if (curPrefix == "")
+                            {
+                                res = from f in directoryInfo.GetFiles()
+                                      where f.Extension == ".jpg" && !f.FullName.Contains(Utils.VFOLDERSEP)
+                                      orderby f.LastWriteTime descending
+                                      select f;
+                            }
+                            else
+                            {
+                                res = from f in directoryInfo.GetFiles()
+                                      where f.Extension == ".jpg" && f.FullName.Contains(curPrefix)
+                                      orderby f.LastWriteTime descending
+                                      select f;
+                            }
 
                             //Pareil pour les previews
                             foreach (var file in res)
@@ -324,12 +339,29 @@ namespace aRandomKiwi.ARS
 
                             //Pareil pour les meta
                             text2 = Utils.getBasePathRSMeta();
-                            curPrefix = Settings.curFolder + Utils.VFOLDERSEP;
+                            curPrefix = "";
+
+                            if (Settings.curFolder != "Default")
+                                curPrefix = Settings.curFolder + Utils.VFOLDERSEP;
+
                             directoryInfo = new DirectoryInfo(text2);
-                            res = from f in directoryInfo.GetFiles()
-                                  where f.Extension == ".dat" && f.FullName.Contains(curPrefix)
-                                  orderby f.LastWriteTime descending
-                                  select f;
+
+                            if (curPrefix == "")
+                            {
+                                res = from f in directoryInfo.GetFiles()
+                                      where f.Extension == ".dat" && !f.FullName.Contains(Utils.VFOLDERSEP)
+                                      orderby f.LastWriteTime descending
+                                      select f;
+                            }
+                            else
+                            {
+                                res = from f in directoryInfo.GetFiles()
+                                      where f.Extension == ".dat" && f.FullName.Contains(curPrefix)
+                                      orderby f.LastWriteTime descending
+                                      select f;
+                            }
+
+                                
 
                             //Pareil pour les previews
                             foreach (var file in res)
