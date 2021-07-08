@@ -5,7 +5,7 @@
 	<ARS_SettingsBindingHomeEnd>Sauvegarde rapide : CTRL+HOME, chargement rapide : CTRL+END</ARS_SettingsBindingHomeEnd>
 	<ARS_SettingsBindingF5F9>Sauvegarde rapide : F5, chargement rapide : F9</ARS_SettingsBindingF5F9>
 	<ARS_SettingsDisableAutosaves>Désactiver les sauvegardes automatiques</ARS_SettingsDisableAutosaves>
-	<ARS_SettingsUniqueQuicksaveName>Nom des sauvegarde automatique unique</ARS_SettingsUniqueQuicksaveName>
+	<ARS_SettingsUniqueQuicksaveName>Nom des sauvegardes rapide unique</ARS_SettingsUniqueQuicksaveName>
 	<ARS_SettingsUniqueSavenameOnSave>Générer une suggestion de nom de sauvegarde unique lors de la sauvegarde</ARS_SettingsUniqueSavenameOnSave>
 	<ARS_SettingsQuicksaveOnNegativeIncident>Sauvegarde rapide lors d'un incident négatif</ARS_SettingsQuicksaveOnNegativeIncident>
 	
