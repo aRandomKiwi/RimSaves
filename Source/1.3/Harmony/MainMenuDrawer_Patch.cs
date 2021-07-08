@@ -23,10 +23,9 @@ namespace aRandomKiwi.ARS
                 {
                     /*PlayerKnowledgeDatabase.Save();
                     ShipCountdown.CancelCountdown();*/
-                    //On force l'affichage du menu sauvegarder
+                    //We force the display of the save menu
                     typeof(MainMenuDrawer).GetField("anyMapFiles", BindingFlags.NonPublic | BindingFlags.Static).SetValue(null,true); //").Field("anyMapFilesx").SetValue(true);
 
-                    //Log.Message("ICI");
                     //return false;
                 }
                 catch (Exception e)

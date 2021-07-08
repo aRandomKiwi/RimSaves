@@ -45,18 +45,18 @@ namespace aRandomKiwi.ARS
 
                 foreach (var file in listSaves)
                 {
-                    //Un Virtual folder est present 
+                    //A Virtual folder is present
                     if (file.FullName.Contains(Utils.VFOLDERSEP))
                     {
                         pos1 = 0;
                         pos2 = 0;
-                        //Obtention du virtual folder
+                        //Obtaining the virtual folder
 
                         Utils.getVFPosFromPath(file.FullName, out pos1, out pos2);
                         string vf = file.FullName.Substring(pos1, pos2 - pos1);
                         bool present = false;
-                        //Si vf non présent dans la liste interne on l'ajoute
-                        foreach(var el in Settings.folders)
+                        //If vf not present in the internal list we add it
+                        foreach (var el in Settings.folders)
                         {
                             if(el == vf)
                             {
@@ -65,14 +65,14 @@ namespace aRandomKiwi.ARS
                             }
                         }
 
-                        //Si pas deja present on l'ajoute 
+                        //If not already present we add it
                         if (!present) {
                             Settings.folders.Add(vf);
                             this.WriteSettings();
                          }
                     }
                 }
-                //Si folder par default pas present on le reajoute
+                //If folder by default not present we add it
                 if (!Settings.folders.Contains("Default"))
                     Settings.folders.Insert(0,"Default");
 

@@ -30,7 +30,7 @@ namespace aRandomKiwi.ARS
 
         public static string TranslateTicksToTextIRLSeconds(int ticks)
         {
-            //Si moins d'une heure ingame alors affichage secondes
+            //If less than one hour ingame then display seconds
             if (ticks < 2500)
                 return ticks.ToStringSecondsFromTicks();
             else
@@ -305,7 +305,7 @@ namespace aRandomKiwi.ARS
 
                 string fp = Path.Combine(getBasePathRSMeta(), saveName) + ".dat";
 
-                //Mise en cache
+                //Caching
                 cachedMeta[saveName] = meta;
                 //foreacFind.Archive.ArchivablesListForReading
                 serialize(meta, fp);
@@ -360,7 +360,7 @@ namespace aRandomKiwi.ARS
             string vfPrefix = "";
             if (Settings.curFolder != "Default")
             {
-                //Si pour n'importe quelle raison il y a la signature de VF alors on squeeze l'ajout du VF
+                //If for any reason there is the signature of VF then we squeeze the addition of the VF
                 if (!fileName.Contains(Utils.VFOLDERSEP))
                     vfPrefix = Settings.curFolder + Utils.VFOLDERSEP;
             }
@@ -389,7 +389,7 @@ namespace aRandomKiwi.ARS
                     nb = getNbSavesInVF(cfolder);
                     nbs = " "+"ARS_nbSaves".Translate(nb);
                 }
-                //Si folder a eviter on continue la boucle sans l'ajouter
+                //If folder to avoid we continue the loop without adding it
                 if (folderToAvoid == cfolder)
                     continue;
                 list.Add(new FloatMenuOption(Utils.OPTNSTART+cfolder+nbs, delegate
@@ -402,7 +402,7 @@ namespace aRandomKiwi.ARS
 
         public static void changeFolder(string cfolder, Dialog_FileList instance)
         {
-            //Changement de dossier courant
+            //Change of current file
             Settings.curFolder = cfolder;
             Utils.curModRef.WriteSettings();
             Traverse.Create(instance).Method("ReloadFiles").GetValue();
@@ -478,24 +478,24 @@ namespace aRandomKiwi.ARS
             string curPrefix = Settings.curFolder + Utils.VFOLDERSEP;
             string newPrefix = newName + Utils.VFOLDERSEP;
 
-            //Constitution liste des saves stockant le VF specifié
+            //Constitution list of saves storing the specified VF
             res = from f in directoryInfo.GetFiles()
                   where f.Extension == ".rws" && f.FullName.Contains(curPrefix)
                   orderby f.LastWriteTime descending
                   select f;
 
-            //Pour chacun de ces derniers on va remplacer le vf par le nouveau
-            foreach(var file in res)
+            //For each of these we will replace the vf by the new one
+            foreach (var file in res)
             {
                 string newPath = file.FullName;
                 newPath = newPath.Replace(curPrefix, newPrefix);
 
-                //Renommage fichier de sauvegarde
+                //Rename backup file
                 System.IO.File.Move(file.FullName, newPath);
                 //Log.Message(file.FullName + " " + newPath);
             }
 
-            //Constitution liste des previews stockant le VF specifié
+            //Constitution list of previews storing the specified VF
             string text2 = Utils.getBasePathRSPreviews();
             directoryInfo = new DirectoryInfo(text2);
             res = from f in directoryInfo.GetFiles()
@@ -503,7 +503,7 @@ namespace aRandomKiwi.ARS
                   orderby f.LastWriteTime descending
                   select f;
 
-            //Pareil pour les preview
+            //Same for the preview
             foreach (var file in res)
             {
                 string newPath = file.FullName;
@@ -511,12 +511,12 @@ namespace aRandomKiwi.ARS
 
                 
                 System.IO.File.Move(file.FullName, newPath);
-                //Mise a jour du cache des previews
+                //Updating the preview cache
                 Utils.updateCachedPreviewPath(file.FullName, newPath);
             }
 
-            //Pareil meta
-            //Constitution liste des previews stockant le VF specifié
+            //Same meta
+            //Constitution list of previews storing the specified VF
             text2 = Utils.getBasePathRSMeta();
             directoryInfo = new DirectoryInfo(text2);
             res = from f in directoryInfo.GetFiles()
@@ -532,11 +532,11 @@ namespace aRandomKiwi.ARS
 
 
                 System.IO.File.Move(file.FullName, newPath);
-                //Mise a jour du cache des previews
+                //Updating the preview cache
                 Utils.updateCachedMetaPath(file.FullName, newPath);
             }
 
-            //Recherche dans les dossiers afin de remplacer le nom
+            //Search through records to replace name
             Settings.folders[Settings.folders.FindIndex(ind => ind.Equals(Settings.curFolder))] = newName;
             Settings.curFolder = newName;
             Utils.curModRef.WriteSettings();

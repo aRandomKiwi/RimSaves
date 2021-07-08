@@ -27,7 +27,7 @@ namespace aRandomKiwi.ARS
                         GameDataSaveLoader.SaveGame(mapName);
                     }, "SavingLongEvent", false, null);
 
-                    //Si signature presente on vire le prefix
+                    //If signature is present we transfer the prefix
                     mapName = Utils.getFilenameWithoutVF(mapName);
 
                     Messages.Message("SavedAs".Translate(mapName), MessageTypeDefOf.SilentInput, false);
@@ -38,7 +38,6 @@ namespace aRandomKiwi.ARS
                     /*ScreenRecorder.saveName = Utils.addPrefix(mapName, false);
                     ScreenRecorder.wantScreenShot = true;*/
 
-                    //Log.Message("ICI");
                     return false;
                 }
                 catch (Exception e)

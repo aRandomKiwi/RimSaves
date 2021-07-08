@@ -36,11 +36,11 @@ namespace aRandomKiwi.ARS
             {
                 try
                 {
-                    //Si scenario on override pas le comportement vanilla
+                    //If scenario we do not override the vanilla behavior
                     if (__instance is Dialog_ScenarioList)
                         return true;
 
-                    //Calcul nb champs matchant pour avoir taille ascenceur
+                    //Calculation of number of fields matching to have ascender size
                     int nbRow = 0;
                     foreach (SaveFileInfo current in ___files)
                     {
@@ -64,20 +64,20 @@ namespace aRandomKiwi.ARS
                     outRect.height -= ___bottomAreaHeight + 70f;
                     outRect.y += 70f;
 
-                    //Zone de recherche
+                    //Search area
                     Rect searchSelRect = new Rect(inRect.AtZero());
                     searchSelRect.width = inRect.width - (340f+32f+15f);
                     searchSelRect.height = 32f;
                     searchSelRect.x = 376f;
 
-                    //Icone de recherche
+                    //Search icon
                     Rect searchSelRectIcon = new Rect(inRect.AtZero());
                     searchSelRectIcon.width = 32f;
                     searchSelRectIcon.height = 32f;
                     searchSelRectIcon.x = 340f;
 
 
-                    //Dessin du selecteur de folder
+                    //Drawing the folder selector
                     Rect folderSelRect = new Rect(inRect.AtZero());
                     folderSelRect.width = inRect.width - 340f-150f-8f;
                     folderSelRect.x = 374f;
@@ -95,11 +95,11 @@ namespace aRandomKiwi.ARS
                     folderSelRectBtnDel.x += folderSelRectBtnEdit.width + 6;
 
 
-                    //Image de preview
+                    //Preview image
                     Texture2D preview = Tex.texBGNoPreview;
 
-                    //Check si pas de preview pour la save selected
-                    if(Utils.selectedSave != "")
+                    //Check if no preview for the save selected
+                    if (Utils.selectedSave != "")
                     {
                         string previewpath=Utils.getBasePathRSPreviews();
                         previewpath = Path.Combine(previewpath, Utils.selectedSave)+".jpg";
@@ -114,9 +114,9 @@ namespace aRandomKiwi.ARS
                         Find.WindowStack.Add(new Dialog_ShowPreview(preview));
                     }
 
-                    //Icon de filtre
+                    //Filter icon
                     Widgets.ButtonImage(searchSelRectIcon, Tex.texSearch, Color.white, Color.white);
-                    //Filtre
+                    //Filter
                     GUI.SetNextControlName("ARS_SearchBar");
                     Utils.filter = Widgets.TextField(searchSelRect, Utils.filter);
                     if (Utils.initDialog)
@@ -139,7 +139,7 @@ namespace aRandomKiwi.ARS
                     metaSaveRectData.height -= ___bottomAreaHeight;
                     Widgets.DrawLightHighlight(metaSaveRect);
 
-                    //Affichage des meta data le cas echeant
+                    //Display of meta data if applicable
                     Dictionary<string, string> meta = Utils.getSaveMeta(Utils.selectedSave);
                     
                     float metaHeight = (float)nbRow * y;
@@ -154,7 +154,7 @@ namespace aRandomKiwi.ARS
                         Listing_Standard list = new Listing_Standard() { };
                         list.Begin(metaOutRect);
 
-                        //Affichage de la taille
+                        //Size display
                         long length = new System.IO.FileInfo(Path.Combine(Utils.getBasePathSaves(), Utils.selectedSave + ".rws")).Length;
                         GUI.color = Color.cyan;
                         list.Label("ARS_SavePreviewSize".Translate(Utils.FormatSize(length)));
@@ -206,7 +206,7 @@ namespace aRandomKiwi.ARS
                         }
                         else
                         {
-                            //Affichage message expliquant qu'il n'y a pas de meta disponible
+                            //Message display explaining that there is no meta available
                             GUI.color = Color.yellow;
                             list.Label("ARS_SavePreviewMissing".Translate());
                             GUI.color = Color.white;
@@ -216,14 +216,14 @@ namespace aRandomKiwi.ARS
                         Widgets.EndScrollView();
                     }
 
-                    //Icone de dossier
+                    //Folder icon
                     Widgets.ButtonImage(new Rect(340f, 36f, 32f, 32f), Tex.texFolder, Color.white, Color.white);
 
                     if (Widgets.ButtonText(folderSelRect, Settings.curFolder+ " " + "ARS_nbSaves".Translate(Utils.getNbSavesInVF(Settings.curFolder))))
                     {
                         Utils.showFolderList(delegate(string cfolder)
                         {
-                            //Changement de dossier courant
+                            //Change of current file
                             /*Settings.curFolder = cfolder;
                             Utils.curModRef.WriteSettings();
                             Traverse.Create(__instance).Method("ReloadFiles").GetValue();*/
@@ -245,8 +245,8 @@ namespace aRandomKiwi.ARS
                             Utils.changeFolder(Settings.curFolder, __instance);
                         },delegate(string value)
                         {
-                            //Routine de validation de la saisie
-                            //Check si existe pas déjà nom de dossier
+                            //Entry validation routine
+                            //Check if the folder name does not already exist
                             foreach (string el in Settings.folders)
                             {
                                 if (el == value)
@@ -271,15 +271,15 @@ namespace aRandomKiwi.ARS
                             Find.WindowStack.Add(new Dialog_Input(delegate (string value)
                             {
                                 Utils.renameCurFolder(value);
-                                //Si dossier selectionné == dossier déplacé alors reset
+                                //If folder selected == folder moved then reset
                                 Utils.selectedSave = "";
 
-                                //Raffraichissement de la vue
+                                //Refreshing the view
                                 Utils.changeFolder(Settings.curFolder, __instance);
                             }, delegate (string value)
                             {
-                                //Routine de validation de la saisie
-                                //Check si existe pas déjà nom de dossier
+                                //Entry validation routine
+                                //Check if the folder name does not already exist
                                 foreach (string el in Settings.folders)
                                 {
                                     if (el == value)
@@ -299,14 +299,14 @@ namespace aRandomKiwi.ARS
                     {
                         Find.WindowStack.Add(new Dialog_Msg("ARS_ConfirmRemoveFolderTitle".Translate(), "ARS_ConfirmRemoveFolderDesc".Translate(), delegate
                         {
-                            //Confirmation de la suppression du dossier virtuel on supprime toutes les saves qui y sont rattachées
+                            //Confirmation of the deletion of the virtual folder we delete all the saves which are attached to it
                             foreach (FileInfo current in GenFilePaths.AllSavedGameFiles)
                             {
                                 current.Delete();
                             }
 
-                            //Suppression de tous les previews associés
-                            //Constitution liste des previews stockant le VF specifié
+                            //Delete all associated previews
+                            //Constitution list of previews storing the specified VF
                             string text2 = Utils.getBasePathRSPreviews();
                             string curPrefix = "";
 
@@ -331,13 +331,13 @@ namespace aRandomKiwi.ARS
                                       select f;
                             }
 
-                            //Pareil pour les previews
+                            //Same for previews
                             foreach (var file in res)
                             {
                                 file.Delete();
                             }
 
-                            //Pareil pour les meta
+                            //Same for meta
                             text2 = Utils.getBasePathRSMeta();
                             curPrefix = "";
 
@@ -361,15 +361,12 @@ namespace aRandomKiwi.ARS
                                       select f;
                             }
 
-                                
-
-                            //Pareil pour les previews
                             foreach (var file in res)
                             {
                                 file.Delete();
                             }
 
-                            //Suppression reférence dossier supprimé
+                            // Delete deleted folder reference
                             if (Settings.curFolder != "Default")
                                 Settings.folders.Remove(Settings.curFolder);
 
@@ -422,7 +419,7 @@ namespace aRandomKiwi.ARS
                                     if (Settings.curFolder != "Default")
                                         prefix = Settings.curFolder + Utils.VFOLDERSEP;
 
-                                    //Si preview associée
+                                    //If preview associated
                                     string pathPreview = Utils.getBasePathRSPreviews();
                                     pathPreview = Path.Combine(pathPreview, prefixedFileName + ".jpg");
 
@@ -431,7 +428,7 @@ namespace aRandomKiwi.ARS
                                         System.IO.File.Delete(pathPreview);
                                     }
 
-                                    //Si meta associée
+                                    //If associated meta
                                     string pathMeta = Utils.getBasePathRSMeta();
                                     pathMeta = Path.Combine(pathMeta, prefixedFileName + ".dat");
 
@@ -440,7 +437,7 @@ namespace aRandomKiwi.ARS
                                         System.IO.File.Delete(pathMeta);
                                     }
 
-                                    //Si dossier selectionné == dossier supprimé alors reset
+                                    //If folder selected == folder deleted then reset
                                     if (Utils.selectedSave == prefixedFileName)
                                         Utils.selectedSave = "";
 
@@ -456,7 +453,7 @@ namespace aRandomKiwi.ARS
                                 Utils.showFolderList(delegate(string cfolder)
                                 {
                                     string newFile;
-                                    //Fichier stocké dans le Default ?
+                                    //File stored in Default?
                                     if (!current.FileInfo.FullName.Contains(Utils.VFOLDERSEP))
                                     {
                                         string dir = Path.GetDirectoryName(current.FileInfo.FullName);
@@ -465,13 +462,13 @@ namespace aRandomKiwi.ARS
                                     else
                                     {
                                         string tmpPath = current.FileInfo.FullName;
-                                        //Recherche et suppression /xxxx§§§
+                                        //Search and delete / xxxx§§§
                                         int pos1;
                                         int pos2;
 
                                         Utils.getVFPosFromPath(tmpPath, out pos1, out pos2);
                                         
-                                        //Si dossier de destination est le default alors on sueeze la signature de VFOLDER
+                                        //If destination folder is the default then we sueeze the signature of VFOLDER
                                         if (cfolder == "Default")
                                             pos2 += 3;
 
@@ -484,7 +481,7 @@ namespace aRandomKiwi.ARS
                                             newFile = tmpPath.Replace(toSubstitute, cfolder );
                                     }
 
-                                    //Check existence fichier meme nom dans la destination, le cas echeant on rajoute une particule au fichier a déplacer
+                                    //Check the existence of a file with the same name in the destination, if necessary we add a particle to the file to be moved
                                     if (File.Exists(newFile))
                                     {
                                         string tmp;
@@ -501,11 +498,11 @@ namespace aRandomKiwi.ARS
                                         }
                                     }
 
-                                    //Deplacement de la sauvegarde dans le nouveau dossier
+                                    //Move the backup to the new folder
                                     //Log.Message(newFile);
                                     System.IO.File.Move(current.FileInfo.FullName,newFile);
 
-                                    //ON MOVE aussi le preview si preview il y a
+                                    //We MOVE also the preview if there is preview
                                     string pathPreview = Utils.getBasePathRSPreviews();
                                     pathPreview = Path.Combine(pathPreview, prefixedFileName + ".jpg");
 
@@ -519,11 +516,11 @@ namespace aRandomKiwi.ARS
                                         newPathPreview = Utils.replaceLastOccurrence(newPathPreview,".rws", ".jpg");
 
                                         System.IO.File.Move(pathPreview, newPathPreview);
-                                        //Mise a jour du cache des previews
+                                        //Updating the preview cache
                                         Utils.updateCachedPreviewPath(pathPreview, newPathPreview);
                                     }
 
-                                    //ON MOVE aussi le meta si preview il y a
+                                    //We MOVE also the meta if there is preview
                                     string pathMeta = Utils.getBasePathRSMeta();
                                     pathMeta = Path.Combine(pathMeta, prefixedFileName + ".dat");
 
@@ -537,7 +534,7 @@ namespace aRandomKiwi.ARS
                                         newPathMeta = Utils.replaceLastOccurrence(newPathMeta, ".rws", ".dat");
 
                                         System.IO.File.Move(pathMeta, newPathMeta);
-                                        //Mise a jour du cache des previews
+                                        //Updating the preview cache
                                         Utils.updateCachedMetaPath(pathMeta, newPathMeta);
                                     }
 
@@ -545,7 +542,7 @@ namespace aRandomKiwi.ARS
                                     if (Utils.selectedSave == prefixedFileName)
                                         Utils.selectedSave = "";
 
-                                    //Rafraichissement de la fenetre
+                                    //Window refresh
                                     Utils.changeFolder(Settings.curFolder, __instance);
 
                                 },Settings.curFolder);
@@ -567,7 +564,7 @@ namespace aRandomKiwi.ARS
 
                                         path = Path.Combine(path, prefix + value + ".rws");
 
-                                        //Changement de nom effectif
+                                        //Effective name change
                                         System.IO.File.Move(current.FileInfo.FullName, path);
 
                                         string pathPreview = Utils.getBasePathRSPreviews();
@@ -583,7 +580,7 @@ namespace aRandomKiwi.ARS
                                             newPathPreview = Path.Combine(newPathPreview, prefix + value + ".jpg");
 
                                             System.IO.File.Move(pathPreview, newPathPreview);
-                                            //Mise a jour du cache des previews
+                                            //Updating the preview cache
                                             Utils.updateCachedPreviewPath(pathPreview, newPathPreview);
                                         }
 
@@ -600,20 +597,20 @@ namespace aRandomKiwi.ARS
                                             newPathMeta = Path.Combine(newPathMeta, prefix + value + ".dat");
 
                                             System.IO.File.Move(pathMeta, newPathMeta);
-                                            //Mise a jour du cache des previews
+                                            //Updating the preview cache
                                             Utils.updateCachedMetaPath(pathMeta, newPathMeta);
                                         }
 
-                                        //Si dossier selectionné == dossier déplacé alors reset
+                                        //If folder selected == folder moved then reset
                                         if (Utils.selectedSave == prefixedFileName)
                                             Utils.selectedSave = "";
 
-                                        //Rechargement liste des fichiers
+                                        //Reload file list
                                         Utils.changeFolder(Settings.curFolder, __instance);
                                     }, delegate (string value)
                                     {
-                                        //Routine de validation de la saisie
-                                        //Check si existe une save de meme nom
+                                        //Entry validation routine
+                                        //Check if there is a save with the same name
                                         string path = Path.Combine(GenFilePaths.SaveDataFolderPath, "Saves");
                                         string prefix = "";
                                         if (Settings.curFolder != "Default")
@@ -641,10 +638,10 @@ namespace aRandomKiwi.ARS
 
                                         path = Path.Combine(path, prefix + value + ".rws");
 
-                                        //Changement de nom effectif
+                                        //Effective name change
                                         System.IO.File.Copy(current.FileInfo.FullName, path);
 
-                                        //Si preview associée
+                                        //If preview associated
                                         string pathPreview = Utils.getBasePathRSPreviews();
                                         pathPreview = Path.Combine(pathPreview, prefixedFileName + ".jpg");
 
@@ -660,7 +657,7 @@ namespace aRandomKiwi.ARS
                                             System.IO.File.Copy(pathPreview, newPathPreview);
                                         }
 
-                                        //Si meta associée
+                                        //If associated meta
                                         string pathMeta = Utils.getBasePathRSMeta();
                                         pathMeta = Path.Combine(pathMeta, prefixedFileName + ".dat");
 
@@ -676,12 +673,12 @@ namespace aRandomKiwi.ARS
                                             System.IO.File.Copy(pathMeta, newPathMeta);
                                         }
 
-                                        //Rechargement liste des fichiers
+                                        //Reload file list
                                         Utils.changeFolder(Settings.curFolder, __instance);
                                     }, delegate (string value)
                                     {
-                                        //Routine de validation de la saisie
-                                        //Check si existe une save de meme nom
+                                        //Entry validation routine
+                                        //Check if there is a save with the same name
                                         string path = Path.Combine(GenFilePaths.SaveDataFolderPath, "Saves");
                                         string prefix = "";
                                         if (Settings.curFolder != "Default")

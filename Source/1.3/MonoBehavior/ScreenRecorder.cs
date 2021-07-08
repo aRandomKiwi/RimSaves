@@ -3,11 +3,6 @@ using System.Collections;
 using System.IO;
 using Verse;
 
-// Screen Recorder will save individual images of active scene in any resolution and of a specific image format
-// including raw, jpg, png, and ppm.  Raw and PPM are the fastest image formats for saving.
-//
-// You can compile these images into a video using ffmpeg:
-// ffmpeg -i screen_3840x2160_%d.ppm -y test.avi
 namespace aRandomKiwi.ARS
 {
 

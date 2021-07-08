@@ -43,14 +43,14 @@ namespace aRandomKiwi.ARS
                     if (text != null)
                     {
                         __result = text;
-                        //Sauvegarde preview
+                        //Preview backup
                         ScreenRecorder.saveName = Utils.replaceLastOccurrence(text,".rws","");
                         ScreenRecorder.wantScreenShot = true;
                         return false;
                     }
                     __result = AutoSaveNames().MinBy((string name) => new FileInfo(GenFilePaths.FilePathForSavedGame(prefix + name)).LastWriteTime);
 
-                    //Sauvegarde preview
+                    //Preview backup
                     ScreenRecorder.saveName = __result;
                     ScreenRecorder.wantScreenShot = true;
 

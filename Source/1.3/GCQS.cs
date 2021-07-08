@@ -123,7 +123,7 @@ namespace aRandomKiwi.ARS
                 string save = "Quicksave";
 
 
-                //prefixage le cas echeant
+                //prefixing if applicable
                 if (Settings.curFolder != "Default")
                     save = Settings.curFolder + Utils.VFOLDERSEP + save;
 
