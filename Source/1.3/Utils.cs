@@ -628,6 +628,6 @@ namespace aRandomKiwi.ARS
         public static readonly string VFOLDERSEP = "#§#";
         public static readonly string OPTNSTART = "-            ";
         public static RimSaves curModRef;
-        public static readonly string RSRelease = "RimSaves 2020 R1";
+        public static readonly string RSRelease = "RimSaves NX";
     }
 }
