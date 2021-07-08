@@ -121,21 +121,30 @@ namespace aRandomKiwi.ARS
             if (Settings.curFolder != "Default")
                 prefix = Settings.curFolder + Utils.VFOLDERSEP;
 
-            path = Path.Combine(path, prefix + "Quicksave.rws");
+            //deduction latest quicksaves file
+            DirectoryInfo directoryInfo = new DirectoryInfo(path);
+            IOrderedEnumerable<FileInfo> res;
 
-            if (!File.Exists(path))
+            res = from f in directoryInfo.GetFiles()
+                  where f.Extension == ".rws" && f.Name.StartsWith(prefix + "Quicksave")
+                  orderby f.LastWriteTime descending
+                  select f;
+
+            FileInfo fs = res.FirstOrDefault();
+
+            foreach (var file in res)
+            {
+                Log.Message("=>" + file.Name);
+            }
+
+            if (fs == null || !fs.Exists)
             {
                 Messages.Message("ARS_NoSQToLoad".Translate(), MessageTypeDefOf.NegativeEvent);
                 return;
             }
             Action preLoadLevelAction = delegate
             {
-                string save = "Quicksave";
-
-
-                //prefixing if applicable
-                if (Settings.curFolder != "Default")
-                    save = Settings.curFolder + Utils.VFOLDERSEP + save;
+                string save = Path.GetFileNameWithoutExtension(fs.Name);
 
                 MemoryUtility.ClearAllMapsAndWorld();
                 Current.Game = new Game();

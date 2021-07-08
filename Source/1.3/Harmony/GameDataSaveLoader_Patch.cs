@@ -21,16 +21,15 @@ namespace aRandomKiwi.ARS
             {
                 try
                 {
+                    //Sauvegarde preview
+                    ScreenRecorder.saveName = Utils.addPrefix(fileName, false);
                     if (!Find.GameInfo.permadeathMode)
-                    {
-                        //Preview backup
-                        ScreenRecorder.saveName = Utils.addPrefix(fileName, false);
                         ScreenRecorder.wantScreenShot = true;
+                    else
+                        ScreenRecorder.wantScreenShot = false;
+                    Utils.updateMeta(Utils.addPrefix(fileName, false));
 
-                        Utils.updateMeta(Utils.addPrefix(fileName, false));
-                    }
-
-                    //We prefix the name of the backup of the current virtual directory, if applicable
+                    //On  prefix le nom de la sauvegarde du virtual directory courant le cas echeant
                     if (Settings.curFolder == "Default")
                         return true;
 
