@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+	<ARS_SettingsGeneralSection>Общие настройки</ARS_SettingsGeneralSection>
+	<ARS_SettingsQSSection>Варианты горячих клавиш</ARS_SettingsQSSection>
+	<ARS_SettingsBindingHomeEnd>Быстрое сохранение: CTRL+HOME, Быстрая загрузка: CTRL+END</ARS_SettingsBindingHomeEnd>
+	<ARS_SettingsBindingF5F9>Быстрое сохранение: F5, Быстрая загрузка: F9</ARS_SettingsBindingF5F9>
+	<ARS_SettingsDisableAutosaves>Отключить автозагрузку</ARS_SettingsDisableAutosaves>
+	<ARS_ConfirmRemoveFolderTitle>Удалить папку</ARS_ConfirmRemoveFolderTitle>
+	<ARS_ConfirmRemoveFolderDesc>Вы действительно хотите удалить эту папку? Все содержащиеся в ней сохранения тоже будут удалены!</ARS_ConfirmRemoveFolderDesc>
+	<ARS_FolderAlreadyExist>Папка с таким именем уже существует!</ARS_FolderAlreadyExist>
+	<ARS_ToolTipMoveSave>Переместить это сохранение в другую папку</ARS_ToolTipMoveSave>
+	<ARS_ToolTipAddFolder>Создать новую папку</ARS_ToolTipAddFolder>
+	<ARS_ToolTipDelFolder>Удалить текущую папку сохранения, все содержащиеся в ней сохранения будут потеряны!</ARS_ToolTipDelFolder>
+	<ARS_WarningFileMoveAlreadyExist>Сохранение с именем "{0}" уже присутсвует в указанной папке, поэтому оно было переименовано в "{1}"</ARS_WarningFileMoveAlreadyExist>
+	<ARS_SaveAlreadyExist>Файл с таким именем уже существует!</ARS_SaveAlreadyExist>
+	<ARS_OP_RENAME>Переименовать</ARS_OP_RENAME>
+	<ARS_OP_DUPLICATE>Дублировать</ARS_OP_DUPLICATE>
+	<ARS_nbSaves>(кол-во сохранений: {0})</ARS_nbSaves>
+	<ARS_SettingsNbAutosave>Желаемое количество автосохранений ({0})</ARS_SettingsNbAutosave>
+	<ARS_NoSQToLoad>Нет файла быстрой загрузки для загрузки!</ARS_NoSQToLoad>
+	<ARS_OpenSaveFolder>Открыть папку с сохранениями</ARS_OpenSaveFolder>
+	
+	<ARS_SavePreviewSize>Размер сохранения : {0}</ARS_SavePreviewSize>
+	<ARS_SavePreviewScenario>Сценарий : {0}</ARS_SavePreviewScenario>
+	<ARS_SavePreviewStoryteller>Расказчик : {0}</ARS_SavePreviewStoryteller>
+	<ARS_SavePreviewStorytellerDifficulty>Сложность : {0}</ARS_SavePreviewStorytellerDifficulty>
+	<ARS_SavePreviewLastIncident>Последнее событие :</ARS_SavePreviewLastIncident>
+	<ARS_SavePreviewNbMods>Количество модов : {0}</ARS_SavePreviewNbMods>
+	<ARS_SavePreviewNbColony>Количество поселений : {0}</ARS_SavePreviewNbColony>
+	<ARS_SavePreviewNbColonist>Количество колонистов : {0}</ARS_SavePreviewNbColonist>
+	<ARS_SavePreviewTime>Игровая дата : {0}</ARS_SavePreviewTime>
+	<ARS_SavePreviewPlayTime>Время игры : {0}</ARS_SavePreviewPlayTime>
+	<ARS_SavePreviewMissing>Нет данных, Загрузите это сохранение хотя бы один раз для отображения предпросмотра.</ARS_SavePreviewMissing>
+	<ARS_SavePreviewSeed>семя : {0}</ARS_SavePreviewSeed>
+	<ARS_SavePreviewFaction>Фракция : {0}</ARS_SavePreviewFaction>
+</LanguageData>

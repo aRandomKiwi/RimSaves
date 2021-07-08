@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  <ARS_SettingsGeneralSection>全体設定</ARS_SettingsGeneralSection>
+  <ARS_SettingsQSSection>クイックセーブのキー設定</ARS_SettingsQSSection>
+  <ARS_SettingsBindingHomeEnd>クイックセーブ：CTRL+HOME、クイックロード：CTRL+END</ARS_SettingsBindingHomeEnd>
+  <ARS_SettingsBindingF5F9>クイックセーブ：F5、クイックロード：F9</ARS_SettingsBindingF5F9>
+  <ARS_SettingsDisableAutosaves>自動保存を無効化する</ARS_SettingsDisableAutosaves>
+
+  <ARS_ConfirmRemoveFolderTitle>フォルダ削除</ARS_ConfirmRemoveFolderTitle>
+  <ARS_ConfirmRemoveFolderDesc>本当にこのフォルダを削除しますか？中に含まれているすべてのセーブデータも削除されます！</ARS_ConfirmRemoveFolderDesc>
+  <ARS_FolderAlreadyExist>そのフォルダ名は既に存在しています。</ARS_FolderAlreadyExist>
+  <ARS_ToolTipMoveSave>このセーブデータを別フォルダに移動</ARS_ToolTipMoveSave>
+  <ARS_ToolTipAddFolder>新しいフォルダを作成</ARS_ToolTipAddFolder>
+  <ARS_ToolTipDelFolder>現在のセーブデータの保存先フォルダを削除すると、中に保存されているすべてのセーブデータも削除されます。</ARS_ToolTipDelFolder>
+  <ARS_WarningFileMoveAlreadyExist>移動先フォルダには既に「{0}」というセーブデータが存在します。セーブデータの名前は「{1}」に変更されました</ARS_WarningFileMoveAlreadyExist>
+  <ARS_SaveAlreadyExist>そのファイル名は既に存在しています。</ARS_SaveAlreadyExist>
+  <ARS_OP_RENAME>名前変更</ARS_OP_RENAME>
+  <ARS_OP_DUPLICATE>複製</ARS_OP_DUPLICATE>
+  <ARS_nbSaves>(セーブデータ{0}個)</ARS_nbSaves>
+  <ARS_SettingsNbAutosave>自動保存する数を設定（{0}個）</ARS_SettingsNbAutosave>
+  <ARS_NoSQToLoad>ロードするクイックセーブファイルはありません。</ARS_NoSQToLoad>
+  <ARS_OpenSaveFolder>セーブファイルの保存先を開く</ARS_OpenSaveFolder>
+
+  <ARS_SavePreviewSize>セーブの容量：{0}</ARS_SavePreviewSize>
+  <ARS_SavePreviewScenario>シナリオ：{0}</ARS_SavePreviewScenario>
+  <ARS_SavePreviewStoryteller>ストーリーテラー：{0}</ARS_SavePreviewStoryteller>
+  <ARS_SavePreviewStorytellerDifficulty>難易度：{0}</ARS_SavePreviewStorytellerDifficulty>
+  <ARS_SavePreviewLastIncident>最後のイベント：</ARS_SavePreviewLastIncident>
+  <ARS_SavePreviewNbMods>Mod数：{0}</ARS_SavePreviewNbMods>
+  <ARS_SavePreviewNbColony>コロニーの数：{0}</ARS_SavePreviewNbColony>
+  <ARS_SavePreviewNbColonist>入植者の人数：{0}</ARS_SavePreviewNbColonist>
+  <ARS_SavePreviewTime>ゲーム内日付：{0}</ARS_SavePreviewTime>
+  <ARS_SavePreviewPlayTime>プレイ時間：{0}</ARS_SavePreviewPlayTime>
+  <ARS_SavePreviewMissing>利用可能なデータがありません。プレビューデータを表示するには、少なくとも1回はセーブしてください。</ARS_SavePreviewMissing>
+  <ARS_SavePreviewSeed>シード値：{0}</ARS_SavePreviewSeed>
+  <ARS_SavePreviewFaction>派閥名：{0}</ARS_SavePreviewFaction>
+
+</LanguageData>

@@ -1,0 +1,5 @@
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Raid For Me\Assemblies\RaidForMe.dll
+C:\Users\kiwi\Desktop\Dev RMMods\Raid For Me\RaidForMe\obj\Debug\RaidForMe.csproj.CoreCompileInputs.cache
+C:\Users\kiwi\Desktop\Dev RMMods\Raid For Me\RaidForMe\obj\Debug\RaidForMe.csproj.CopyComplete
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Raids For Me\Assemblies\RaidsForMe.dll
+C:\Users\kiwi\Desktop\Dev RMMods\Raid For Me\RaidForMe\obj\Debug\RaidsForMe.dll

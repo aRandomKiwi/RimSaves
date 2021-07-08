@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+	<ARS_SettingsGeneralSection>Global settings</ARS_SettingsGeneralSection>
+	<ARS_SettingsQSSection>Quicksave shortcut</ARS_SettingsQSSection>
+	<ARS_SettingsBindingHomeEnd>Quicksave : CTRL+HOME, Quickload : CTRL+END</ARS_SettingsBindingHomeEnd>
+	<ARS_SettingsBindingF5F9>Quicksave : F5, Quickload : F9</ARS_SettingsBindingF5F9>
+	<ARS_SettingsDisableAutosaves>Disable autosaver</ARS_SettingsDisableAutosaves>
+	<ARS_ConfirmRemoveFolderTitle>Delete folder</ARS_ConfirmRemoveFolderTitle>
+	<ARS_ConfirmRemoveFolderDesc>Do you really want to remove this folder ? all contained saves will be removed too !</ARS_ConfirmRemoveFolderDesc>
+	<ARS_FolderAlreadyExist>Folder name already exist !</ARS_FolderAlreadyExist>
+	<ARS_ToolTipMoveSave>Move this save to another folder</ARS_ToolTipMoveSave>
+	<ARS_ToolTipAddFolder>Create a new folder</ARS_ToolTipAddFolder>
+	<ARS_ToolTipDelFolder>Delete the current save folder, all contained saves will be destroyed !</ARS_ToolTipDelFolder>
+	<ARS_WarningFileMoveAlreadyExist>There is already a "{0}" save in the destination folder, the save had been renamed "{1}"</ARS_WarningFileMoveAlreadyExist>
+	<ARS_SaveAlreadyExist>Filename already exist !</ARS_SaveAlreadyExist>
+	<ARS_OP_RENAME>Rename</ARS_OP_RENAME>
+	<ARS_OP_DUPLICATE>Duplicate</ARS_OP_DUPLICATE>
+	<ARS_nbSaves>({0} saves)</ARS_nbSaves>
+	<ARS_SettingsNbAutosave>Number of autosave desired ( {0} )</ARS_SettingsNbAutosave>
+	<ARS_NoSQToLoad>No quicksave file to load !</ARS_NoSQToLoad>
+	<ARS_OpenSaveFolder>Open the save files folder</ARS_OpenSaveFolder>
+	
+	<ARS_SavePreviewSize>Save size : {0}</ARS_SavePreviewSize>
+	<ARS_SavePreviewScenario>Scenario : {0}</ARS_SavePreviewScenario>
+	<ARS_SavePreviewStoryteller>Storyteller : {0}</ARS_SavePreviewStoryteller>
+	<ARS_SavePreviewStorytellerDifficulty>Difficulty : {0}</ARS_SavePreviewStorytellerDifficulty>
+	<ARS_SavePreviewLastIncident>Last events :</ARS_SavePreviewLastIncident>
+	<ARS_SavePreviewNbMods>Number of mods : {0}</ARS_SavePreviewNbMods>
+	<ARS_SavePreviewNbColony>Number of colony : {0}</ARS_SavePreviewNbColony>
+	<ARS_SavePreviewNbColonist>Number of colonist : {0}</ARS_SavePreviewNbColonist>
+	<ARS_SavePreviewTime>Ingame date : {0}</ARS_SavePreviewTime>
+	<ARS_SavePreviewPlayTime>Time spent playing : {0}</ARS_SavePreviewPlayTime>
+	<ARS_SavePreviewMissing>No data available, load this save at least one time to display preview data.</ARS_SavePreviewMissing>
+	<ARS_SavePreviewSeed>Seed : {0}</ARS_SavePreviewSeed>
+	<ARS_SavePreviewFaction>Faction : {0}</ARS_SavePreviewFaction>
+</LanguageData>

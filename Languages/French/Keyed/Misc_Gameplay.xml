@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+	<ARS_SettingsGeneralSection>Paramétres généraux</ARS_SettingsGeneralSection>
+	<ARS_SettingsQSSection>Sauvegarde rapide (raccourcis clavier)</ARS_SettingsQSSection>
+	<ARS_SettingsBindingHomeEnd>Sauvegarde rapide : CTRL+HOME, chargement rapide : CTRL+END</ARS_SettingsBindingHomeEnd>
+	<ARS_SettingsBindingF5F9>Sauvegarde rapide : F5, chargement rapide : F9</ARS_SettingsBindingF5F9>
+	<ARS_SettingsDisableAutosaves>Désactiver les sauvegardes automatiques</ARS_SettingsDisableAutosaves>
+	<ARS_ConfirmRemoveFolderTitle>Supprimer dossier</ARS_ConfirmRemoveFolderTitle>
+	<ARS_ConfirmRemoveFolderDesc>Souhaitez-vous vraiment supprimer ce dossier ? tous les fichiers contenus seront supprimés également !</ARS_ConfirmRemoveFolderDesc>
+	<ARS_FolderAlreadyExist>Le nom de dossier existe déjà !</ARS_FolderAlreadyExist>
+	<ARS_ToolTipMoveSave>Déplacer cette sauvegarde dans un autre dossier</ARS_ToolTipMoveSave>
+	<ARS_ToolTipAddFolder>Créer un nouveau dossier</ARS_ToolTipAddFolder>
+	<ARS_ToolTipDelFolder>Supprimer le dossier courant, toutes les sauvegardes contenues dans ce dernier vont êtres supprimées !</ARS_ToolTipDelFolder>
+	<ARS_WarningFileMoveAlreadyExist>Il y à déjà une sauvegarde nommée "{0}" dans le dossier de destination, la sauvegarde à été renommée "{1}"</ARS_WarningFileMoveAlreadyExist>
+	<ARS_SaveAlreadyExist>Le nom de fichier existe déjà !</ARS_SaveAlreadyExist>
+	<ARS_OP_RENAME>Renommer</ARS_OP_RENAME>
+	<ARS_OP_DUPLICATE>Dupliquer</ARS_OP_DUPLICATE>
+	<ARS_nbSaves>({0} sauvegardes)</ARS_nbSaves>
+	<ARS_SettingsNbAutosave>Nombre d'autosave souhaitées ( {0} )</ARS_SettingsNbAutosave>
+	<ARS_NoSQToLoad>Pas de fichier de sauvegarde rapide à charger !</ARS_NoSQToLoad>
+	<ARS_OpenSaveFolder>Ouvrir le dossier des sauvegardes</ARS_OpenSaveFolder>
+	
+	<ARS_SavePreviewSize>Taille sauvegarde : {0}</ARS_SavePreviewSize>
+	<ARS_SavePreviewScenario>Scenario : {0}</ARS_SavePreviewScenario>
+	<ARS_SavePreviewStoryteller>Storyteller : {0}</ARS_SavePreviewStoryteller>
+	<ARS_SavePreviewStorytellerDifficulty>Difficulté : {0}</ARS_SavePreviewStorytellerDifficulty>
+	<ARS_SavePreviewLastIncident>Derniers événements :</ARS_SavePreviewLastIncident>
+	<ARS_SavePreviewNbMods>Nombre de mods : {0}</ARS_SavePreviewNbMods>
+	<ARS_SavePreviewNbColony>Nombre de colonies : {0}</ARS_SavePreviewNbColony>
+	<ARS_SavePreviewNbColonist>Nombre de colons : {0}</ARS_SavePreviewNbColonist>
+	<ARS_SavePreviewTime>Date in-game : {0}</ARS_SavePreviewTime>
+	<ARS_SavePreviewPlayTime>Temps passé IRL : {0}</ARS_SavePreviewPlayTime>
+	<ARS_SavePreviewMissing>Aucune donnée disponible, chargez cette sauvegarde au moins une fois pour afficher les données d'aperçu</ARS_SavePreviewMissing>
+	<ARS_SavePreviewSeed>Seed : {0}</ARS_SavePreviewSeed>
+	<ARS_SavePreviewFaction>Faction : {0}</ARS_SavePreviewFaction>
+</LanguageData>

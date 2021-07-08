@@ -1,0 +1,4 @@
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Folders Pls\Assemblies\FoldersPls.dll
+C:\Users\kiwi\Desktop\Dev RMMods\Folders Pls\obj\Debug\FoldersPls.csproj.CoreCompileInputs.cache
+C:\Users\kiwi\Desktop\Dev RMMods\Folders Pls\obj\Debug\FoldersPls.csproj.CopyComplete
+C:\Users\kiwi\Desktop\Dev RMMods\Folders Pls\obj\Debug\FoldersPls.dll
