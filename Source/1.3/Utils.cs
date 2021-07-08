@@ -615,7 +615,14 @@ namespace aRandomKiwi.ARS
             }
             return ret;
         }
-        
+
+        public static string getUniqueSuffix()
+        {
+            DateTimeOffset now = DateTimeOffset.UtcNow;
+            return "."+now.ToUnixTimeMilliseconds().ToString();
+        }
+
+        public static List<string> negativeIncidents = null; 
 
         public static GCQS GCQSI;
         public static readonly string VFOLDERSEP = "#§#";

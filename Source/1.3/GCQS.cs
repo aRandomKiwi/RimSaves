@@ -19,6 +19,11 @@ namespace aRandomKiwi.ARS
         {
             this.game = game;
             Utils.GCQSI = this;
+
+            Utils.negativeIncidents = new List<string>
+            {
+                LetterDefOf.NegativeEvent.defName, LetterDefOf.ThreatBig.defName, LetterDefOf.ThreatSmall.defName
+            };
         }
 
         public override void LoadedGame()
@@ -78,7 +83,7 @@ namespace aRandomKiwi.ARS
             }
         }
 
-        private void quicksave()
+        public void quicksave(string baseName= "Quicksave")
         {
             if (Current.Game.Info.permadeathMode)
             {
@@ -93,7 +98,12 @@ namespace aRandomKiwi.ARS
             }
             else
             {
-                string mapName = "Quicksave";
+                string mapName = baseName;
+                if (Settings.uniqueQuicksaveName)
+                {
+                    mapName += Utils.getUniqueSuffix();
+                }
+                
                 LongEventHandler.QueueLongEvent(delegate ()
                 {
                     GameDataSaveLoader.SaveGame(mapName);
