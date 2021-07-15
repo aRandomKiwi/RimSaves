@@ -454,7 +454,7 @@ namespace aRandomKiwi.ARS
 
                                     Traverse.Create(__instance).Method("ReloadFiles").GetValue();
                                     //__instance.ReloadFiles();
-                                }, true, null));
+                                }, true, null, WindowLayer.SubSuper));
                             }
                             TooltipHandler.TipRegion(rect2, "DeleteThisSavegame".Translate());
 
