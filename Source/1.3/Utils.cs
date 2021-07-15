@@ -397,7 +397,8 @@ namespace aRandomKiwi.ARS
                     cb(cfolder);
                 }, MenuOptionPriority.Default, null, null, 0f, null, null));
             }
-            Find.WindowStack.Add(new FloatMenu(list));
+            if(list.Count != 0)
+                Find.WindowStack.Add(new FloatMenu(list));
         }
 
         public static void changeFolder(string cfolder, Dialog_FileList instance)
