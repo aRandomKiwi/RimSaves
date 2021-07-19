@@ -5,6 +5,9 @@
   <ARS_SettingsBindingHomeEnd>クイックセーブ：CTRL+HOME、クイックロード：CTRL+END</ARS_SettingsBindingHomeEnd>
   <ARS_SettingsBindingF5F9>クイックセーブ：F5、クイックロード：F9</ARS_SettingsBindingF5F9>
   <ARS_SettingsDisableAutosaves>自動保存を無効化する</ARS_SettingsDisableAutosaves>
+  <ARS_SettingsUniqueQuicksaveName>独自なクイックセーブ名</ARS_SettingsUniqueQuicksaveName>
+  <ARS_SettingsUniqueSavenameOnSave>バックアップ時に独自のセーブ名の提案を生成する</ARS_SettingsUniqueSavenameOnSave>
+  <ARS_SettingsQuicksaveOnNegativeIncident>悪い事件が発生した際にクイックセーブする</ARS_SettingsQuicksaveOnNegativeIncident>
 
   <ARS_ConfirmRemoveFolderTitle>フォルダ削除</ARS_ConfirmRemoveFolderTitle>
   <ARS_ConfirmRemoveFolderDesc>本当にこのフォルダを削除しますか？中に含まれているすべてのセーブデータも削除されます！</ARS_ConfirmRemoveFolderDesc>
