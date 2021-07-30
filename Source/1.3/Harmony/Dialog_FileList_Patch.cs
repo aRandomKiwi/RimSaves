@@ -67,7 +67,7 @@ namespace aRandomKiwi.ARS
                             nbRow++;
                     }
 
-
+                    bool isSaveDialog = (__instance is Dialog_SaveFileList_Save);
                     Vector2 vector = new Vector2(inRect.width-15-40, 40f);
                     inRect.height -= 45f;
                     float y = vector.y;
@@ -141,7 +141,7 @@ namespace aRandomKiwi.ARS
                         Utils.initDialog = false;
                     }
 
-                    if (__instance is Dialog_SaveFileList_Save)
+                    if (isSaveDialog)
                     {
                         //__instance.DoTypeInField(inRect.AtZero());
                         Traverse.Create(__instance).Method("DoTypeInField", inRect.AtZero()).GetValue();
@@ -152,6 +152,11 @@ namespace aRandomKiwi.ARS
                     metaSaveRect.height -= ___bottomAreaHeight;
                     Rect metaSaveRectData = new Rect(5, 235, 330, 395f);
                     metaSaveRectData.height -= ___bottomAreaHeight;
+                    if (isSaveDialog)
+                    {
+                        metaSaveRect.height -= 50;
+                        metaSaveRectData.height -= 50;
+                    }
                     Widgets.DrawLightHighlight(metaSaveRect);
 
                     //Display of meta data if applicable
@@ -161,6 +166,11 @@ namespace aRandomKiwi.ARS
                     Rect metaOutRect = new Rect(metaSaveRect);
                     metaOutRect.height += 350f;
                     metaOutRect.width -= 25;
+
+                    if (isSaveDialog)
+                    {
+                        metaOutRect.height -= 50;
+                    }
 
                     if (Utils.selectedSave != "")
                     {
@@ -392,6 +402,12 @@ namespace aRandomKiwi.ARS
                     }
 
                     TooltipHandler.TipRegion(folderSelRectBtnDel, "ARS_ToolTipDelFolder".Translate());
+
+                    if (isSaveDialog)
+                    {
+                        outRect.height -= 45;
+                        viewRect.height -= 45;
+                    }
 
                     Widgets.BeginScrollView(outRect, ref ___scrollPosition, viewRect, true);
                     float num = 0f;

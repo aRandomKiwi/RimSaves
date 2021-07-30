@@ -33,7 +33,7 @@ namespace aRandomKiwi.ARS
 
         public override void GameComponentUpdate()
         {
-            if (Utils.loadedSave != null && Utils.loadedSave != "")
+            /*if (Utils.loadedSave != null && Utils.loadedSave != "")
             {
                 string loadedSaveLocal = Utils.loadedSave;
 
@@ -51,7 +51,7 @@ namespace aRandomKiwi.ARS
                 {
                     Log.Message("[RimSaves Error] : " + e.Message);
                 }
-            }
+            }*/
 
             bool anyKeyDown = Input.anyKeyDown;
             bool flag = anyKeyDown;
