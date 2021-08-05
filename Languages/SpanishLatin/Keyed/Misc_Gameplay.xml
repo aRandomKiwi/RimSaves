@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+    <ARS_SettingsGeneralSection>Configuración global</ARS_SettingsGeneralSection>
+    <ARS_SettingsQSSection>Acceso directos</ARS_SettingsQSSection>
+    <ARS_SettingsBindingHomeEnd>Guardado rápido : CTRL+HOME, Carga rápida : CTRL+END</ARS_SettingsBindingHomeEnd>
+    <ARS_SettingsBindingF5F9>Guardado rápido : F5, Carga rápida : F9</ARS_SettingsBindingF5F9>
+    <ARS_SettingsDisableAutosaves>Desactivar el autoguardado</ARS_SettingsDisableAutosaves>
+    <ARS_SettingsUniqueQuicksaveName>Nombre único de guardado rápido</ARS_SettingsUniqueQuicksaveName>
+    <ARS_SettingsUniqueSavenameOnSave>Generar una sugerencia de nombre de guardado único en la copia de seguridad</ARS_SettingsUniqueSavenameOnSave>
+    <ARS_SettingsQuicksaveOnNegativeIncident>Guardar rápidamente en caso de incidente negativo</ARS_SettingsQuicksaveOnNegativeIncident>
+    
+    <ARS_ConfirmRemoveFolderTitle>Borrar carpeta</ARS_ConfirmRemoveFolderTitle>
+    <ARS_ConfirmRemoveFolderDesc>¿Realmente desea eliminar esta carpeta? Todos los guardados contenidos se eliminarán también</ARS_ConfirmRemoveFolderDesc>
+    <ARS_FolderAlreadyExist>¡El nombre de la carpeta ya existe!</ARS_FolderAlreadyExist>
+    <ARS_ToolTipMoveSave>Mover este fichero de guardado a otra carpeta</ARS_ToolTipMoveSave>
+    <ARS_ToolTipAddFolder>Crear una nueva carpeta</ARS_ToolTipAddFolder>
+    <ARS_ToolTipDelFolder>Borrar la carpeta de guardado actual, todos los guardados contenidos serán eliminados</ARS_ToolTipDelFolder>
+    <ARS_WarningFileMoveAlreadyExist>Ya hay un fichero de guardado "{0}" en la carpeta de destino, el fichero de guardado ha sido renombrado "{1}"</ARS_WarningFileMoveAlreadyExist>
+    <ARS_SaveAlreadyExist>El nombre del archivo ya existe</ARS_SaveAlreadyExist>
+    <ARS_OP_RENAME>Renombrar</ARS_OP_RENAME>
+    <ARS_OP_DUPLICATE>Duplicar</ARS_OP_DUPLICATE>
+    <ARS_nbSaves>({0} saves)</ARS_nbSaves>
+    <ARS_SettingsNbAutosave>Número de autoguardados deseados ( {0} )</ARS_SettingsNbAutosave>
+    <ARS_NoSQToLoad>¡No hay archivo de guardado rápido para cargar!</ARS_NoSQToLoad>
+    <ARS_OpenSaveFolder>Abre la carpeta de archivos de guardado</ARS_OpenSaveFolder>
+    
+    <ARS_SavePreviewSize>Tamaño del fichero : {0}</ARS_SavePreviewSize>
+    <ARS_SavePreviewScenario>Escenario : {0}</ARS_SavePreviewScenario>
+    <ARS_SavePreviewStoryteller>Cuentacuentos : {0}</ARS_SavePreviewStoryteller>
+    <ARS_SavePreviewStorytellerDifficulty>Dificultad : {0}</ARS_SavePreviewStorytellerDifficulty>
+    <ARS_SavePreviewLastIncident>Últimos eventos :</ARS_SavePreviewLastIncident>
+    <ARS_SavePreviewNbMods>Número de mods : {0}</ARS_SavePreviewNbMods>
+    <ARS_SavePreviewNbColony>Número de colonias : {0}</ARS_SavePreviewNbColony>
+    <ARS_SavePreviewNbColonist>Número de colonos : {0}</ARS_SavePreviewNbColonist>
+    <ARS_SavePreviewTime>Fecha del juego : {0}</ARS_SavePreviewTime>
+    <ARS_SavePreviewPlayTime>Tiempo de juego : {0}</ARS_SavePreviewPlayTime>
+    <ARS_SavePreviewMissing>No hay datos disponibles, carga este guardado al menos una vez para mostrar los datos de la vista previa.</ARS_SavePreviewMissing>
+    <ARS_SavePreviewSeed>Semilla : {0}</ARS_SavePreviewSeed>
+    <ARS_SavePreviewFaction>Facción : {0}</ARS_SavePreviewFaction>
+</LanguageData>
