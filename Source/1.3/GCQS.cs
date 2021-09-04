@@ -101,7 +101,18 @@ namespace aRandomKiwi.ARS
                 string mapName = baseName;
                 if (Settings.uniqueQuicksaveName)
                 {
-                    mapName += Utils.getUniqueSuffix();
+                    if(Settings.maxQuicksaveCount > 0)
+                    {
+                        if(currentQuickSaveIndex >= Settings.maxQuicksaveCount)
+                        {
+                            currentQuickSaveIndex = 0;
+                        }
+                        mapName += "_" + currentQuickSaveIndex++.ToString();
+                    }
+                    else
+                    {
+                        mapName += Utils.getUniqueSuffix();
+                    }
                 }
                 
                 LongEventHandler.QueueLongEvent(delegate ()
@@ -157,6 +168,7 @@ namespace aRandomKiwi.ARS
 
         private bool kpQS;
         private bool kpQL;
+        static private int currentQuickSaveIndex = 0;
 
         private Game game;
     }
