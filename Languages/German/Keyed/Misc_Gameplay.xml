@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+	<ARS_SettingsGeneralSection>Globale Einstellungen</ARS_SettingsGeneralSection>
+	<ARS_SettingsQSSection>Schnelltaste für Schnellspeichern</ARS_SettingsQSSection>
+	<ARS_SettingsBindingHomeEnd>Schnellspeichern : STRG+POS1, Schnellladen : STRG+ENDE</ARS_SettingsBindingHomeEnd>
+	<ARS_SettingsBindingF5F9>Schnellspeichern : F5, Schnellladen : F9</ARS_SettingsBindingF5F9>
+	<ARS_SettingsDisableAutosaves>Deaktiviere automatisches speichern</ARS_SettingsDisableAutosaves>
+	<ARS_SettingsUniqueQuicksaveName>Einzigartige Schnellspeichernamen</ARS_SettingsUniqueQuicksaveName>
+	<ARS_SettingsUniqueSavenameOnSave>Generiere einzigartige Namen für Speicherstände bei Sicherung</ARS_SettingsUniqueSavenameOnSave>
+	<ARS_SettingsQuicksaveOnNegativeIncident>Schnellspeichern bei negativen Ereignissen</ARS_SettingsQuicksaveOnNegativeIncident>
+	
+	<ARS_ConfirmRemoveFolderTitle>Ordner löschen</ARS_ConfirmRemoveFolderTitle>
+	<ARS_ConfirmRemoveFolderDesc>Wollen Sie diesen Ordner wirklich löschen ? Alle Speicherstände darin werden auch gelöscht !</ARS_ConfirmRemoveFolderDesc>
+	<ARS_FolderAlreadyExist>Ordnername existiert bereits !</ARS_FolderAlreadyExist>
+	<ARS_ToolTipMoveSave>Bewege diesen Speicherstand in einen anderen Ordner</ARS_ToolTipMoveSave>
+	<ARS_ToolTipAddFolder>Neuen Ordner erstellen</ARS_ToolTipAddFolder>
+	<ARS_ToolTipDelFolder>Lösche aktuellen Spielstandordner, alle Spielstände darin werden gelöscht !</ARS_ToolTipDelFolder>
+	<ARS_WarningFileMoveAlreadyExist>Es gibt bereits einen "{0}" Spielstand im Zielordner, der Spielstand musste umbenannt werden zu "{1}"</ARS_WarningFileMoveAlreadyExist>
+	<ARS_SaveAlreadyExist>Dateiname esitiert bereits !</ARS_SaveAlreadyExist>
+	<ARS_OP_RENAME>Umbenennen</ARS_OP_RENAME>
+	<ARS_OP_DUPLICATE>Duplizieren</ARS_OP_DUPLICATE>
+	<ARS_nbSaves>({0} Speicherstände)</ARS_nbSaves>
+	<ARS_SettingsNbAutosave>Anzahl der automatischen Speicherstände ( {0} )</ARS_SettingsNbAutosave>
+	<ARS_NoSQToLoad>Kein Schnellspeicherstand zum laden !</ARS_NoSQToLoad>
+	<ARS_OpenSaveFolder>Öffne den Speicherstände Ordner</ARS_OpenSaveFolder>
+	
+	<ARS_SavePreviewSize>Speicherstand Größe : {0}</ARS_SavePreviewSize>
+	<ARS_SavePreviewScenario>Szenario : {0}</ARS_SavePreviewScenario>
+	<ARS_SavePreviewStoryteller>Erzähler : {0}</ARS_SavePreviewStoryteller>
+	<ARS_SavePreviewStorytellerDifficulty>Schwierigkeit : {0}</ARS_SavePreviewStorytellerDifficulty>
+	<ARS_SavePreviewLastIncident>Letzte Ereignisse :</ARS_SavePreviewLastIncident>
+	<ARS_SavePreviewNbMods>Anzahl der Mods : {0}</ARS_SavePreviewNbMods>
+	<ARS_SavePreviewNbColony>Anzahl der Kolonien : {0}</ARS_SavePreviewNbColony>
+	<ARS_SavePreviewNbColonist>Anzahl der Kolonisten : {0}</ARS_SavePreviewNbColonist>
+	<ARS_SavePreviewTime>Datum im Spiel : {0}</ARS_SavePreviewTime>
+	<ARS_SavePreviewPlayTime>Spielzeit : {0}</ARS_SavePreviewPlayTime>
+	<ARS_SavePreviewMissing>Keine Daten vorhanden, lade diesen Spielstand zumindest ein mal um Vorschaudaten anzuzeigen.</ARS_SavePreviewMissing>
+	<ARS_SavePreviewSeed>Seed : {0}</ARS_SavePreviewSeed>
+	<ARS_SavePreviewFaction>Fraktion : {0}</ARS_SavePreviewFaction>
+</LanguageData>
