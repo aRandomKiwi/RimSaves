@@ -22,7 +22,7 @@ namespace aRandomKiwi.ARS
             [HarmonyPrefix]
             public static bool Listener(Dialog_FileList __instance, ref Vector2 __result, ref string ___typingName)
             {
-                if (__instance is Dialog_IdeoList)
+                if (__instance is Dialog_IdeoList || __instance is Dialog_ModList || __instance is Dialog_ModList_Load || __instance is Dialog_ModList_Save)
                 {
                     return true;
                 }
@@ -52,7 +52,7 @@ namespace aRandomKiwi.ARS
                 try
                 {
                     //If scenario we do not override the vanilla behavior
-                    if (__instance is Dialog_ScenarioList || __instance is Dialog_IdeoList)
+                    if (__instance is Dialog_ScenarioList || __instance is Dialog_IdeoList || __instance is Dialog_ModList || __instance is Dialog_ModList_Load || __instance is Dialog_ModList_Save)
                         return true;
 
                     //Calculation of number of fields matching to have ascender size
