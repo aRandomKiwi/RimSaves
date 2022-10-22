@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // Vous pouvez spécifier toutes les valeurs ou indiquer les numéros de build et de révision par défaut
 // en utilisant '*', comme indiqué ci-dessous :
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2021.0.1.14")]
-[assembly: AssemblyFileVersion("2020.0.1.14")]
+[assembly: AssemblyVersion("2022.0.1.14")]
+[assembly: AssemblyFileVersion("2022.0.1.14")]
