@@ -8,7 +8,7 @@
     </a>
 	<img src="https://img.shields.io/github/downloads-pre/aRandomKiwi/RimThemes/total.svg?style=popout-square&color=green" alt="Github Total Downloads" />
 	<a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1713367505">
-		<img src="https://img.shields.io/badge/RimWorld-1.3-purple.svg?longCache=true&style=plastic)" alt="Compatible Rimworld 1.3" />
+		<img src="https://img.shields.io/badge/RimWorld-1.4-purple.svg?longCache=true&style=plastic)" alt="Compatible Rimworld 1.4" />
     </a>
 	<a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1713367505">
 		<img src="https://img.shields.io/badge/documentation-%F0%9F%94%8D-blue?style=flat" />
@@ -74,3 +74,4 @@ The folder selected in the save/load menu define where the autosaves will be cre
 
 * [Proxyer](https://steamcommunity.com/profiles/76561198257945076) : Japanese translation
 * [dodther](https://steamcommunity.com/id/dodther) and [Sensitivesouris](https://steamcommunity.com/id/sensitivesouris) : Russian translation
+* [phlux](https://github.com/thephluxer) : German translation
