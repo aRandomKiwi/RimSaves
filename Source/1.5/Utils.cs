@@ -623,7 +623,8 @@ namespace aRandomKiwi.ARS
             return "."+now.ToUnixTimeMilliseconds().ToString();
         }
 
-        public static List<string> negativeIncidents = null; 
+        public static List<string> negativeIncidents = null;
+        public static List<string> positiveIncidents = null;
 
         public static GCQS GCQSI;
         public static readonly string VFOLDERSEP = "#§#";

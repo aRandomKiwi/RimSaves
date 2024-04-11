@@ -8,6 +8,7 @@
 	<ARS_SettingsUniqueQuicksaveName>Unique quicksave name</ARS_SettingsUniqueQuicksaveName>
 	<ARS_SettingsUniqueSavenameOnSave>Generate a unique save name suggestion on backup</ARS_SettingsUniqueSavenameOnSave>
 	<ARS_SettingsQuicksaveOnNegativeIncident>Quicksave on negative incident</ARS_SettingsQuicksaveOnNegativeIncident>
+	<ARS_SettingsQuicksaveOnPositiveIncident>Quicksave on positive incident</ARS_SettingsQuicksaveOnPositiveIncident>
 	
 	<ARS_ConfirmRemoveFolderTitle>Delete folder</ARS_ConfirmRemoveFolderTitle>
 	<ARS_ConfirmRemoveFolderDesc>Do you really want to remove this folder ? all contained saves will be removed too !</ARS_ConfirmRemoveFolderDesc>

@@ -8,6 +8,7 @@
 	<ARS_SettingsUniqueQuicksaveName>Nom des sauvegardes rapide unique</ARS_SettingsUniqueQuicksaveName>
 	<ARS_SettingsUniqueSavenameOnSave>Générer une suggestion de nom de sauvegarde unique lors de la sauvegarde</ARS_SettingsUniqueSavenameOnSave>
 	<ARS_SettingsQuicksaveOnNegativeIncident>Sauvegarde rapide lors d'un incident négatif</ARS_SettingsQuicksaveOnNegativeIncident>
+	<ARS_SettingsQuicksaveOnPositiveIncident>Sauvegarde rapide lors d'un incident positif</ARS_SettingsQuicksaveOnPositiveIncident>
 	
 	<ARS_ConfirmRemoveFolderTitle>Supprimer dossier</ARS_ConfirmRemoveFolderTitle>
 	<ARS_ConfirmRemoveFolderDesc>Souhaitez-vous vraiment supprimer ce dossier ? tous les fichiers contenus seront supprimés également !</ARS_ConfirmRemoveFolderDesc>

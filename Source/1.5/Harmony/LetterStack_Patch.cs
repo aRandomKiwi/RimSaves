@@ -23,6 +23,10 @@ namespace aRandomKiwi.ARS
             {
                 Utils.GCQSI.quicksave("NegativeIncident");
             }
+            else if (Settings.saveOnPositiveIncident && Utils.positiveIncidents.Contains(let.def.defName))
+            {
+                Utils.GCQSI.quicksave("PositiveIncident");
+            }
         }
     }
 }

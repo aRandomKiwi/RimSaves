@@ -22,7 +22,11 @@ namespace aRandomKiwi.ARS
 
             Utils.negativeIncidents = new List<string>
             {
-                LetterDefOf.NegativeEvent.defName, LetterDefOf.ThreatBig.defName, LetterDefOf.ThreatSmall.defName
+                LetterDefOf.NegativeEvent.defName, LetterDefOf.ThreatBig.defName, LetterDefOf.ThreatSmall.defName, LetterDefOf.RitualOutcomeNegative?.defName
+            };
+            Utils.positiveIncidents = new List<string>
+            {
+                LetterDefOf.PositiveEvent.defName, LetterDefOf.RitualOutcomePositive?.defName, LetterDefOf.BabyBirth?.defName, LetterDefOf.AcceptJoiner?.defName, LetterDefOf.AcceptVisitors?.defName, LetterDefOf.BabyToChild?.defName, LetterDefOf.ChildBirthday?.defName, LetterDefOf.ChildToAdult?.defName, LetterDefOf.EntityDiscovered?.defName
             };
         }
 
