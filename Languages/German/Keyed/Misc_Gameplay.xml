@@ -8,6 +8,8 @@
 	<ARS_SettingsUniqueQuicksaveName>Einzigartige Schnellspeichernamen</ARS_SettingsUniqueQuicksaveName>
 	<ARS_SettingsUniqueSavenameOnSave>Generiere einzigartige Namen für Speicherstände bei Sicherung</ARS_SettingsUniqueSavenameOnSave>
 	<ARS_SettingsQuicksaveOnNegativeIncident>Schnellspeichern bei negativen Ereignissen</ARS_SettingsQuicksaveOnNegativeIncident>
+	<ARS_SettingsQuicksaveOnPositiveIncident>Schnellspeicherung bei positivem Ereignissen</ARS_SettingsQuicksaveOnPositiveIncident>
+	<ARS_SettingsQuicksaveOnIncidentLabelSuffix>Fügen sie die vorfallbezeichnung als suffix hinzu</ARS_SettingsQuicksaveOnIncidentLabelSuffix>
 	
 	<ARS_ConfirmRemoveFolderTitle>Ordner löschen</ARS_ConfirmRemoveFolderTitle>
 	<ARS_ConfirmRemoveFolderDesc>Wollen Sie diesen Ordner wirklich löschen ? Alle Speicherstände darin werden auch gelöscht !</ARS_ConfirmRemoveFolderDesc>
