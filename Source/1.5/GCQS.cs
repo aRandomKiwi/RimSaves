@@ -72,7 +72,15 @@ namespace aRandomKiwi.ARS
                     bool flag3 = flag2;
                     if (flag3 && (Settings.keyBinding == 2 || Utils.ControlIsHeld))
                     {
-                        this.quicksave();
+                        string baseName = "Quicksave";
+                        if (Settings.enableQuicksavesRotations)
+                        {
+                            baseName = baseName + Settings.nextQuicksaves;
+                            Settings.nextQuicksaves += 1;
+                            if (Settings.nextQuicksaves > Settings.maxQuicksaves)
+                                Settings.nextQuicksaves = 1;
+                        }
+                        this.quicksave(baseName);
                     }
                     bool flag4 = this.kpQL;
                     bool flag5 = flag4;
@@ -100,7 +108,8 @@ namespace aRandomKiwi.ARS
                     GameDataSaveLoader.SaveGame(mapName);
                 }, "SavingLongEvent", false, null);
 
-                Messages.Message("SavedAs".Translate(Utils.getFilenameWithoutVF(mapName)), MessageTypeDefOf.SilentInput);
+                if(!Settings.disableQuicksavesNotifs)
+                    Messages.Message("SavedAs".Translate(Utils.getFilenameWithoutVF(mapName)), MessageTypeDefOf.SilentInput);
                 PlayerKnowledgeDatabase.Save();
             }
             else
@@ -115,7 +124,8 @@ namespace aRandomKiwi.ARS
                 {
                     GameDataSaveLoader.SaveGame(mapName);
                 }, "SavingLongEvent", false, null);
-                Messages.Message("SavedAs".Translate(mapName), MessageTypeDefOf.SilentInput);
+                if (!Settings.disableQuicksavesNotifs)
+                    Messages.Message("SavedAs".Translate(mapName), MessageTypeDefOf.SilentInput);
                 PlayerKnowledgeDatabase.Save();
             }
         }

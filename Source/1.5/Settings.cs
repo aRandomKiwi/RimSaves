@@ -17,6 +17,11 @@ namespace aRandomKiwi.ARS
         public static bool saveOnNegativeIncident = false;
         public static bool saveOnPositiveIncident = false;
         public static bool addEventLabelSuffix = true;
+        public static bool disableQuicksavesNotifs = false;
+        public static bool enableQuicksavesRotations = false;
+        public static int maxQuicksaves = 3;
+        public static int nextQuicksaves = 1;
+
 
 
         public static void DoSettingsWindowContents(Rect inRect)
@@ -34,7 +39,22 @@ namespace aRandomKiwi.ARS
             list.CheckboxLabeled("ARS_SettingsQuicksaveOnIncidentLabelSuffix".Translate(), ref addEventLabelSuffix);
             list.CheckboxLabeled("ARS_SettingsUniqueQuicksaveName".Translate(), ref uniqueQuicksaveName);
             list.CheckboxLabeled("ARS_SettingsUniqueSavenameOnSave".Translate(), ref uniqueSaveName);
+
             list.CheckboxLabeled("ARS_SettingsDisableAutosaves".Translate(), ref disableAutosave);
+            if (keyBinding != 3)
+                list.CheckboxLabeled("ARS_SettingsDisableQuicksavesNotifs".Translate(), ref disableQuicksavesNotifs);
+
+            list.CheckboxLabeled("ARS_SettingsQuicksaveRotation".Translate(), ref enableQuicksavesRotations);
+            if(enableQuicksavesRotations)
+                uniqueQuicksaveName = false;
+            if (enableQuicksavesRotations)
+            {
+                int prevMaxQuicksaves = maxQuicksaves;
+                list.Label("ARS_SettingsNbQuicksaves".Translate(Settings.maxQuicksaves));
+                maxQuicksaves = (int)list.Slider(maxQuicksaves, 2, 100);
+                if (prevMaxQuicksaves != maxQuicksaves && maxQuicksaves < nextQuicksaves)
+                    nextQuicksaves = 1;
+            }
 
             list.Label("ARS_SettingsNbAutosave".Translate(Settings.nbAutosave));
             nbAutosave = (int)list.Slider(nbAutosave, 2, 150);
@@ -67,7 +87,10 @@ namespace aRandomKiwi.ARS
             Scribe_Values.Look<bool>(ref saveOnNegativeIncident, "saveOnNegativeIncident", false);
             Scribe_Values.Look<bool>(ref saveOnPositiveIncident, "saveOnPositiveIncident", false);
             Scribe_Values.Look<bool>(ref addEventLabelSuffix, "addEventLabelSuffix", true);
-
+            Scribe_Values.Look<bool>(ref disableQuicksavesNotifs, "disableQuicksavesNotifs", false);
+            Scribe_Values.Look<bool>(ref enableQuicksavesRotations, "enableQuicksavesRotations", false);
+            Scribe_Values.Look<int>(ref maxQuicksaves, "maxQuicksaves", 3);
+            Scribe_Values.Look<int>(ref nextQuicksaves, "nextQuicksaves", 1);
         } 
     }
 }

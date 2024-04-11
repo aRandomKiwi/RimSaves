@@ -11,6 +11,8 @@
 	<ARS_SettingsQuicksaveOnPositiveIncident>Quicksave on positive incident</ARS_SettingsQuicksaveOnPositiveIncident>
 	<ARS_SettingsQuicksaveOnIncidentLabelSuffix>Add the incident label as a suffix</ARS_SettingsQuicksaveOnIncidentLabelSuffix>
 	<ARS_SettingsBindingNo>Quicksave : Disabled</ARS_SettingsBindingNo>
+	<ARS_SettingsDisableQuicksavesNotifs>Disable quicksaves notifications</ARS_SettingsDisableQuicksavesNotifs>
+	<ARS_SettingsQuicksaveRotation>Enable quicksave rotation</ARS_SettingsQuicksaveRotation>
 	
 	<ARS_ConfirmRemoveFolderTitle>Delete folder</ARS_ConfirmRemoveFolderTitle>
 	<ARS_ConfirmRemoveFolderDesc>Do you really want to remove this folder ? all contained saves will be removed too !</ARS_ConfirmRemoveFolderDesc>
@@ -26,6 +28,7 @@
 	<ARS_SettingsNbAutosave>Number of autosave desired ( {0} )</ARS_SettingsNbAutosave>
 	<ARS_NoSQToLoad>No quicksave file to load !</ARS_NoSQToLoad>
 	<ARS_OpenSaveFolder>Open the save files folder</ARS_OpenSaveFolder>
+	<ARS_SettingsNbQuicksaves>Max number of quicksaves ( {0} )</ARS_SettingsNbQuicksaves>
 	
 	<ARS_SavePreviewSize>Save size : {0}</ARS_SavePreviewSize>
 	<ARS_SavePreviewScenario>Scenario : {0}</ARS_SavePreviewScenario>

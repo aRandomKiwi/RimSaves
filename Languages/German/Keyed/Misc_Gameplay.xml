@@ -11,6 +11,8 @@
 	<ARS_SettingsQuicksaveOnPositiveIncident>Schnellspeicherung bei positivem Ereignissen</ARS_SettingsQuicksaveOnPositiveIncident>
 	<ARS_SettingsQuicksaveOnIncidentLabelSuffix>Fügen sie die vorfallbezeichnung als suffix hinzu</ARS_SettingsQuicksaveOnIncidentLabelSuffix>
 	<ARS_SettingsBindingNo>Schnellspeicherung: Deaktiviert</ARS_SettingsBindingNo>
+	<ARS_SettingsDisableQuicksavesNotifs>Deaktivieren sie schnellspeicherbenachrichtigungen</ARS_SettingsDisableQuicksavesNotifs>
+	<ARS_SettingsQuicksaveRotation>Aktivieren Sie die QuickSave-Rotation</ARS_SettingsQuicksaveRotation>
 	
 	<ARS_ConfirmRemoveFolderTitle>Ordner löschen</ARS_ConfirmRemoveFolderTitle>
 	<ARS_ConfirmRemoveFolderDesc>Wollen Sie diesen Ordner wirklich löschen ? Alle Speicherstände darin werden auch gelöscht !</ARS_ConfirmRemoveFolderDesc>
@@ -26,6 +28,7 @@
 	<ARS_SettingsNbAutosave>Anzahl der automatischen Speicherstände ( {0} )</ARS_SettingsNbAutosave>
 	<ARS_NoSQToLoad>Kein Schnellspeicherstand zum laden !</ARS_NoSQToLoad>
 	<ARS_OpenSaveFolder>Öffne den Speicherstände Ordner</ARS_OpenSaveFolder>
+	<ARS_SettingsNbQuicksaves>Maximale Anzahl an Schnellspeicherungen ( {0} )</ARS_SettingsNbQuicksaves>
 	
 	<ARS_SavePreviewSize>Speicherstand Größe : {0}</ARS_SavePreviewSize>
 	<ARS_SavePreviewScenario>Szenario : {0}</ARS_SavePreviewScenario>
