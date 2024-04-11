@@ -10,6 +10,7 @@
 	<ARS_SettingsQuicksaveOnNegativeIncident>Quicksave on negative incident</ARS_SettingsQuicksaveOnNegativeIncident>
 	<ARS_SettingsQuicksaveOnPositiveIncident>Quicksave on positive incident</ARS_SettingsQuicksaveOnPositiveIncident>
 	<ARS_SettingsQuicksaveOnIncidentLabelSuffix>Add the incident label as a suffix</ARS_SettingsQuicksaveOnIncidentLabelSuffix>
+	<ARS_SettingsBindingNo>Quicksave : Disabled</ARS_SettingsBindingNo>
 	
 	<ARS_ConfirmRemoveFolderTitle>Delete folder</ARS_ConfirmRemoveFolderTitle>
 	<ARS_ConfirmRemoveFolderDesc>Do you really want to remove this folder ? all contained saves will be removed too !</ARS_ConfirmRemoveFolderDesc>

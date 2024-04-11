@@ -47,6 +47,8 @@ namespace aRandomKiwi.ARS
                 keyBinding = 1;
             if (list.RadioButton("ARS_SettingsBindingF5F9".Translate(), (keyBinding == 2)))
                 keyBinding = 2;
+            if (list.RadioButton("ARS_SettingsBindingNo".Translate(), (keyBinding == 3)))
+                keyBinding = 3;
 
             list.End();
         }

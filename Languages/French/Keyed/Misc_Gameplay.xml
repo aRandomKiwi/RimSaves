@@ -10,6 +10,7 @@
 	<ARS_SettingsQuicksaveOnNegativeIncident>Sauvegarde rapide lors d'un incident négatif</ARS_SettingsQuicksaveOnNegativeIncident>
 	<ARS_SettingsQuicksaveOnPositiveIncident>Sauvegarde rapide lors d'un incident positif</ARS_SettingsQuicksaveOnPositiveIncident>
 	<ARS_SettingsQuicksaveOnIncidentLabelSuffix>Ajouter le titre de l'incident en suffixe</ARS_SettingsQuicksaveOnIncidentLabelSuffix>
+	<ARS_SettingsBindingNo>Sauvegarde rapide : Désactivé</ARS_SettingsBindingNo>
 	
 	<ARS_ConfirmRemoveFolderTitle>Supprimer dossier</ARS_ConfirmRemoveFolderTitle>
 	<ARS_ConfirmRemoveFolderDesc>Souhaitez-vous vraiment supprimer ce dossier ? tous les fichiers contenus seront supprimés également !</ARS_ConfirmRemoveFolderDesc>

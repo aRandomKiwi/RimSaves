@@ -57,33 +57,36 @@ namespace aRandomKiwi.ARS
                 }
             }*/
 
-            bool anyKeyDown = Input.anyKeyDown;
-            bool flag = anyKeyDown;
-            if (flag)
+            if (Settings.keyBinding != 3)
             {
-                this.kpQS = Utils.HomeIsHeld;
-                this.kpQL = Utils.EndIsHeld;
-            }
-            else
-            {
-                bool flag2 = this.kpQS;
-                bool flag3 = flag2;
-                if (flag3 && (Settings.keyBinding == 2 || Utils.ControlIsHeld))
+                bool anyKeyDown = Input.anyKeyDown;
+                bool flag = anyKeyDown;
+                if (flag)
                 {
-                    this.quicksave();
+                    this.kpQS = Utils.HomeIsHeld;
+                    this.kpQL = Utils.EndIsHeld;
                 }
-                bool flag4 = this.kpQL;
-                bool flag5 = flag4;
-                if (flag5 && (Settings.keyBinding == 2 || Utils.ControlIsHeld))
+                else
                 {
-                    if (Current.Game.Info.permadeathMode)
+                    bool flag2 = this.kpQS;
+                    bool flag3 = flag2;
+                    if (flag3 && (Settings.keyBinding == 2 || Utils.ControlIsHeld))
                     {
-                        return;
+                        this.quicksave();
                     }
-                    this.quickload();
+                    bool flag4 = this.kpQL;
+                    bool flag5 = flag4;
+                    if (flag5 && (Settings.keyBinding == 2 || Utils.ControlIsHeld))
+                    {
+                        if (Current.Game.Info.permadeathMode)
+                        {
+                            return;
+                        }
+                        this.quickload();
+                    }
+                    this.kpQS = false;
+                    this.kpQL = false;
                 }
-                this.kpQS = false;
-                this.kpQL = false;
             }
         }
 
