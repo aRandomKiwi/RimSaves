@@ -16,7 +16,7 @@ namespace aRandomKiwi.ARS
         public static bool uniqueSaveName = false;
         public static bool saveOnNegativeIncident = false;
         public static bool saveOnPositiveIncident = false;
-        public static bool addEventLabelSuffix = false;
+        public static bool addEventLabelSuffix = true;
 
 
         public static void DoSettingsWindowContents(Rect inRect)
@@ -64,7 +64,7 @@ namespace aRandomKiwi.ARS
             Scribe_Values.Look<bool>(ref uniqueSaveName, "uniqueSaveName", false);
             Scribe_Values.Look<bool>(ref saveOnNegativeIncident, "saveOnNegativeIncident", false);
             Scribe_Values.Look<bool>(ref saveOnPositiveIncident, "saveOnPositiveIncident", false);
-            Scribe_Values.Look<bool>(ref addEventLabelSuffix, "addEventLabelSuffix", false);
+            Scribe_Values.Look<bool>(ref addEventLabelSuffix, "addEventLabelSuffix", true);
 
         } 
     }
