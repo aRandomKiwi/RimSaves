@@ -117,7 +117,8 @@ namespace aRandomKiwi.ARS
                 string mapName = baseName;
                 if (Settings.uniqueQuicksaveName)
                 {
-                    mapName += Utils.getUniqueSuffix();
+                    if(!(baseName.StartsWith("Quicksave") && Settings.enableQuicksavesRotations))
+                        mapName += Utils.getUniqueSuffix();
                 }
                 
                 LongEventHandler.QueueLongEvent(delegate ()

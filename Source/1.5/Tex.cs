@@ -25,5 +25,6 @@ namespace aRandomKiwi.ARS
         public static readonly Texture2D texEditDisabled = ContentFinder<Texture2D>.Get("UI/EditDisabled", true);
         public static readonly Texture2D texBGNoPreview = ContentFinder<Texture2D>.Get("BG/NoPreview", true);
         public static readonly Texture2D texLogoVer = ContentFinder<Texture2D>.Get("UI/LogoVer", true);
+        public static readonly Texture2D texSettings = ContentFinder<Texture2D>.Get("UI/RimSavesSettings", true);
     }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
 	<ARS_SettingsGeneralSection>Globale Einstellungen</ARS_SettingsGeneralSection>
+	<ARS_SettingsIncidentsSection>Vorfälle</ARS_SettingsIncidentsSection>
 	<ARS_SettingsQSSection>Schnelltaste für Schnellspeichern</ARS_SettingsQSSection>
 	<ARS_SettingsBindingHomeEnd>Schnellspeichern : STRG+POS1, Schnellladen : STRG+ENDE</ARS_SettingsBindingHomeEnd>
 	<ARS_SettingsBindingF5F9>Schnellspeichern : F5, Schnellladen : F9</ARS_SettingsBindingF5F9>
@@ -13,6 +14,7 @@
 	<ARS_SettingsBindingNo>Schnellspeicherung: Deaktiviert</ARS_SettingsBindingNo>
 	<ARS_SettingsDisableQuicksavesNotifs>Deaktivieren sie schnellspeicherbenachrichtigungen</ARS_SettingsDisableQuicksavesNotifs>
 	<ARS_SettingsQuicksaveRotation>Aktivieren Sie die QuickSave-Rotation</ARS_SettingsQuicksaveRotation>
+	<ARS_SettingsSecsMinBetweenIncidents>Mindestanzahl von Sekunden zwischen den einzelnen durch einen Vorfall ausgelösten Speicherungen ({0})</ARS_SettingsSecsMinBetweenIncidents>
 	
 	<ARS_ConfirmRemoveFolderTitle>Ordner löschen</ARS_ConfirmRemoveFolderTitle>
 	<ARS_ConfirmRemoveFolderDesc>Wollen Sie diesen Ordner wirklich löschen ? Alle Speicherstände darin werden auch gelöscht !</ARS_ConfirmRemoveFolderDesc>

@@ -21,6 +21,13 @@ namespace aRandomKiwi.ARS
         {
             if (Settings.saveOnNegativeIncident && Utils.negativeIncidents.Contains(let.def.defName) )
             {
+                DateTimeOffset dto = new DateTimeOffset(DateTime.UtcNow);
+                long cts = dto.ToUnixTimeSeconds();
+                if (cts - Settings.nbMinSecBetweenIncidentsTsNegative < Settings.nbMinSecBetweenIncidents)
+                    return;
+                else
+                    Settings.nbMinSecBetweenIncidentsTsNegative = cts;
+
                 string name = "BadEvent";
                 if (Settings.addEventLabelSuffix)
                     name = name + "." + Utils.SanitizeFileName(let.Label);
@@ -28,6 +35,12 @@ namespace aRandomKiwi.ARS
             }
             else if (Settings.saveOnPositiveIncident && Utils.positiveIncidents.Contains(let.def.defName))
             {
+                DateTimeOffset dto = new DateTimeOffset(DateTime.UtcNow);
+                long cts = dto.ToUnixTimeSeconds();
+                if (cts - Settings.nbMinSecBetweenIncidentsTsPositive < Settings.nbMinSecBetweenIncidents)
+                    return;
+                else
+                    Settings.nbMinSecBetweenIncidentsTsPositive = cts;
                 string name = "GoodEvent";
                 if (Settings.addEventLabelSuffix)
                     name = name + "." + Utils.SanitizeFileName(let.Label);

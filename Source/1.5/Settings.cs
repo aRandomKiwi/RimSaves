@@ -21,56 +21,114 @@ namespace aRandomKiwi.ARS
         public static bool enableQuicksavesRotations = false;
         public static int maxQuicksaves = 3;
         public static int nextQuicksaves = 1;
+        public static int nbMinSecBetweenIncidents = 5;
+        public static long nbMinSecBetweenIncidentsTsNegative = 0;
+        public static long nbMinSecBetweenIncidentsTsPositive = 0;
 
+
+        public static bool SectionGeneralExpanded = false;
+        public static bool SectionIncidentsExpanded = false;
+        public static bool SectionQSKeysBindingExpanded = false;
+
+        public static Vector2 scrollPosition = Vector2.zero;
 
 
         public static void DoSettingsWindowContents(Rect inRect)
         {
+            inRect.yMin += 15f;
+            inRect.yMax -= 15f;
+
+            var defaultColumnWidth = (inRect.width - 50);
             Listing_Standard list = new Listing_Standard() { };
 
-            list.Begin(inRect);
-            list.ButtonImage(Tex.texLogoVer, 750, 128);
-            list.GapLine();
-            list.Label("ARS_SettingsGeneralSection".Translate());
-            list.GapLine();
+            Widgets.ButtonImage(new Rect((inRect.width / 2) - 90, inRect.y, 180, 144), Tex.texSettings, Color.white, Color.green);
 
-            list.CheckboxLabeled("ARS_SettingsQuicksaveOnNegativeIncident".Translate(), ref saveOnNegativeIncident);
-            list.CheckboxLabeled("ARS_SettingsQuicksaveOnPositiveIncident".Translate(), ref saveOnPositiveIncident);
-            list.CheckboxLabeled("ARS_SettingsQuicksaveOnIncidentLabelSuffix".Translate(), ref addEventLabelSuffix);
-            list.CheckboxLabeled("ARS_SettingsUniqueQuicksaveName".Translate(), ref uniqueQuicksaveName);
-            list.CheckboxLabeled("ARS_SettingsUniqueSavenameOnSave".Translate(), ref uniqueSaveName);
+            var outRect = new Rect(inRect.x, inRect.y + 150, inRect.width, inRect.height - 150);
+            var scrollRect = new Rect(0f, 150f, inRect.width - 16f, inRect.height * 3f + 50);
+            Widgets.BeginScrollView(outRect, ref scrollPosition, scrollRect, true);
 
-            list.CheckboxLabeled("ARS_SettingsDisableAutosaves".Translate(), ref disableAutosave);
-            if (keyBinding != 3)
-                list.CheckboxLabeled("ARS_SettingsDisableQuicksavesNotifs".Translate(), ref disableQuicksavesNotifs);
+            list.Begin(scrollRect);
+            //list.ButtonImage(Tex.texLogoVer, 750, 128);
 
-            list.CheckboxLabeled("ARS_SettingsQuicksaveRotation".Translate(), ref enableQuicksavesRotations);
-            if(enableQuicksavesRotations)
-                uniqueQuicksaveName = false;
-            if (enableQuicksavesRotations)
+            list.Gap(10);
+            if (SectionGeneralExpanded)
+                GUI.color = Color.gray;
+            else
+                GUI.color = Color.green;
+
+            if (list.ButtonText("ARS_SettingsGeneralSection".Translate()))
             {
-                int prevMaxQuicksaves = maxQuicksaves;
-                list.Label("ARS_SettingsNbQuicksaves".Translate(Settings.maxQuicksaves));
-                maxQuicksaves = (int)list.Slider(maxQuicksaves, 2, 100);
-                if (prevMaxQuicksaves != maxQuicksaves && maxQuicksaves < nextQuicksaves)
-                    nextQuicksaves = 1;
+                SectionGeneralExpanded = !SectionGeneralExpanded;
+            }
+            GUI.color = Color.white;
+
+            if (SectionGeneralExpanded)
+            {
+                list.CheckboxLabeled("ARS_SettingsUniqueQuicksaveName".Translate(), ref uniqueQuicksaveName);
+                list.CheckboxLabeled("ARS_SettingsUniqueSavenameOnSave".Translate(), ref uniqueSaveName);
+
+                list.CheckboxLabeled("ARS_SettingsDisableAutosaves".Translate(), ref disableAutosave);
+                if (keyBinding != 3)
+                    list.CheckboxLabeled("ARS_SettingsDisableQuicksavesNotifs".Translate(), ref disableQuicksavesNotifs);
+
+                list.CheckboxLabeled("ARS_SettingsQuicksaveRotation".Translate(), ref enableQuicksavesRotations);
+                if (enableQuicksavesRotations)
+                {
+                    int prevMaxQuicksaves = maxQuicksaves;
+                    list.Label("ARS_SettingsNbQuicksaves".Translate(Settings.maxQuicksaves));
+                    maxQuicksaves = (int)list.Slider(maxQuicksaves, 2, 100);
+                    if (prevMaxQuicksaves != maxQuicksaves && maxQuicksaves < nextQuicksaves)
+                        nextQuicksaves = 1;
+                }
+
+                list.Label("ARS_SettingsNbAutosave".Translate(Settings.nbAutosave));
+                nbAutosave = (int)list.Slider(nbAutosave, 2, 150);
+            }
+            //QuickSaves on incidents
+            if (SectionIncidentsExpanded)
+                GUI.color = Color.gray;
+            else
+                GUI.color = Color.green;
+            if (list.ButtonText("ARS_SettingsIncidentsSection".Translate()))
+            {
+                SectionIncidentsExpanded = !SectionIncidentsExpanded;
+            }
+            GUI.color = Color.white;
+
+            if (SectionIncidentsExpanded)
+            {
+                list.CheckboxLabeled("ARS_SettingsQuicksaveOnNegativeIncident".Translate(), ref saveOnNegativeIncident);
+                list.CheckboxLabeled("ARS_SettingsQuicksaveOnPositiveIncident".Translate(), ref saveOnPositiveIncident);
+                if (saveOnNegativeIncident || saveOnPositiveIncident)
+                {
+                    list.Label("ARS_SettingsSecsMinBetweenIncidents".Translate(Settings.nbMinSecBetweenIncidents));
+                    nbMinSecBetweenIncidents = (int)list.Slider(nbMinSecBetweenIncidents, 1, 200);
+                }
+                list.CheckboxLabeled("ARS_SettingsQuicksaveOnIncidentLabelSuffix".Translate(), ref addEventLabelSuffix);
             }
 
-            list.Label("ARS_SettingsNbAutosave".Translate(Settings.nbAutosave));
-            nbAutosave = (int)list.Slider(nbAutosave, 2, 150);
+            //Quicksaves key binding
+            if (SectionQSKeysBindingExpanded)
+                GUI.color = Color.gray;
+            else
+                GUI.color = Color.green;
+            if (list.ButtonText("ARS_SettingsQSSection".Translate()))
+            {
+                SectionQSKeysBindingExpanded = !SectionQSKeysBindingExpanded;
+            }
+            GUI.color = Color.white;
 
-            list.GapLine();
-            list.Label("ARS_SettingsQSSection".Translate());
-            list.GapLine();
-
-            if (list.RadioButton("ARS_SettingsBindingHomeEnd".Translate(), (keyBinding == 1)))
-                keyBinding = 1;
-            if (list.RadioButton("ARS_SettingsBindingF5F9".Translate(), (keyBinding == 2)))
-                keyBinding = 2;
-            if (list.RadioButton("ARS_SettingsBindingNo".Translate(), (keyBinding == 3)))
-                keyBinding = 3;
-
+            if (SectionQSKeysBindingExpanded)
+            {
+                if (list.RadioButton("ARS_SettingsBindingHomeEnd".Translate(), (keyBinding == 1)))
+                    keyBinding = 1;
+                if (list.RadioButton("ARS_SettingsBindingF5F9".Translate(), (keyBinding == 2)))
+                    keyBinding = 2;
+                if (list.RadioButton("ARS_SettingsBindingNo".Translate(), (keyBinding == 3)))
+                    keyBinding = 3;
+            }
             list.End();
+            Widgets.EndScrollView();
         }
 
         public override void ExposeData()
@@ -91,6 +149,9 @@ namespace aRandomKiwi.ARS
             Scribe_Values.Look<bool>(ref enableQuicksavesRotations, "enableQuicksavesRotations", false);
             Scribe_Values.Look<int>(ref maxQuicksaves, "maxQuicksaves", 3);
             Scribe_Values.Look<int>(ref nextQuicksaves, "nextQuicksaves", 1);
+            Scribe_Values.Look<int>(ref nbMinSecBetweenIncidents, "nbMinSecBetweenIncidents", 5);
+            Scribe_Values.Look<long>(ref nbMinSecBetweenIncidentsTsNegative, "nbMinSecBetweenIncidentsTsNegative", 0);
+            Scribe_Values.Look<long>(ref nbMinSecBetweenIncidentsTsPositive, "nbMinSecBetweenIncidentsTsPositive", 0);
         } 
     }
 }

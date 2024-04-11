@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
 	<ARS_SettingsGeneralSection>Global settings</ARS_SettingsGeneralSection>
+	<ARS_SettingsIncidentsSection>Incidents</ARS_SettingsIncidentsSection>
 	<ARS_SettingsQSSection>Quicksave shortcut</ARS_SettingsQSSection>
 	<ARS_SettingsBindingHomeEnd>Quicksave : CTRL+HOME, Quickload : CTRL+END</ARS_SettingsBindingHomeEnd>
 	<ARS_SettingsBindingF5F9>Quicksave : F5, Quickload : F9</ARS_SettingsBindingF5F9>
@@ -13,6 +14,7 @@
 	<ARS_SettingsBindingNo>Quicksave : Disabled</ARS_SettingsBindingNo>
 	<ARS_SettingsDisableQuicksavesNotifs>Disable quicksaves notifications</ARS_SettingsDisableQuicksavesNotifs>
 	<ARS_SettingsQuicksaveRotation>Enable quicksave rotation</ARS_SettingsQuicksaveRotation>
+	<ARS_SettingsSecsMinBetweenIncidents>Minimum number of seconds between each saves triggered by an incident ({0})</ARS_SettingsSecsMinBetweenIncidents>
 	
 	<ARS_ConfirmRemoveFolderTitle>Delete folder</ARS_ConfirmRemoveFolderTitle>
 	<ARS_ConfirmRemoveFolderDesc>Do you really want to remove this folder ? all contained saves will be removed too !</ARS_ConfirmRemoveFolderDesc>

@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
 	<ARS_SettingsGeneralSection>Paramétres généraux</ARS_SettingsGeneralSection>
+	<ARS_SettingsIncidentsSection>Incidents</ARS_SettingsIncidentsSection>
 	<ARS_SettingsQSSection>Sauvegarde rapide (raccourcis clavier)</ARS_SettingsQSSection>
 	<ARS_SettingsBindingHomeEnd>Sauvegarde rapide : CTRL+HOME, chargement rapide : CTRL+END</ARS_SettingsBindingHomeEnd>
 	<ARS_SettingsBindingF5F9>Sauvegarde rapide : F5, chargement rapide : F9</ARS_SettingsBindingF5F9>
@@ -13,6 +14,7 @@
 	<ARS_SettingsBindingNo>Sauvegarde rapide : Désactivé</ARS_SettingsBindingNo>
 	<ARS_SettingsDisableQuicksavesNotifs>Désactiver les notifications de sauvegardes rapides</ARS_SettingsDisableQuicksavesNotifs>
 	<ARS_SettingsQuicksaveRotation>Activer la rotation des sauvegardes rapides</ARS_SettingsQuicksaveRotation>
+	<ARS_SettingsSecsMinBetweenIncidents>Nombre de secondes minimum entre chaque sauvegardes déclenchées par un incident ({0})</ARS_SettingsSecsMinBetweenIncidents>
 	
 	<ARS_ConfirmRemoveFolderTitle>Supprimer dossier</ARS_ConfirmRemoveFolderTitle>
 	<ARS_ConfirmRemoveFolderDesc>Souhaitez-vous vraiment supprimer ce dossier ? tous les fichiers contenus seront supprimés également !</ARS_ConfirmRemoveFolderDesc>
