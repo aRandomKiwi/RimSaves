@@ -21,11 +21,17 @@ namespace aRandomKiwi.ARS
         {
             if (Settings.saveOnNegativeIncident && Utils.negativeIncidents.Contains(let.def.defName) )
             {
-                Utils.GCQSI.quicksave("NegativeIncident");
+                string name = "BadEvent";
+                if (Settings.addEventLabelSuffix)
+                    name = name + "." + Utils.SanitizeFileName(let.Label);
+                Utils.GCQSI.quicksave(name);
             }
             else if (Settings.saveOnPositiveIncident && Utils.positiveIncidents.Contains(let.def.defName))
             {
-                Utils.GCQSI.quicksave("PositiveIncident");
+                string name = "GoodEvent";
+                if (Settings.addEventLabelSuffix)
+                    name = name + "." + Utils.SanitizeFileName(let.Label);
+                Utils.GCQSI.quicksave(name);
             }
         }
     }

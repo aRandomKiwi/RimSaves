@@ -9,6 +9,7 @@ using HarmonyLib;
 using System.IO;
 using System.Globalization;
 using RimWorld.Planet;
+using System.Text.RegularExpressions;
 
 namespace aRandomKiwi.ARS
 {
@@ -622,6 +623,21 @@ namespace aRandomKiwi.ARS
             DateTimeOffset now = DateTimeOffset.UtcNow;
             return "."+now.ToUnixTimeMilliseconds().ToString();
         }
+
+        public static string SanitizeFileName(string fileName, char replacementChar = '-')
+        {
+            var blackList = new HashSet<char>(System.IO.Path.GetInvalidFileNameChars());
+            var output = fileName.ToCharArray();
+            for (int i = 0, ln = output.Length; i < ln; i++)
+            {
+                if (blackList.Contains(output[i]))
+                {
+                    output[i] = replacementChar;
+                }
+            }
+            return new String(output);
+        }
+
 
         public static List<string> negativeIncidents = null;
         public static List<string> positiveIncidents = null;

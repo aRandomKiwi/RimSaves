@@ -748,16 +748,20 @@ namespace aRandomKiwi.ARS
                             //GUI.color = __instance.FileNameColor(current);
                             GUI.color = (Color)Traverse.Create(__instance).Method("FileNameColor", current).GetValue();
 
-                            Rect rect5 = new Rect(308f, 0f, rect4.x - 8f - 4f, rect.height);
+                            Rect rect5 = new Rect(308f, 0f, rect4.x - 8f - 4f-36f, rect.height);
                             Text.Anchor = TextAnchor.MiddleLeft;
                             Text.Font = GameFont.Small;
-                            
+
 
                             //Widgets.Label(rect5, fileNameWithoutExtension.Truncate(rect5.width * 1.8f, null));
-                            if(Widgets.ButtonText(rect5, fileNameWithoutExtension.Truncate(rect5.width * 1.8f, null),false, false))
+                            string tfFN = fileNameWithoutExtension.Truncate(290f, null);
+                            if (Widgets.ButtonText(rect5, tfFN,false, false))
                             {
                                 Utils.selectedSave = prefixedFileName;
                                 ___typingName = fileNameWithoutExtension;
+                            }
+                            if (tfFN.EndsWith("...")) {
+                                TooltipHandler.TipRegion(rect5, fileNameWithoutExtension);
                             }
                             GUI.color = Color.white;
                             Text.Anchor = TextAnchor.UpperLeft;
