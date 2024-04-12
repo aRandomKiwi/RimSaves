@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <ARS_SettingsGeneralSection>全体設定</ARS_SettingsGeneralSection>
+  <ARS_SettingsIncidentsSection>事件</ARS_SettingsIncidentsSection>
   <ARS_SettingsQSSection>クイックセーブのキー設定</ARS_SettingsQSSection>
   <ARS_SettingsBindingHomeEnd>クイックセーブ：CTRL+HOME、クイックロード：CTRL+END</ARS_SettingsBindingHomeEnd>
   <ARS_SettingsBindingF5F9>クイックセーブ：F5、クイックロード：F9</ARS_SettingsBindingF5F9>
@@ -8,9 +9,17 @@
   <ARS_SettingsUniqueQuicksaveName>独自なクイックセーブ名</ARS_SettingsUniqueQuicksaveName>
   <ARS_SettingsUniqueSavenameOnSave>バックアップ時に独自のセーブ名の提案を生成する</ARS_SettingsUniqueSavenameOnSave>
   <ARS_SettingsQuicksaveOnNegativeIncident>悪い事件が発生した際にクイックセーブする</ARS_SettingsQuicksaveOnNegativeIncident>
+  <ARS_SettingsQuicksaveOnPositiveIncident>有益な事件が発生した際にクイックセーブする</ARS_SettingsQuicksaveOnPositiveIncident>
+  <ARS_SettingsQuicksaveOnIncidentLabelSuffix>事件のラベルをファイル末尾に追加する</ARS_SettingsQuicksaveOnIncidentLabelSuffix>
+  <ARS_SettingsBindingNo>クイックセーブ : 無効</ARS_SettingsBindingNo>
+  <ARS_SettingsDisableQuicksavesNotifs>クイックセーブ通知を無効化</ARS_SettingsDisableQuicksavesNotifs>
+  <ARS_SettingsQuicksaveRotation>クイックセーブの循環を有効化</ARS_SettingsQuicksaveRotation>
+  <ARS_SettingsSecsMinBetweenIncidents>事件でクイックセーブされる各セーブデータ間隔の最小秒数({0}秒)</ARS_SettingsSecsMinBetweenIncidents>
 
   <ARS_ConfirmRemoveFolderTitle>フォルダ削除</ARS_ConfirmRemoveFolderTitle>
   <ARS_ConfirmRemoveFolderDesc>本当にこのフォルダを削除しますか？中に含まれているすべてのセーブデータも削除されます！</ARS_ConfirmRemoveFolderDesc>
+  <ARS_ConfirmRemoveSelectedFilesTitle>選択したセーブデータを削除</ARS_ConfirmRemoveSelectedFilesTitle>
+  <ARS_ConfirmRemoveSelectedFilesDesc>本当に選択した{0}個のセーブデータを削除しますか?</ARS_ConfirmRemoveSelectedFilesDesc>
   <ARS_FolderAlreadyExist>そのフォルダ名は既に存在しています。</ARS_FolderAlreadyExist>
   <ARS_ToolTipMoveSave>このセーブデータを別フォルダに移動</ARS_ToolTipMoveSave>
   <ARS_ToolTipAddFolder>新しいフォルダを作成</ARS_ToolTipAddFolder>
@@ -23,6 +32,11 @@
   <ARS_SettingsNbAutosave>自動保存する数を設定（{0}個）</ARS_SettingsNbAutosave>
   <ARS_NoSQToLoad>ロードするクイックセーブファイルはありません。</ARS_NoSQToLoad>
   <ARS_OpenSaveFolder>セーブファイルの保存先を開く</ARS_OpenSaveFolder>
+  <ARS_SettingsNbQuicksaves>クイックセーブの最大数({0}個)</ARS_SettingsNbQuicksaves>
+  <ARS_MassMoveSelectedSaves>選択したセーブデータを別フォルダーに移動</ARS_MassMoveSelectedSaves>
+  <ARS_SelectUnSelectSave>このセーブデータを選択/選択解除する</ARS_SelectUnSelectSave>
+  <ARS_ToolTipDelSelSaves>選択したセーブデータを削除</ARS_ToolTipDelSelSaves>
+  <ARS_ToolTipEditFolderName>フォルダ名を変更</ARS_ToolTipEditFolderName>
 
   <ARS_SavePreviewSize>セーブの容量：{0}</ARS_SavePreviewSize>
   <ARS_SavePreviewScenario>シナリオ：{0}</ARS_SavePreviewScenario>
