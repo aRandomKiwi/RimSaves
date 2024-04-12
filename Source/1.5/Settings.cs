@@ -18,7 +18,7 @@ namespace aRandomKiwi.ARS
         public static bool saveOnPositiveIncident = false;
         public static bool addEventLabelSuffix = true;
         public static bool disableQuicksavesNotifs = false;
-        public static bool enableQuicksavesRotations = false;
+        public static bool enableQuicksavesRotations = true;
         public static int maxQuicksaves = 3;
         public static int nextQuicksaves = 1;
         public static int nbMinSecBetweenIncidents = 5;
@@ -146,7 +146,7 @@ namespace aRandomKiwi.ARS
             Scribe_Values.Look<bool>(ref saveOnPositiveIncident, "saveOnPositiveIncident", false);
             Scribe_Values.Look<bool>(ref addEventLabelSuffix, "addEventLabelSuffix", true);
             Scribe_Values.Look<bool>(ref disableQuicksavesNotifs, "disableQuicksavesNotifs", false);
-            Scribe_Values.Look<bool>(ref enableQuicksavesRotations, "enableQuicksavesRotations", false);
+            Scribe_Values.Look<bool>(ref enableQuicksavesRotations, "enableQuicksavesRotations", true);
             Scribe_Values.Look<int>(ref maxQuicksaves, "maxQuicksaves", 3);
             Scribe_Values.Look<int>(ref nextQuicksaves, "nextQuicksaves", 1);
             Scribe_Values.Look<int>(ref nbMinSecBetweenIncidents, "nbMinSecBetweenIncidents", 5);
