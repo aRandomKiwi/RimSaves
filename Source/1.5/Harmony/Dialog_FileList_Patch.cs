@@ -516,6 +516,9 @@ namespace aRandomKiwi.ARS
                                 FileInfo localFile = current.FileInfo;
                                 Action confirm = delegate
                                 {
+                                    if (Utils.selectedSaves.Contains(prefixedFileName))
+                                        Utils.selectedSaves.Remove(prefixedFileName);
+
                                     localFile.Delete();
 
                                     string prefix = "";
@@ -567,6 +570,7 @@ namespace aRandomKiwi.ARS
                                 if (needToBeDeleted)
                                 {
                                     confirm();
+                                    continue;
                                 }
                                 else
                                     Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation("ConfirmDelete".Translate(localFile.Name), confirm, true, null, WindowLayer.SubSuper));
@@ -579,6 +583,9 @@ namespace aRandomKiwi.ARS
                             {
                                 Action<string> confirm = delegate (string cfolder)
                                 {
+                                    if (Utils.selectedSaves.Contains(prefixedFileName))
+                                        Utils.selectedSaves.Remove(prefixedFileName);
+
                                     string newFile;
                                     //File stored in Default?
                                     if (!current.FileInfo.FullName.Contains(Utils.VFOLDERSEP))

@@ -150,10 +150,10 @@ namespace aRandomKiwi.ARS
 
             FileInfo fs = res.FirstOrDefault();
 
-            foreach (var file in res)
+            /*foreach (var file in res)
             {
                 Log.Message("=>" + file.Name);
-            }
+            }*/
 
             if (fs == null || !fs.Exists)
             {
