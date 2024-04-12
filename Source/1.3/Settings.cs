@@ -11,6 +11,7 @@ namespace aRandomKiwi.ARS
         public static string curFolder = "Default";
         public static int nbAutosave = 5;
         public static int keyBinding = 1;
+        public static int maxQuicksaveCount = 10;
         public static bool disableAutosave = false;
         public static bool uniqueQuicksaveName = false;
         public static bool uniqueSaveName = false;
@@ -35,6 +36,9 @@ namespace aRandomKiwi.ARS
             list.Label("ARS_SettingsNbAutosave".Translate(Settings.nbAutosave));
             nbAutosave = (int)list.Slider(nbAutosave, 2, 150);
 
+            list.Label("ARS_SettingsMaxQuicksaveCount".Translate(Settings.maxQuicksaveCount));
+            maxQuicksaveCount = (int)list.Slider(maxQuicksaveCount, 2, 150);
+
             list.GapLine();
             list.Label("ARS_SettingsQSSection".Translate());
             list.GapLine();
@@ -55,6 +59,7 @@ namespace aRandomKiwi.ARS
             Scribe_Collections.Look<string>(ref folders, "folders", LookMode.Value);
             Scribe_Values.Look<int>(ref nbAutosave, "nbAutosave", 5);
             Scribe_Values.Look<int>(ref keyBinding, "keyBinding", 1);
+            Scribe_Values.Look<int>(ref maxQuicksaveCount, "maxQuicksaveCount", 10);
             Scribe_Values.Look<bool>(ref disableAutosave, "disableAutosave", false);
             Scribe_Values.Look<bool>(ref uniqueQuicksaveName, "uniqueQuicksaveName", false);
             Scribe_Values.Look<bool>(ref uniqueSaveName, "uniqueSaveName", false);
