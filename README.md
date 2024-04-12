@@ -4,11 +4,11 @@
 
 <p align="center">
 	<a href="https://github.com/aRandomKiwi/RimThemes/releases">
-		<img src="https://img.shields.io/badge/release-NX rev5-4BC51D.svg?style=flat" alt="NX rev5" />
+		<img src="https://img.shields.io/badge/release-NX rev20-4BC51D.svg?style=flat" alt="NX rev20" />
     </a>
 	<img src="https://img.shields.io/github/downloads-pre/aRandomKiwi/RimThemes/total.svg?style=popout-square&color=green" alt="Github Total Downloads" />
 	<a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1713367505">
-		<img src="https://img.shields.io/badge/RimWorld-1.4-purple.svg?longCache=true&style=plastic)" alt="Compatible Rimworld 1.4" />
+		<img src="https://img.shields.io/badge/RimWorld-1.5-purple.svg?longCache=true&style=plastic)" alt="Compatible Rimworld 1.5" />
     </a>
 	<a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1713367505">
 		<img src="https://img.shields.io/badge/documentation-%F0%9F%94%8D-blue?style=flat" />
@@ -32,6 +32,7 @@ No more mess with your multiple colonies saves, autosaves overwrites,... now sim
 * Quickly access to your saves folder
 * Create, Rename, Delete folders (no subfolders to stay simple)
 * Put saves into folder
+* Select multiple saves to delete/move
 * Autosaves created to the current selected folder, so no more autosave overwrite between colonies in different folders
 * Duplicate, Rename saves
 * Mass saves removing (remove the parent folder)
