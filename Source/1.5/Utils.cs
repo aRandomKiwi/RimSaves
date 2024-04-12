@@ -21,6 +21,11 @@ namespace aRandomKiwi.ARS
         public static bool initDialog = false;
         public static string selectedSave = "";
         public static string loadedSave = "";
+        public static List<string> selectedSaves = new List<string>();
+        public static List<string> selectedSavesToDelete = new List<string>();
+        public static List<string> selectedSavesToMove = new List<string>();
+        public static string selectedSavesToMoveFolder = "";
+        public static bool ctrlLeftPressed = false;
 
         public static Vector2 metaScrollPosition;
 

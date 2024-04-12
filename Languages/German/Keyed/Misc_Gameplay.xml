@@ -18,6 +18,8 @@
 	
 	<ARS_ConfirmRemoveFolderTitle>Ordner löschen</ARS_ConfirmRemoveFolderTitle>
 	<ARS_ConfirmRemoveFolderDesc>Wollen Sie diesen Ordner wirklich löschen ? Alle Speicherstände darin werden auch gelöscht !</ARS_ConfirmRemoveFolderDesc>
+	<ARS_ConfirmRemoveSelectedFilesTitle>Ausgewählte Speicherstände löschen</ARS_ConfirmRemoveSelectedFilesTitle>
+	<ARS_ConfirmRemoveSelectedFilesDesc>Möchten Sie wirklich die {0} ausgewählten Speicherstände löschen?</ARS_ConfirmRemoveSelectedFilesDesc>
 	<ARS_FolderAlreadyExist>Ordnername existiert bereits !</ARS_FolderAlreadyExist>
 	<ARS_ToolTipMoveSave>Bewege diesen Speicherstand in einen anderen Ordner</ARS_ToolTipMoveSave>
 	<ARS_ToolTipAddFolder>Neuen Ordner erstellen</ARS_ToolTipAddFolder>
@@ -31,6 +33,10 @@
 	<ARS_NoSQToLoad>Kein Schnellspeicherstand zum laden !</ARS_NoSQToLoad>
 	<ARS_OpenSaveFolder>Öffne den Speicherstände Ordner</ARS_OpenSaveFolder>
 	<ARS_SettingsNbQuicksaves>Maximale Anzahl an Schnellspeicherungen ( {0} )</ARS_SettingsNbQuicksaves>
+	<ARS_MassMoveSelectedSaves>Ausgewählte Speicherungen in einen anderen Ordner verschieben</ARS_MassMoveSelectedSaves>
+	<ARS_SelectUnSelectSave>Aktivieren/deaktivieren Sie diese Speicherung</ARS_SelectUnSelectSave>
+	<ARS_ToolTipDelSelSaves>Ausgewählte Speicherungen löschen</ARS_ToolTipDelSelSaves>
+	<ARS_ToolTipEditFolderName>Ordnernamen ändern</ARS_ToolTipEditFolderName>
 	
 	<ARS_SavePreviewSize>Speicherstand Größe : {0}</ARS_SavePreviewSize>
 	<ARS_SavePreviewScenario>Szenario : {0}</ARS_SavePreviewScenario>

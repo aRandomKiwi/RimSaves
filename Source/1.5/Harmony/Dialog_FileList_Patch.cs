@@ -10,11 +10,13 @@ using System.IO;
 using System.Diagnostics;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using Verse.Sound;
 
 namespace aRandomKiwi.ARS
 {
     internal static class Dialog_FileList_Patch
     {
+        public static bool needReload = false;
         //private static string uniqueSaveNameSuffix = Utils.getUniqueSuffix();
         [HarmonyPatch(typeof(Dialog_FileList), "get_InitialSize")]
         public class get_InitialSize
@@ -28,9 +30,10 @@ namespace aRandomKiwi.ARS
                 {
                     return true;
                 }
-                __result = new Vector2(1000f, 700f);
+                __result = new Vector2(1036f, 700f);
                 Utils.initDialog = true;
                 Utils.selectedSave = "";
+                Utils.selectedSaves.Clear();
                 if (Settings.uniqueSaveName) {
                     //If already contain suffix then we remove it and happend the new one
                     Regex rgx = new Regex(@"\.[0-9]{5,}$");
@@ -98,20 +101,23 @@ namespace aRandomKiwi.ARS
 
                     //Drawing the folder selector
                     Rect folderSelRect = new Rect(inRect.AtZero());
-                    folderSelRect.width = inRect.width - 340f-150f-8f;
+                    folderSelRect.width = inRect.width - 340f-150f-8f-36f;
                     folderSelRect.x = 374f;
                     folderSelRect.y += 36f;
                     folderSelRect.height = 32f;
 
                     Rect folderSelRectBtnAdd = new Rect(folderSelRect);
                     folderSelRectBtnAdd.width = 32f;
-                    folderSelRectBtnAdd.x = folderSelRect.x+folderSelRect.width+6;
+                    folderSelRectBtnAdd.x = folderSelRect.x+folderSelRect.width+4;
 
                     Rect folderSelRectBtnEdit = new Rect(folderSelRectBtnAdd);
-                    folderSelRectBtnEdit.x += folderSelRectBtnAdd.width + 6;
+                    folderSelRectBtnEdit.x += folderSelRectBtnAdd.width + 4;
 
-                    Rect folderSelRectBtnDel = new Rect(folderSelRectBtnEdit);
-                    folderSelRectBtnDel.x += folderSelRectBtnEdit.width + 6;
+                    Rect folderSelRectBtnMassMove = new Rect(folderSelRectBtnEdit);
+                    folderSelRectBtnMassMove.x += folderSelRectBtnEdit.width + 4;
+
+                    Rect folderSelRectBtnDel = new Rect(folderSelRectBtnMassMove);
+                    folderSelRectBtnDel.x += folderSelRectBtnMassMove.width + 4;
 
 
                     //Preview image
@@ -247,7 +253,7 @@ namespace aRandomKiwi.ARS
 
                     //Folder icon
                     Widgets.ButtonImage(new Rect(340f, 36f, 32f, 32f), Tex.texFolder, Color.white, Color.white);
-
+                    GUI.color = Color.green;
                     if (Widgets.ButtonText(folderSelRect, Settings.curFolder+ " " + "ARS_nbSaves".Translate(Utils.getNbSavesInVF(Settings.curFolder))))
                     {
                         Utils.showFolderList(delegate(string cfolder)
@@ -257,13 +263,15 @@ namespace aRandomKiwi.ARS
                             Utils.curModRef.WriteSettings();
                             Traverse.Create(__instance).Method("ReloadFiles").GetValue();*/
                             if (Settings.curFolder != cfolder)
+                            {
                                 Utils.selectedSave = "";
+                                Utils.selectedSaves.Clear();
+                            }
                             Utils.changeFolder(cfolder, __instance);
                         },"");
                     }
-                    
-
-                    if (Widgets.ButtonImage(folderSelRectBtnAdd, Tex.texAdd, Color.white, GenUI.SubtleMouseoverColor))
+                    GUI.color = Color.white;
+                    if (Widgets.ButtonImageWithBG(folderSelRectBtnAdd, Tex.texAdd, new Vector2(24,24)))
                     {
                         Find.WindowStack.Add(new Dialog_Input(delegate(string value)
                         {
@@ -293,7 +301,7 @@ namespace aRandomKiwi.ARS
                     if (Settings.curFolder == "Default")
                         texEdit = Tex.texEditDisabled;
 
-                    if (Widgets.ButtonImage(folderSelRectBtnEdit, texEdit, Color.white, GenUI.SubtleMouseoverColor))
+                    if (Widgets.ButtonImageWithBG(folderSelRectBtnEdit, texEdit, new Vector2(24, 24)))
                     {
                         if (Settings.curFolder != "Default")
                         {
@@ -302,6 +310,7 @@ namespace aRandomKiwi.ARS
                                 Utils.renameCurFolder(value);
                                 //If folder selected == folder moved then reset
                                 Utils.selectedSave = "";
+                                Utils.selectedSaves.Clear();
 
                                 //Refreshing the view
                                 Utils.changeFolder(Settings.curFolder, __instance);
@@ -321,92 +330,130 @@ namespace aRandomKiwi.ARS
                             }, Settings.curFolder));
                         }
                     }
-                    TooltipHandler.TipRegion(folderSelRectBtnAdd, "ARS_ToolTipAddFolder".Translate());
+                    TooltipHandler.TipRegion(folderSelRectBtnEdit, "ARS_ToolTipEditFolderName".Translate());
 
-
-                    if (Widgets.ButtonImage(folderSelRectBtnDel, Tex.texDeleteFolder, Color.white, GenUI.SubtleMouseoverColor))
+                    Texture2D texMove = Tex.texMove;
+                    bool massMoveAllowed = true;
+                    if (Utils.selectedSaves.Count == 0)
                     {
-                        Find.WindowStack.Add(new Dialog_Msg("ARS_ConfirmRemoveFolderTitle".Translate(), "ARS_ConfirmRemoveFolderDesc".Translate(), delegate
-                        {
-                            //Confirmation of the deletion of the virtual folder we delete all the saves which are attached to it
-                            foreach (FileInfo current in GenFilePaths.AllSavedGameFiles)
-                            {
-                                current.Delete();
-                            }
-
-                            //Delete all associated previews
-                            //Constitution list of previews storing the specified VF
-                            string text2 = Utils.getBasePathRSPreviews();
-                            string curPrefix = "";
-
-                            if(Settings.curFolder != "Default")
-                                curPrefix = Settings.curFolder + Utils.VFOLDERSEP;
-
-                            DirectoryInfo directoryInfo = new DirectoryInfo(text2);
-                            IOrderedEnumerable<FileInfo> res;
-                            //Handling default folder removing
-                            if (curPrefix == "")
-                            {
-                                res = from f in directoryInfo.GetFiles()
-                                      where f.Extension == ".jpg" && !f.FullName.Contains(Utils.VFOLDERSEP)
-                                      orderby f.LastWriteTime descending
-                                      select f;
-                            }
-                            else
-                            {
-                                res = from f in directoryInfo.GetFiles()
-                                      where f.Extension == ".jpg" && f.FullName.Contains(curPrefix)
-                                      orderby f.LastWriteTime descending
-                                      select f;
-                            }
-
-                            //Same for previews
-                            foreach (var file in res)
-                            {
-                                file.Delete();
-                            }
-
-                            //Same for meta
-                            text2 = Utils.getBasePathRSMeta();
-                            curPrefix = "";
-
-                            if (Settings.curFolder != "Default")
-                                curPrefix = Settings.curFolder + Utils.VFOLDERSEP;
-
-                            directoryInfo = new DirectoryInfo(text2);
-
-                            if (curPrefix == "")
-                            {
-                                res = from f in directoryInfo.GetFiles()
-                                      where f.Extension == ".dat" && !f.FullName.Contains(Utils.VFOLDERSEP)
-                                      orderby f.LastWriteTime descending
-                                      select f;
-                            }
-                            else
-                            {
-                                res = from f in directoryInfo.GetFiles()
-                                      where f.Extension == ".dat" && f.FullName.Contains(curPrefix)
-                                      orderby f.LastWriteTime descending
-                                      select f;
-                            }
-
-                            foreach (var file in res)
-                            {
-                                file.Delete();
-                            }
-
-                            // Delete deleted folder reference
-                            if (Settings.curFolder != "Default")
-                                Settings.folders.Remove(Settings.curFolder);
-
-                            Utils.selectedSave = "";
-
-                            Utils.changeFolder("Default", __instance);
-                        }, false, Color.red));
+                        texMove = Tex.texMoveDisabled;
+                        massMoveAllowed = false;
                     }
 
-                    TooltipHandler.TipRegion(folderSelRectBtnDel, "ARS_ToolTipDelFolder".Translate());
+                    if (Widgets.ButtonImageWithBG(folderSelRectBtnMassMove, texMove, new Vector2(24, 24)) && massMoveAllowed)
+                    {
+                        Utils.showFolderList(delegate (string cfolder)
+                        {
+                            Utils.selectedSavesToMove.AddRange(Utils.selectedSaves);
+                            Utils.selectedSavesToMoveFolder = cfolder;
+                            Utils.selectedSaves.Clear();
+                        }, Settings.curFolder);
+                    }
+                    TooltipHandler.TipRegion(folderSelRectBtnMassMove, "ARS_MassMoveSelectedSaves".Translate());
 
+                    Texture2D delTex = Tex.texDeleteFolder;
+                    if (Utils.selectedSaves.Count != 0)
+                        delTex = Tex.texDeleteSelected;
+
+                    if (Widgets.ButtonImageWithBG(folderSelRectBtnDel, delTex, new Vector2(24, 24)))
+                    {
+                        if (Utils.selectedSaves.Count != 0)
+                        {
+                            Find.WindowStack.Add(new Dialog_Msg("ARS_ConfirmRemoveSelectedFilesTitle".Translate(), "ARS_ConfirmRemoveSelectedFilesDesc".Translate(Utils.selectedSaves.Count), delegate
+                            {
+                                Utils.selectedSavesToDelete.AddRange(Utils.selectedSaves);
+                                Utils.selectedSaves.Clear();
+                            }, false, Color.red));
+                        }
+                        else
+                        {
+                            Find.WindowStack.Add(new Dialog_Msg("ARS_ConfirmRemoveFolderTitle".Translate(), "ARS_ConfirmRemoveFolderDesc".Translate(), delegate
+                            {
+                                //Confirmation of the deletion of the virtual folder we delete all the saves which are attached to it
+                                foreach (FileInfo current in GenFilePaths.AllSavedGameFiles)
+                                {
+                                    current.Delete();
+                                }
+
+                                //Delete all associated previews
+                                //Constitution list of previews storing the specified VF
+                                string text2 = Utils.getBasePathRSPreviews();
+                                string curPrefix = "";
+
+                                if (Settings.curFolder != "Default")
+                                    curPrefix = Settings.curFolder + Utils.VFOLDERSEP;
+
+                                DirectoryInfo directoryInfo = new DirectoryInfo(text2);
+                                IOrderedEnumerable<FileInfo> res;
+                                //Handling default folder removing
+                                if (curPrefix == "")
+                                {
+                                    res = from f in directoryInfo.GetFiles()
+                                          where f.Extension == ".jpg" && !f.FullName.Contains(Utils.VFOLDERSEP)
+                                          orderby f.LastWriteTime descending
+                                          select f;
+                                }
+                                else
+                                {
+                                    res = from f in directoryInfo.GetFiles()
+                                          where f.Extension == ".jpg" && f.FullName.Contains(curPrefix)
+                                          orderby f.LastWriteTime descending
+                                          select f;
+                                }
+
+                                //Same for previews
+                                foreach (var file in res)
+                                {
+                                    file.Delete();
+                                }
+
+                                //Same for meta
+                                text2 = Utils.getBasePathRSMeta();
+                                curPrefix = "";
+
+                                if (Settings.curFolder != "Default")
+                                    curPrefix = Settings.curFolder + Utils.VFOLDERSEP;
+
+                                directoryInfo = new DirectoryInfo(text2);
+
+                                if (curPrefix == "")
+                                {
+                                    res = from f in directoryInfo.GetFiles()
+                                          where f.Extension == ".dat" && !f.FullName.Contains(Utils.VFOLDERSEP)
+                                          orderby f.LastWriteTime descending
+                                          select f;
+                                }
+                                else
+                                {
+                                    res = from f in directoryInfo.GetFiles()
+                                          where f.Extension == ".dat" && f.FullName.Contains(curPrefix)
+                                          orderby f.LastWriteTime descending
+                                          select f;
+                                }
+
+                                foreach (var file in res)
+                                {
+                                    file.Delete();
+                                }
+
+                                // Delete deleted folder reference
+                                if (Settings.curFolder != "Default")
+                                    Settings.folders.Remove(Settings.curFolder);
+
+                                Utils.selectedSave = "";
+                                Utils.selectedSaves.Clear();
+
+                                Utils.changeFolder("Default", __instance);
+                            }, false, Color.red));
+                        }
+                    }
+
+                    if (Utils.selectedSaves.Count != 0)
+                        TooltipHandler.TipRegion(folderSelRectBtnDel, "ARS_ToolTipDelSelSaves".Translate());
+                    else
+                        TooltipHandler.TipRegion(folderSelRectBtnDel, "ARS_ToolTipDelFolder".Translate());
+
+                    GUI.color = Color.white;
                     if (isSaveDialog)
                     {
                         outRect.height -= 45;
@@ -436,17 +483,38 @@ namespace aRandomKiwi.ARS
                             }
                             Widgets.DrawHighlightIfMouseover(rect);
 
-                            if(prefixedFileName == Utils.selectedSave)
+                            if(prefixedFileName == Utils.selectedSave || Utils.selectedSaves.Contains(prefixedFileName))
                             {
                                 Widgets.DrawHighlightSelected(rect);
                             }
 
                             GUI.BeginGroup(rect);
-                            Rect rect2 = new Rect(rect.width - 36f, (rect.height - 36f) / 2f, 36f, 36f);
-                            if (Widgets.ButtonImage(rect2,Tex.texDeleteX2, Color.white, GenUI.SubtleMouseoverColor))
+
+                            Texture2D texSel = Tex.texUnSel;
+                            if (Utils.selectedSaves.Contains(prefixedFileName))
+                                texSel = Tex.texSel;
+                            Rect rectSelection = new Rect(rect.width - 36f, (rect.height - 36f) / 2f, 36f, 36f);
+                            if (Widgets.ButtonImage(rectSelection, texSel, Color.white, GenUI.SubtleMouseoverColor))
+                            {
+                                if (Utils.selectedSaves.Contains(prefixedFileName))
+                                {
+                                    Utils.selectedSaves.Remove(prefixedFileName);
+                                    SoundDefOf.Checkbox_TurnedOff.PlayOneShotOnCamera();
+                                }
+                                else
+                                {
+                                    Utils.selectedSaves.Add(prefixedFileName);
+                                    SoundDefOf.Checkbox_TurnedOn.PlayOneShotOnCamera();
+                                }
+                            }
+                            TooltipHandler.TipRegion(rectSelection, "ARS_SelectUnSelectSave".Translate());
+
+                            Rect rect2 = new Rect(rect.width - 72f, (rect.height - 28f) / 2f, 28f, 28f);
+                            bool needToBeDeleted = Utils.selectedSavesToDelete.Contains(prefixedFileName);
+                            if (Widgets.ButtonImage(rect2,Tex.texDeleteX2, Color.white, GenUI.SubtleMouseoverColor) || needToBeDeleted)
                             {
                                 FileInfo localFile = current.FileInfo;
-                                Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation("ConfirmDelete".Translate(localFile.Name), delegate
+                                Action confirm = delegate
                                 {
                                     localFile.Delete();
 
@@ -474,18 +542,42 @@ namespace aRandomKiwi.ARS
 
                                     //If folder selected == folder deleted then reset
                                     if (Utils.selectedSave == prefixedFileName)
+                                    {
                                         Utils.selectedSave = "";
+                                        if (Utils.selectedSaves.Contains(prefixedFileName))
+                                            Utils.selectedSaves.Remove(prefixedFileName);
+                                    }
 
-                                    Traverse.Create(__instance).Method("ReloadFiles").GetValue();
+                                    if (needToBeDeleted)
+                                    {
+                                        if (Utils.selectedSavesToDelete.Contains(prefixedFileName))
+                                            Utils.selectedSavesToDelete.Remove(prefixedFileName);
+                                        if (Utils.selectedSaves.Contains(prefixedFileName))
+                                            Utils.selectedSaves.Remove(prefixedFileName);
+
+                                        //Widgets.EndScrollView();
+                                        needReload = true;
+                                    }
+                                    else
+                                    {
+                                        Traverse.Create(__instance).Method("ReloadFiles").GetValue();
+                                    }
                                     //__instance.ReloadFiles();
-                                }, true, null, WindowLayer.SubSuper));
+                                };
+                                if (needToBeDeleted)
+                                {
+                                    confirm();
+                                }
+                                else
+                                    Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation("ConfirmDelete".Translate(localFile.Name), confirm, true, null, WindowLayer.SubSuper));
                             }
                             TooltipHandler.TipRegion(rect2, "DeleteThisSavegame".Translate());
 
-                            Rect rect20 = new Rect(rect.width - 72f, (rect.height - 36f) / 2f, 36f, 36f);
-                            if (Widgets.ButtonImage(rect20, Tex.texMove, Color.white, GenUI.SubtleMouseoverColor))
+                            Rect rect20 = new Rect(rect.width - 108f, (rect.height - 36f) / 2f, 36f, 36f);
+                            bool concernedByMassMove = Utils.selectedSavesToMove.Contains(prefixedFileName);
+                            if (Widgets.ButtonImage(rect20, Tex.texMove, Color.white, GenUI.SubtleMouseoverColor) || concernedByMassMove)
                             {
-                                Utils.showFolderList(delegate(string cfolder)
+                                Action<string> confirm = delegate (string cfolder)
                                 {
                                     string newFile;
                                     //File stored in Default?
@@ -502,7 +594,7 @@ namespace aRandomKiwi.ARS
                                         int pos2;
 
                                         Utils.getVFPosFromPath(tmpPath, out pos1, out pos2);
-                                        
+
                                         //If destination folder is the default then we sueeze the signature of VFOLDER
                                         if (cfolder == "Default")
                                             pos2 += 3;
@@ -513,14 +605,14 @@ namespace aRandomKiwi.ARS
                                         if (cfolder == "Default")
                                             newFile = tmpPath.Replace(toSubstitute, "");
                                         else
-                                            newFile = tmpPath.Replace(toSubstitute, cfolder );
+                                            newFile = tmpPath.Replace(toSubstitute, cfolder);
                                     }
 
                                     //Check the existence of a file with the same name in the destination, if necessary we add a particle to the file to be moved
                                     if (File.Exists(newFile))
                                     {
                                         string tmp;
-                                        for (int j=1; j!=100 ; j++)
+                                        for (int j = 1; j != 100; j++)
                                         {
                                             tmp = newFile;
                                             tmp = tmp.Replace(".rws", " #" + j + ".rws");
@@ -535,7 +627,7 @@ namespace aRandomKiwi.ARS
 
                                     //Move the backup to the new folder
                                     //Log.Message(newFile);
-                                    System.IO.File.Move(current.FileInfo.FullName,newFile);
+                                    System.IO.File.Move(current.FileInfo.FullName, newFile);
 
                                     //We MOVE also the preview if there is preview
                                     string pathPreview = Utils.getBasePathRSPreviews();
@@ -548,7 +640,7 @@ namespace aRandomKiwi.ARS
                                         string lastPart = newFile.Split(Path.DirectorySeparatorChar).Last();
 
                                         newPathPreview = Path.Combine(newPathPreview, lastPart);
-                                        newPathPreview = Utils.replaceLastOccurrence(newPathPreview,".rws", ".jpg");
+                                        newPathPreview = Utils.replaceLastOccurrence(newPathPreview, ".rws", ".jpg");
 
                                         System.IO.File.Move(pathPreview, newPathPreview);
                                         //Updating the preview cache
@@ -561,7 +653,7 @@ namespace aRandomKiwi.ARS
 
                                     if (File.Exists(pathMeta))
                                     {
-                                        string newPathMeta= Utils.getBasePathRSMeta();
+                                        string newPathMeta = Utils.getBasePathRSMeta();
 
                                         string lastPart = newFile.Split(Path.DirectorySeparatorChar).Last();
 
@@ -575,16 +667,34 @@ namespace aRandomKiwi.ARS
 
                                     //Si dossier selectionné == dossier déplacé alors reset
                                     if (Utils.selectedSave == prefixedFileName)
+                                    {
                                         Utils.selectedSave = "";
+                                        Utils.selectedSaves.Clear();
+                                    }
 
                                     //Window refresh
-                                    Utils.changeFolder(Settings.curFolder, __instance);
-
-                                },Settings.curFolder);
+                                    if (concernedByMassMove)
+                                    {
+                                        needReload = true;
+                                        if (Utils.selectedSavesToMove.Contains(prefixedFileName))
+                                            Utils.selectedSavesToMove.Remove(prefixedFileName);
+                                        if (Utils.selectedSavesToMove.Count == 0)
+                                            Utils.selectedSavesToMoveFolder = "";
+                                    }
+                                    else
+                                        Utils.changeFolder(Settings.curFolder, __instance);
+                                };
+                                if (concernedByMassMove)
+                                {
+                                    confirm(Utils.selectedSavesToMoveFolder);
+                                    continue;
+                                }
+                                else
+                                    Utils.showFolderList(confirm, Settings.curFolder);
                             }
                             TooltipHandler.TipRegion(rect20, "ARS_ToolTipMoveSave".Translate());
 
-                            Rect rect21 = new Rect(rect.width - 108f, (rect.height - 36f) / 2f, 36f, 36f);
+                            Rect rect21 = new Rect(rect.width - 144f, (rect.height - 36f) / 2f, 36f, 36f);
                             if (Widgets.ButtonImage(rect21, Tex.texMore, Color.white, GenUI.SubtleMouseoverColor))
                             {
                                 List<FloatMenuOption> listFO = new List<FloatMenuOption>();
@@ -638,7 +748,10 @@ namespace aRandomKiwi.ARS
 
                                         //If folder selected == folder moved then reset
                                         if (Utils.selectedSave == prefixedFileName)
+                                        {
                                             Utils.selectedSave = "";
+                                            Utils.selectedSaves.Clear();
+                                        }
 
                                         //Reload file list
                                         Utils.changeFolder(Settings.curFolder, __instance);
@@ -774,6 +887,13 @@ namespace aRandomKiwi.ARS
                         num2++;
                     }
                     Widgets.EndScrollView();
+                    //If mass delete op then reload file list
+                    if (needReload)
+                    {
+                        needReload = false;
+                        //Traverse.Create(__instance).Method("ReloadFiles").GetValue();
+                        Utils.changeFolder(Settings.curFolder, __instance);
+                    }
 
 
                     Rect saveFolder = new Rect(0, inRect.height + 15, 32, 32);

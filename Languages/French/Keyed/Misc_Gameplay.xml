@@ -18,6 +18,8 @@
 	
 	<ARS_ConfirmRemoveFolderTitle>Supprimer dossier</ARS_ConfirmRemoveFolderTitle>
 	<ARS_ConfirmRemoveFolderDesc>Souhaitez-vous vraiment supprimer ce dossier ? tous les fichiers contenus seront supprimés également !</ARS_ConfirmRemoveFolderDesc>
+	<ARS_ConfirmRemoveSelectedFilesTitle>Suppression des sauvegardes selectionnées</ARS_ConfirmRemoveSelectedFilesTitle>
+	<ARS_ConfirmRemoveSelectedFilesDesc>Êtes-vous vraiment sûr de vouloir supprimer les {0} sauvegardes selectionnées ?</ARS_ConfirmRemoveSelectedFilesDesc>
 	<ARS_FolderAlreadyExist>Le nom de dossier existe déjà !</ARS_FolderAlreadyExist>
 	<ARS_ToolTipMoveSave>Déplacer cette sauvegarde dans un autre dossier</ARS_ToolTipMoveSave>
 	<ARS_ToolTipAddFolder>Créer un nouveau dossier</ARS_ToolTipAddFolder>
@@ -31,6 +33,10 @@
 	<ARS_NoSQToLoad>Pas de fichier de sauvegarde rapide à charger !</ARS_NoSQToLoad>
 	<ARS_OpenSaveFolder>Ouvrir le dossier des sauvegardes</ARS_OpenSaveFolder>
 	<ARS_SettingsNbQuicksaves>Nombre de sauvegardes rapides max ( {0} )</ARS_SettingsNbQuicksaves>
+	<ARS_MassMoveSelectedSaves>Déplacer les sauvegardes selectionnées vers un autre dossier</ARS_MassMoveSelectedSaves>
+	<ARS_SelectUnSelectSave>Selectionner/déselectionner cet sauvegarde</ARS_SelectUnSelectSave>
+	<ARS_ToolTipDelSelSaves>Supprimer les sauvegardes selectionnées</ARS_ToolTipDelSelSaves>
+	<ARS_ToolTipEditFolderName>Changer le nom du dossier</ARS_ToolTipEditFolderName>
 	
 	<ARS_SavePreviewSize>Taille sauvegarde : {0}</ARS_SavePreviewSize>
 	<ARS_SavePreviewScenario>Scenario : {0}</ARS_SavePreviewScenario>

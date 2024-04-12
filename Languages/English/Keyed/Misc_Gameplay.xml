@@ -18,6 +18,8 @@
 	
 	<ARS_ConfirmRemoveFolderTitle>Delete folder</ARS_ConfirmRemoveFolderTitle>
 	<ARS_ConfirmRemoveFolderDesc>Do you really want to remove this folder ? all contained saves will be removed too !</ARS_ConfirmRemoveFolderDesc>
+	<ARS_ConfirmRemoveSelectedFilesTitle>Delete selected saves</ARS_ConfirmRemoveSelectedFilesTitle>
+	<ARS_ConfirmRemoveSelectedFilesDesc>Do you really want to delete the {0} selected saves ?</ARS_ConfirmRemoveSelectedFilesDesc>
 	<ARS_FolderAlreadyExist>Folder name already exist !</ARS_FolderAlreadyExist>
 	<ARS_ToolTipMoveSave>Move this save to another folder</ARS_ToolTipMoveSave>
 	<ARS_ToolTipAddFolder>Create a new folder</ARS_ToolTipAddFolder>
@@ -31,6 +33,10 @@
 	<ARS_NoSQToLoad>No quicksave file to load !</ARS_NoSQToLoad>
 	<ARS_OpenSaveFolder>Open the save files folder</ARS_OpenSaveFolder>
 	<ARS_SettingsNbQuicksaves>Max number of quicksaves ( {0} )</ARS_SettingsNbQuicksaves>
+	<ARS_MassMoveSelectedSaves>Move selected saves to another folder</ARS_MassMoveSelectedSaves>
+	<ARS_SelectUnSelectSave>Select/unselect this save</ARS_SelectUnSelectSave>
+	<ARS_ToolTipDelSelSaves>Delete selected saves</ARS_ToolTipDelSelSaves>
+	<ARS_ToolTipEditFolderName>Change folder name</ARS_ToolTipEditFolderName>
 	
 	<ARS_SavePreviewSize>Save size : {0}</ARS_SavePreviewSize>
 	<ARS_SavePreviewScenario>Scenario : {0}</ARS_SavePreviewScenario>

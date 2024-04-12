@@ -54,6 +54,7 @@ namespace aRandomKiwi.ARS
 
         void Update()
         {
+            //Utils.ctrlLeftPressed = Utils.ControlIsHeld;
             if (wantScreenShot)
             {
                 screenshotSaved = false;
