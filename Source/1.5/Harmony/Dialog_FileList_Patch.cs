@@ -753,6 +753,10 @@ namespace aRandomKiwi.ARS
                                             Utils.updateCachedMetaPath(pathMeta, newPathMeta);
                                         }
 
+                                        //Prevent ghost selected save
+                                        if (Utils.selectedSaves.Contains(prefixedFileName))
+                                            Utils.selectedSaves.Remove(prefixedFileName);
+
                                         //If folder selected == folder moved then reset
                                         if (Utils.selectedSave == prefixedFileName)
                                         {
