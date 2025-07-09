@@ -20,6 +20,7 @@ namespace aRandomKiwi.ARS
         public static string filter="";
         public static bool initDialog = false;
         public static string selectedSave = "";
+        public static string saveToLoad = "";
         public static string loadedSave = "";
         public static List<string> selectedSaves = new List<string>();
         public static List<string> selectedSavesToDelete = new List<string>();

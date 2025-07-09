@@ -888,7 +888,7 @@ namespace aRandomKiwi.ARS
                             Rect rect3 = new Rect(rect21.x - 100f, (rect.height - 36f) / 2f, 100f, 36f);
                             if (Widgets.ButtonText(rect3, ___interactButLabel, true, false, true))
                             {
-                                Utils.loadedSave = prefixedFileName;
+                                Utils.saveToLoad = prefixedFileName;
                                 //__instance.DoFileInteraction(Path.GetFileNameWithoutExtension(current.FileInfo.Name));
                                 Traverse.Create(__instance).Method("DoFileInteraction", Path.GetFileNameWithoutExtension(current.FileInfo.Name)).GetValue();
                             }
