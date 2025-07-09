@@ -527,7 +527,7 @@ namespace aRandomKiwi.ARS
             string text2 = Utils.getBasePathRSPreviews();
             directoryInfo = new DirectoryInfo(text2);
             res = from f in directoryInfo.GetFiles()
-                  where f.Extension == ".jpg" && f.FullName.Contains(curPrefix)
+                  where (f.Extension == ".jpg" || f.Extension == ".dat") && f.FullName.Contains(curPrefix)
                   orderby f.LastWriteTime descending
                   select f;
 

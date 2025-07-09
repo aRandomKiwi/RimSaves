@@ -126,10 +126,13 @@ namespace aRandomKiwi.ARS
                     //Check if no preview for the save selected
                     if (Utils.selectedSave != "")
                     {
-                        string previewpath=Utils.getBasePathRSPreviews();
-                        previewpath = Path.Combine(previewpath, Utils.selectedSave)+".jpg";
+                        string previewpathBase=Utils.getBasePathRSPreviews();
+                        string previewpath = "";
+                        previewpath = Path.Combine(previewpathBase, Utils.selectedSave)+".dat";
+                        if(!File.Exists(previewpath))
+                            previewpath = Path.Combine(previewpathBase, Utils.selectedSave) + ".jpg";
 
-                       Texture2D tmp = Utils.loadPreview(previewpath);
+                        Texture2D tmp = Utils.loadPreview(previewpath);
                         if (tmp != null)
                             preview = tmp;
                     }
@@ -389,14 +392,14 @@ namespace aRandomKiwi.ARS
                                 if (curPrefix == "")
                                 {
                                     res = from f in directoryInfo.GetFiles()
-                                          where f.Extension == ".jpg" && !f.FullName.Contains(Utils.VFOLDERSEP)
+                                          where (f.Extension == ".jpg" || f.Extension == ".dat") && !f.FullName.Contains(Utils.VFOLDERSEP)
                                           orderby f.LastWriteTime descending
                                           select f;
                                 }
                                 else
                                 {
                                     res = from f in directoryInfo.GetFiles()
-                                          where f.Extension == ".jpg" && f.FullName.Contains(curPrefix)
+                                          where (f.Extension == ".jpg" || f.Extension == ".dat") && f.FullName.Contains(curPrefix)
                                           orderby f.LastWriteTime descending
                                           select f;
                                 }
@@ -526,8 +529,11 @@ namespace aRandomKiwi.ARS
                                         prefix = Settings.curFolder + Utils.VFOLDERSEP;
 
                                     //If preview associated
-                                    string pathPreview = Utils.getBasePathRSPreviews();
-                                    pathPreview = Path.Combine(pathPreview, prefixedFileName + ".jpg");
+                                    string pathPreviewBase = Utils.getBasePathRSPreviews();
+                                    string pathPreview = "";
+                                    pathPreview = Path.Combine(pathPreviewBase, prefixedFileName + ".dat");
+                                    if(!File.Exists(pathPreview))
+                                        pathPreview = Path.Combine(pathPreviewBase, prefixedFileName + ".jpg");
 
                                     if (File.Exists(pathPreview))
                                     {
@@ -652,9 +658,12 @@ namespace aRandomKiwi.ARS
                                     System.IO.File.Move(current.FileInfo.FullName, newFile);
 
                                     //We MOVE also the preview if there is preview
-                                    string pathPreview = Utils.getBasePathRSPreviews();
-                                    pathPreview = Path.Combine(pathPreview, prefixedFileName + ".jpg");
-                                    
+                                    string pathPreviewBase = Utils.getBasePathRSPreviews();
+                                    string pathPreview = "";
+                                    pathPreview = Path.Combine(pathPreviewBase, prefixedFileName + ".dat");
+                                    if(!File.Exists(pathPreview))
+                                        pathPreview = Path.Combine(pathPreviewBase, prefixedFileName + ".jpg");
+
                                     if (File.Exists(pathPreview))
                                     {
                                         string newPathPreview = Utils.getBasePathRSPreviews();
@@ -662,7 +671,7 @@ namespace aRandomKiwi.ARS
                                         string lastPart = newFile.Split(Path.DirectorySeparatorChar).Last();
 
                                         newPathPreview = Path.Combine(newPathPreview, lastPart);
-                                        newPathPreview = Utils.replaceLastOccurrence(newPathPreview, ".rws", ".jpg");
+                                        newPathPreview = Utils.replaceLastOccurrence(newPathPreview, ".rws", ".dat");
 
                                         try
                                         {
@@ -746,8 +755,11 @@ namespace aRandomKiwi.ARS
                                         //Effective name change
                                         System.IO.File.Move(current.FileInfo.FullName, path);
 
-                                        string pathPreview = Utils.getBasePathRSPreviews();
-                                        pathPreview = Path.Combine(pathPreview, prefixedFileName + ".jpg");
+                                        string pathPreviewBase = Utils.getBasePathRSPreviews();
+                                        string pathPreview = "";
+                                        pathPreview = Path.Combine(pathPreviewBase, prefixedFileName + ".dat");
+                                        if (!File.Exists(pathPreview))
+                                            pathPreview = Path.Combine(pathPreviewBase, prefixedFileName + ".jpg");
 
                                         if (File.Exists(pathPreview))
                                         {
@@ -756,7 +768,7 @@ namespace aRandomKiwi.ARS
                                             if (Settings.curFolder != "Default")
                                                 prefix = Settings.curFolder + Utils.VFOLDERSEP;
 
-                                            newPathPreview = Path.Combine(newPathPreview, prefix + value + ".jpg");
+                                            newPathPreview = Path.Combine(newPathPreview, prefix + value + ".dat");
 
                                             System.IO.File.Move(pathPreview, newPathPreview);
                                             //Updating the preview cache
@@ -828,8 +840,11 @@ namespace aRandomKiwi.ARS
                                         System.IO.File.Copy(current.FileInfo.FullName, path);
 
                                         //If preview associated
-                                        string pathPreview = Utils.getBasePathRSPreviews();
-                                        pathPreview = Path.Combine(pathPreview, prefixedFileName + ".jpg");
+                                        string pathPreviewBase = Utils.getBasePathRSPreviews();
+                                        string pathPreview = "";
+                                        pathPreview = Path.Combine(pathPreviewBase, prefixedFileName + ".dat");
+                                        if (!File.Exists(pathPreview))
+                                            pathPreview = Path.Combine(pathPreviewBase, prefixedFileName + ".jpg");
 
                                         if (File.Exists(pathPreview))
                                         {
@@ -838,7 +853,7 @@ namespace aRandomKiwi.ARS
                                             if (Settings.curFolder != "Default")
                                                 prefix = Settings.curFolder + Utils.VFOLDERSEP;
 
-                                            newPathPreview = Path.Combine(newPathPreview, prefix + value + ".jpg");
+                                            newPathPreview = Path.Combine(newPathPreview, prefix + value + ".dat");
 
                                             System.IO.File.Copy(pathPreview, newPathPreview);
                                         }

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.IO;
 using Verse;
+using System;
 
 namespace aRandomKiwi.ARS
 {
@@ -42,7 +43,7 @@ namespace aRandomKiwi.ARS
         {
             string ret = Utils.getBasePathRSPreviews();
 
-            ret = Path.Combine(ret, fn) + ".jpg";
+            ret = Path.Combine(ret, fn) + ".dat";
 
             return ret;
         }
@@ -115,20 +116,27 @@ namespace aRandomKiwi.ARS
                 // create new thread to save the image to file (only operation that can be done in background)
                 new System.Threading.Thread(() =>
                 {
-                    // create file and write optional header with image bytes
-                    var f = System.IO.File.Create(filename);
-                    if (fileHeader != null) f.Write(fileHeader, 0, fileHeader.Length);
-                    f.Write(fileData, 0, fileData.Length);
-                    f.Close();
+                    try
+                    {
+                        // create file and write optional header with image bytes
+                        var f = System.IO.File.Create(filename);
+                        if (fileHeader != null) f.Write(fileHeader, 0, fileHeader.Length);
+                        f.Write(fileData, 0, fileData.Length);
+                        f.Close();
 
-                    screenshotSaved = true;
+                        screenshotSaved = true;
 
-                    //Purge du cache
-                    string p = getPath(saveName);
-                    if (p != null && Utils.cachedPreviews.ContainsKey(p))
-                        Utils.cachedPreviews.Remove(p);
+                        //Purge du cache
+                        string p = getPath(saveName);
+                        if (p != null && Utils.cachedPreviews.ContainsKey(p))
+                            Utils.cachedPreviews.Remove(p);
 
-                    Debug.Log(string.Format("Wrote screenshot {0} of size {1}", filename, fileData.Length));
+                        Debug.Log(string.Format("Wrote screenshot {0} of size {1}", filename, fileData.Length));
+                    }
+                    catch(Exception e)
+                    {
+                        Debug.Log(e.Message);
+                    }
                 }).Start();
 
                 // unhide optional game object if set
