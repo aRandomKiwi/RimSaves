@@ -24,6 +24,7 @@ namespace aRandomKiwi.ARS
         public static int nbMinSecBetweenIncidents = 5;
         public static long nbMinSecBetweenIncidentsTsNegative = 0;
         public static long nbMinSecBetweenIncidentsTsPositive = 0;
+        public static bool enableLiteMode = false;
 
 
         public static bool SectionGeneralExpanded = false;
@@ -64,6 +65,7 @@ namespace aRandomKiwi.ARS
 
             if (SectionGeneralExpanded)
             {
+                list.CheckboxLabeled("ARS_SettingsLiteMode".Translate(), ref enableLiteMode);
                 list.CheckboxLabeled("ARS_SettingsUniqueQuicksaveName".Translate(), ref uniqueQuicksaveName);
                 list.CheckboxLabeled("ARS_SettingsUniqueSavenameOnSave".Translate(), ref uniqueSaveName);
 
@@ -152,6 +154,7 @@ namespace aRandomKiwi.ARS
             Scribe_Values.Look<int>(ref nbMinSecBetweenIncidents, "nbMinSecBetweenIncidents", 5);
             Scribe_Values.Look<long>(ref nbMinSecBetweenIncidentsTsNegative, "nbMinSecBetweenIncidentsTsNegative", 0);
             Scribe_Values.Look<long>(ref nbMinSecBetweenIncidentsTsPositive, "nbMinSecBetweenIncidentsTsPositive", 0);
+            Scribe_Values.Look<bool>(ref enableLiteMode, "enableLiteMode", false);
         } 
     }
 }

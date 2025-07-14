@@ -17,7 +17,7 @@ namespace aRandomKiwi.ARS
         {
             get
             {
-                return 96;
+                return 196;
             }
         }
 

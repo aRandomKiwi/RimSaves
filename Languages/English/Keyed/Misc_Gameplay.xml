@@ -15,6 +15,7 @@
 	<ARS_SettingsDisableQuicksavesNotifs>Disable quicksaves notifications</ARS_SettingsDisableQuicksavesNotifs>
 	<ARS_SettingsQuicksaveRotation>Enable quicksave rotation</ARS_SettingsQuicksaveRotation>
 	<ARS_SettingsSecsMinBetweenIncidents>Minimum number of seconds between each saves triggered by an incident ({0})</ARS_SettingsSecsMinBetweenIncidents>
+	<ARS_SettingsLiteMode>Enable the light UI mode</ARS_SettingsLiteMode>
 	
 	<ARS_ConfirmRemoveFolderTitle>Delete folder</ARS_ConfirmRemoveFolderTitle>
 	<ARS_ConfirmRemoveFolderDesc>Do you really want to remove this folder ? all contained saves will be removed too !</ARS_ConfirmRemoveFolderDesc>

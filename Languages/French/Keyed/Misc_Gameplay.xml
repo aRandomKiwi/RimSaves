@@ -15,6 +15,7 @@
 	<ARS_SettingsDisableQuicksavesNotifs>Désactiver les notifications de sauvegardes rapides</ARS_SettingsDisableQuicksavesNotifs>
 	<ARS_SettingsQuicksaveRotation>Activer la rotation des sauvegardes rapides</ARS_SettingsQuicksaveRotation>
 	<ARS_SettingsSecsMinBetweenIncidents>Nombre de secondes minimum entre chaque sauvegardes déclenchées par un incident ({0})</ARS_SettingsSecsMinBetweenIncidents>
+	<ARS_SettingsLiteMode>Activer le mode d'interface épuré</ARS_SettingsLiteMode>
 	
 	<ARS_ConfirmRemoveFolderTitle>Supprimer dossier</ARS_ConfirmRemoveFolderTitle>
 	<ARS_ConfirmRemoveFolderDesc>Souhaitez-vous vraiment supprimer ce dossier ? tous les fichiers contenus seront supprimés également !</ARS_ConfirmRemoveFolderDesc>

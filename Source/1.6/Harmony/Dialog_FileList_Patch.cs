@@ -514,7 +514,7 @@ namespace aRandomKiwi.ARS
 
                             Rect rect2 = new Rect(rect.width - 72f, (rect.height - 28f) / 2f, 28f, 28f);
                             bool needToBeDeleted = Utils.selectedSavesToDelete.Contains(prefixedFileName);
-                            if (Widgets.ButtonImage(rect2,Tex.texDeleteX2, Color.white, GenUI.SubtleMouseoverColor) || needToBeDeleted)
+                            if (needToBeDeleted || (!Settings.enableLiteMode && Widgets.ButtonImage(rect2,Tex.texDeleteX2, Color.white, GenUI.SubtleMouseoverColor)))
                             {
                                 FileInfo localFile = current.FileInfo;
                                 Action confirm = delegate
@@ -595,11 +595,12 @@ namespace aRandomKiwi.ARS
                                 else
                                     Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation("ConfirmDelete".Translate(localFile.Name), confirm, true, null, WindowLayer.SubSuper));
                             }
-                            TooltipHandler.TipRegion(rect2, "DeleteThisSavegame".Translate());
+                            if(!Settings.enableLiteMode)
+                                TooltipHandler.TipRegion(rect2, "DeleteThisSavegame".Translate());
 
                             Rect rect20 = new Rect(rect.width - 108f, (rect.height - 36f) / 2f, 36f, 36f);
                             bool concernedByMassMove = Utils.selectedSavesToMove.Contains(prefixedFileName);
-                            if (Widgets.ButtonImage(rect20, Tex.texMove, Color.white, GenUI.SubtleMouseoverColor) || concernedByMassMove)
+                            if (concernedByMassMove || (!Settings.enableLiteMode && Widgets.ButtonImage(rect20, Tex.texMove, Color.white, GenUI.SubtleMouseoverColor)))
                             {
                                 Action<string> confirm = delegate (string cfolder)
                                 {
@@ -735,12 +736,48 @@ namespace aRandomKiwi.ARS
                                 else
                                     Utils.showFolderList(confirm, Settings.curFolder);
                             }
-                            TooltipHandler.TipRegion(rect20, "ARS_ToolTipMoveSave".Translate());
+                            if(!Settings.enableLiteMode)
+                                TooltipHandler.TipRegion(rect20, "ARS_ToolTipMoveSave".Translate());
 
-                            Rect rect21 = new Rect(rect.width - 144f, (rect.height - 36f) / 2f, 36f, 36f);
+                            Rect rect21;
+                            if (Settings.enableLiteMode)
+                                rect21 = rect2;
+                            else
+                                rect21 = new Rect(rect.width - 144f, (rect.height - 36f) / 2f, 36f, 36f);
+
                             if (Widgets.ButtonImage(rect21, Tex.texMore, Color.white, GenUI.SubtleMouseoverColor))
                             {
                                 List<FloatMenuOption> listFO = new List<FloatMenuOption>();
+
+                                if (Settings.enableLiteMode)
+                                {
+                                    listFO.Add(new FloatMenuOption(Utils.OPTNSTART + ___interactButLabel, delegate
+                                    {
+                                        Utils.saveToLoad = prefixedFileName;
+                                        //__instance.DoFileInteraction(Path.GetFileNameWithoutExtension(current.FileInfo.Name));
+                                        Traverse.Create(__instance).Method("DoFileInteraction", Path.GetFileNameWithoutExtension(current.FileInfo.Name)).GetValue();
+                                    }, MenuOptionPriority.Default, null, null, 0f, null, null));
+
+                                    listFO.Add(new FloatMenuOption(Utils.OPTNSTART + "ARS_ToolTipMoveSave".Translate(), delegate
+                                    {
+                                        Utils.showFolderList(delegate (string cfolder)
+                                        {
+                                            Utils.selectedSavesToMove.Add(prefixedFileName);
+                                            Utils.selectedSavesToMoveFolder = cfolder;
+                                        }, Settings.curFolder);
+                                    }, MenuOptionPriority.Default, null, null, 0f, null, null));
+
+                                    listFO.Add(new FloatMenuOption(Utils.OPTNSTART + "DeleteThisSavegame".Translate(), delegate
+                                    {
+
+                                        FileInfo localFile = current.FileInfo;
+                                        Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation("ConfirmDelete".Translate(localFile.Name), delegate
+                                        {
+                                            Utils.selectedSavesToDelete.Add(prefixedFileName);
+                                        }, true, null, WindowLayer.SubSuper));
+                                    }, MenuOptionPriority.Default, null, null, 0f, null, null));
+                                }
+
                                 listFO.Add(new FloatMenuOption(Utils.OPTNSTART + "ARS_OP_RENAME".Translate(), delegate
                                 {
                                     Find.WindowStack.Add(new Dialog_Input(delegate (string value)
@@ -901,26 +938,41 @@ namespace aRandomKiwi.ARS
 
                             Text.Font = GameFont.Small;
                             Rect rect3 = new Rect(rect21.x - 100f, (rect.height - 36f) / 2f, 100f, 36f);
-                            if (Widgets.ButtonText(rect3, ___interactButLabel, true, false, true))
+                            if (!Settings.enableLiteMode && Widgets.ButtonText(rect3, ___interactButLabel, true, false, true))
                             {
                                 Utils.saveToLoad = prefixedFileName;
                                 //__instance.DoFileInteraction(Path.GetFileNameWithoutExtension(current.FileInfo.Name));
                                 Traverse.Create(__instance).Method("DoFileInteraction", Path.GetFileNameWithoutExtension(current.FileInfo.Name)).GetValue();
                             }
-                            Rect rect4 = new Rect(rect3.x - 94f, 0f, 94f, rect.height);
+                            Rect rect4;
+                            if (Settings.enableLiteMode)
+                                rect4 = new Rect(rect2.x - 94f, 0f, 94f, rect.height);
+                            else
+                                rect4 = new Rect(rect3.x - 94f, 0f, 94f, rect.height);
+
                             Dialog_FileList.DrawDateAndVersion(current, rect4);
                             GUI.color = Color.white;
                             Text.Anchor = TextAnchor.UpperLeft;
                             //GUI.color = __instance.FileNameColor(current);
                             GUI.color = (Color)Traverse.Create(__instance).Method("FileNameColor", current).GetValue();
 
-                            Rect rect5 = new Rect(308f, 0f, rect4.x - 8f - 4f-36f, rect.height);
+                            Rect rect5;
+                            string tfFN;
+                            if (Settings.enableLiteMode)
+                            {
+                                rect5 = new Rect(308f, 0f, rect4.x - 308f, rect.height);
+                                tfFN = fileNameWithoutExtension.Truncate(rect4.x - 308f - 80f, null);
+                            }
+                            else
+                            {
+                                tfFN = fileNameWithoutExtension.Truncate(240f, null);
+                                rect5 = new Rect(308f, 0f, rect4.x - 320f, rect.height);
+                            }
                             Text.Anchor = TextAnchor.MiddleLeft;
                             Text.Font = GameFont.Small;
 
 
                             //Widgets.Label(rect5, fileNameWithoutExtension.Truncate(rect5.width * 1.8f, null));
-                            string tfFN = fileNameWithoutExtension.Truncate(290f, null);
                             if (Widgets.ButtonText(rect5, tfFN,false, false))
                             {
                                 Utils.selectedSave = prefixedFileName;
