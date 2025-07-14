@@ -25,6 +25,7 @@ namespace aRandomKiwi.ARS
         public static long nbMinSecBetweenIncidentsTsNegative = 0;
         public static long nbMinSecBetweenIncidentsTsPositive = 0;
         public static bool enableLiteMode = false;
+        public static int maxSaveCharLength = 96;
 
 
         public static bool SectionGeneralExpanded = false;
@@ -85,6 +86,9 @@ namespace aRandomKiwi.ARS
 
                 list.Label("ARS_SettingsNbAutosave".Translate(Settings.nbAutosave));
                 nbAutosave = (int)list.Slider(nbAutosave, 2, 150);
+
+                list.Label("ARS_SettingsMaxSaveCharLength".Translate(Settings.maxSaveCharLength));
+                maxSaveCharLength = (int)list.Slider(maxSaveCharLength, 40, 200);
             }
             //QuickSaves on incidents
             if (SectionIncidentsExpanded)
@@ -155,6 +159,7 @@ namespace aRandomKiwi.ARS
             Scribe_Values.Look<long>(ref nbMinSecBetweenIncidentsTsNegative, "nbMinSecBetweenIncidentsTsNegative", 0);
             Scribe_Values.Look<long>(ref nbMinSecBetweenIncidentsTsPositive, "nbMinSecBetweenIncidentsTsPositive", 0);
             Scribe_Values.Look<bool>(ref enableLiteMode, "enableLiteMode", false);
+            Scribe_Values.Look<int>(ref maxSaveCharLength, "maxSaveCharLength", 96);
         } 
     }
 }

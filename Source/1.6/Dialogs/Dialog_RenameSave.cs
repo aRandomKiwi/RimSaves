@@ -17,7 +17,7 @@ namespace aRandomKiwi.ARS
         {
             get
             {
-                return 28;
+                return Settings.maxSaveCharLength;
             }
         }
 
@@ -59,7 +59,7 @@ namespace aRandomKiwi.ARS
                 Event.current.Use();
             }
             GUI.SetNextControlName("SaveNameField");
-            string text = Widgets.TextField(new Rect(0f, 15f, inRect.width, 35f), this.curName);
+            string text = Widgets.TextField(new Rect(0f, 15f, inRect.width, 35f), this.curName, Settings.maxSaveCharLength);
             if (text.Length < this.MaxNameLength)
             {
                 this.curName = text;

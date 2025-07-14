@@ -664,7 +664,6 @@ namespace aRandomKiwi.ARS
             return new String(output);
         }
 
-
         public static List<string> negativeIncidents = null;
         public static List<string> positiveIncidents = null;
 

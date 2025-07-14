@@ -52,7 +52,7 @@ namespace aRandomKiwi.ARS
         {
             [HarmonyPrefix]
             public static bool Listener(Dialog_FileList __instance, Rect inRect, 
-                ref List<SaveFileInfo> ___files, ref float ___bottomAreaHeight, ref Vector2 ___scrollPosition, ref string ___interactButLabel, ref string ___typingName)
+                ref List<SaveFileInfo> ___files, ref float ___bottomAreaHeight, ref Vector2 ___scrollPosition, ref string ___interactButLabel, ref string ___typingName, bool ___focusedNameArea)
             {
                 try
                 {
@@ -157,7 +157,8 @@ namespace aRandomKiwi.ARS
                     if (isSaveDialog)
                     {
                         //__instance.DoTypeInField(inRect.AtZero());
-                        Traverse.Create(__instance).Method("DoTypeInField", inRect.AtZero()).GetValue();
+                        //Traverse.Create(__instance).Method("DoTypeInField", inRect.AtZero()).GetValue();
+                        DoTypeInField(inRect.AtZero(), ref ___typingName, ref ___focusedNameArea,  ref __instance);
                     }
 
                     //Selected map meta data
@@ -1029,6 +1030,43 @@ namespace aRandomKiwi.ARS
                     Utils.logMsg("Error : " + e.Message+"\nStackTrace : "+e.StackTrace);
                     return true;
                 }
+            }
+
+            static private void DoTypeInField(Rect rect, ref string typingName, ref bool focusedNameArea, ref Dialog_FileList instance)
+            {
+                Widgets.BeginGroup(rect);
+                bool flag = Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Return;
+                float y = rect.height - 35f;
+                Text.Font = GameFont.Small;
+                Text.Anchor = TextAnchor.MiddleLeft;
+                GUI.SetNextControlName("MapNameField");
+                string str = Widgets.TextField(new Rect(5f, y, 400f, 35f), typingName, Settings.maxSaveCharLength);
+
+                if (!(str.Length > Settings.maxSaveCharLength))
+                {
+                    typingName = str;
+                }
+
+
+                if (!focusedNameArea)
+                {
+                    UI.FocusControl("MapNameField", instance);
+                    focusedNameArea = true;
+                }
+                if (Widgets.ButtonText(new Rect(420f, y, rect.width - 400f - 20f, 35f), "SaveGameButton".Translate()) || flag)
+                {
+                    if (typingName.NullOrEmpty())
+                    {
+                        Messages.Message("NeedAName".Translate(), MessageTypeDefOf.RejectInput, historical: false);
+                    }
+                    else
+                    {
+                        Traverse.Create(instance).Method("DoFileInteraction", typingName?.Trim()).GetValue();
+                        //DoFileInteraction(typingName?.Trim());
+                    }
+                }
+                Text.Anchor = TextAnchor.UpperLeft;
+                Widgets.EndGroup();
             }
         }
     }

@@ -17,7 +17,7 @@ namespace aRandomKiwi.ARS
         {
             get
             {
-                return 196;
+                return Settings.maxSaveCharLength;
             }
         }
 
