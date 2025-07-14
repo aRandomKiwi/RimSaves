@@ -1018,7 +1018,11 @@ namespace aRandomKiwi.ARS
 
                     if (Widgets.ButtonImage(new Rect(inRect.width - 168, inRect.height + 5, 167, 40), Tex.texLogo, Color.white, Color.green))
                     {
+                        if (isSaveDialog)
+                            __instance.Close(false);
+
                         var dialog = new Dialog_ModSettings(Utils.curModRef);
+
                         Traverse.Create(dialog).Field<Mod>("selMod").Value = Utils.curModRef;
                         Find.WindowStack.Add(dialog);
                     }

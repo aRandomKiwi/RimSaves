@@ -42,7 +42,7 @@ namespace aRandomKiwi.ARS
 
         protected virtual AcceptanceReport NameIsValid(string name)
         {
-            if (name.Length == 0)
+            if (name.Length == 0 || name.Length > Settings.maxSaveCharLength)
             {
                 return false;
             }
