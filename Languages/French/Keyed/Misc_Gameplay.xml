@@ -39,6 +39,7 @@
 	<ARS_SelectUnSelectSave>Selectionner/déselectionner cet sauvegarde</ARS_SelectUnSelectSave>
 	<ARS_ToolTipDelSelSaves>Supprimer les sauvegardes selectionnées</ARS_ToolTipDelSelSaves>
 	<ARS_ToolTipEditFolderName>Changer le nom du dossier</ARS_ToolTipEditFolderName>
+	<ARS_ToolTipOrderSaves>Trier les sauvegardes par date/nom et par ordre croissant/décroissant</ARS_ToolTipOrderSaves>
 	
 	<ARS_SavePreviewSize>Taille sauvegarde : {0}</ARS_SavePreviewSize>
 	<ARS_SavePreviewScenario>Scenario : {0}</ARS_SavePreviewScenario>
@@ -53,4 +54,11 @@
 	<ARS_SavePreviewMissing>Aucune donnée disponible, chargez cette sauvegarde au moins une fois pour afficher les données d'aperçu</ARS_SavePreviewMissing>
 	<ARS_SavePreviewSeed>Seed : {0}</ARS_SavePreviewSeed>
 	<ARS_SavePreviewFaction>Faction : {0}</ARS_SavePreviewFaction>
+	
+	<ARS_SaveOrderByDateASC>Trie par date croissante</ARS_SaveOrderByDateASC>
+	<ARS_SaveOrderByDateDESC>Trie par date décroissante</ARS_SaveOrderByDateDESC>
+	<ARS_SaveOrderByNameASC>Trie par nom croissant</ARS_SaveOrderByNameASC>
+	<ARS_SaveOrderByNameDESC>Trie par nom décroissant</ARS_SaveOrderByNameDESC>
+	<ARS_SaveOrderBySizeASC>Trie par taille croissante</ARS_SaveOrderBySizeASC>
+	<ARS_SaveOrderBySizeDESC>Trie par taille décroissante</ARS_SaveOrderBySizeDESC>
 </LanguageData>

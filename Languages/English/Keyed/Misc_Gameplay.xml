@@ -39,6 +39,7 @@
 	<ARS_SelectUnSelectSave>Select/unselect this save</ARS_SelectUnSelectSave>
 	<ARS_ToolTipDelSelSaves>Delete selected saves</ARS_ToolTipDelSelSaves>
 	<ARS_ToolTipEditFolderName>Change folder name</ARS_ToolTipEditFolderName>
+	<ARS_ToolTipOrderSaves>Sort saves by date/name and ascending/descending order</ARS_ToolTipOrderSaves>
 	
 	<ARS_SavePreviewSize>Save size : {0}</ARS_SavePreviewSize>
 	<ARS_SavePreviewScenario>Scenario : {0}</ARS_SavePreviewScenario>
@@ -53,4 +54,11 @@
 	<ARS_SavePreviewMissing>No data available, load this save at least one time to display preview data.</ARS_SavePreviewMissing>
 	<ARS_SavePreviewSeed>Seed : {0}</ARS_SavePreviewSeed>
 	<ARS_SavePreviewFaction>Faction : {0}</ARS_SavePreviewFaction>
+	
+	<ARS_SaveOrderByDateASC>Sort by ascending date</ARS_SaveOrderByDateASC>
+	<ARS_SaveOrderByDateDESC>Sort by descending date</ARS_SaveOrderByDateDESC>
+	<ARS_SaveOrderByNameASC>Sort by name ascending</ARS_SaveOrderByNameASC>
+	<ARS_SaveOrderByNameDESC>Sort by name descending</ARS_SaveOrderByNameDESC>
+	<ARS_SaveOrderBySizeASC>Sort by ascending size</ARS_SaveOrderBySizeASC>
+	<ARS_SaveOrderBySizeDESC>Sort by descending size</ARS_SaveOrderBySizeDESC>
 </LanguageData>

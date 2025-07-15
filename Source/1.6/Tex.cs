@@ -30,5 +30,12 @@ namespace aRandomKiwi.ARS
         public static readonly Texture2D texSettings = ContentFinder<Texture2D>.Get("UI/RimSavesSettings", true);
         public static readonly Texture2D texSel = ContentFinder<Texture2D>.Get("UI/Sel", true);
         public static readonly Texture2D texUnSel = ContentFinder<Texture2D>.Get("UI/UnSel", true);
+
+        public static readonly Texture2D texOrderDateASC = ContentFinder<Texture2D>.Get("UI/orderDateASC", true);
+        public static readonly Texture2D texOrderDateDESC = ContentFinder<Texture2D>.Get("UI/orderDateDESC", true);
+        public static readonly Texture2D texOrderNameASC = ContentFinder<Texture2D>.Get("UI/orderNameASC", true);
+        public static readonly Texture2D texOrderNameDESC = ContentFinder<Texture2D>.Get("UI/orderNameDESC", true);
+        public static readonly Texture2D texOrderSizeASC = ContentFinder<Texture2D>.Get("UI/orderSizeASC", true);
+        public static readonly Texture2D texOrderSizeDESC = ContentFinder<Texture2D>.Get("UI/orderSizeDESC", true);
     }
 }

@@ -31,6 +31,7 @@ namespace aRandomKiwi.ARS
                     return true;
                 }
                 Utils.focusedNameArea = false;
+                Utils.DialogNeedOrdering = true;
 
                 __result = new Vector2(1036f, 700f);
                 Utils.initDialog = true;
@@ -103,14 +104,18 @@ namespace aRandomKiwi.ARS
 
                     //Drawing the folder selector
                     Rect folderSelRect = new Rect(inRect.AtZero());
-                    folderSelRect.width = inRect.width - 340f-150f-8f-36f;
+                    folderSelRect.width = inRect.width - 340f-150f-8f-36f-36f;
                     folderSelRect.x = 374f;
                     folderSelRect.y += 36f;
                     folderSelRect.height = 32f;
 
-                    Rect folderSelRectBtnAdd = new Rect(folderSelRect);
+                    Rect folderContentOrder = new Rect(folderSelRect);
+                    folderContentOrder.width = 32f;
+                    folderContentOrder.x = folderSelRect.x + folderSelRect.width + 4;
+
+                    Rect folderSelRectBtnAdd = new Rect(folderContentOrder);
                     folderSelRectBtnAdd.width = 32f;
-                    folderSelRectBtnAdd.x = folderSelRect.x+folderSelRect.width+4;
+                    folderSelRectBtnAdd.x = folderContentOrder.x+ folderContentOrder.width+4;
 
                     Rect folderSelRectBtnEdit = new Rect(folderSelRectBtnAdd);
                     folderSelRectBtnEdit.x += folderSelRectBtnAdd.width + 4;
@@ -276,6 +281,45 @@ namespace aRandomKiwi.ARS
                             Utils.changeFolder(cfolder, __instance);
                         },"");
                     }
+
+                    GUI.color = Color.white;
+                    Texture2D texOrder = null;
+                    if (Settings.currentSavesOrderMode == 1)
+                        texOrder = Tex.texOrderDateDESC;
+                    else if (Settings.currentSavesOrderMode == 2)
+                        texOrder = Tex.texOrderDateASC;
+                    else if (Settings.currentSavesOrderMode == 3)
+                        texOrder = Tex.texOrderNameDESC;
+                    else if (Settings.currentSavesOrderMode == 4)
+                        texOrder = Tex.texOrderNameASC;
+                    else if (Settings.currentSavesOrderMode == 5)
+                        texOrder = Tex.texOrderSizeDESC;
+                    else if (Settings.currentSavesOrderMode == 6)
+                        texOrder = Tex.texOrderSizeASC;
+
+                    if (Widgets.ButtonImageWithBG(folderContentOrder, texOrder, new Vector2(24, 24)))
+                    {
+                        Utils.showSaveOrderModeList();
+                    }
+
+                    string toolTipOrderSaves = "";
+
+                    if (Settings.currentSavesOrderMode == 1)
+                        toolTipOrderSaves = "ARS_SaveOrderByDateDESC".Translate();
+                    else if (Settings.currentSavesOrderMode == 2)
+                        toolTipOrderSaves = "ARS_SaveOrderByDateASC".Translate();
+                    else if (Settings.currentSavesOrderMode == 3)
+                        toolTipOrderSaves = "ARS_SaveOrderByNameDESC".Translate();
+                    else if (Settings.currentSavesOrderMode == 4)
+                        toolTipOrderSaves = "ARS_SaveOrderByNameASC".Translate();
+                    else if (Settings.currentSavesOrderMode == 5)
+                        toolTipOrderSaves = "ARS_SaveOrderBySizeDESC".Translate();
+                    else if (Settings.currentSavesOrderMode == 6)
+                        toolTipOrderSaves = "ARS_SaveOrderBySizeASC".Translate();
+
+                    TooltipHandler.TipRegion(folderContentOrder, toolTipOrderSaves);
+
+
                     GUI.color = Color.white;
                     if (Widgets.ButtonImageWithBG(folderSelRectBtnAdd, Tex.texAdd, new Vector2(24,24)))
                     {
@@ -470,6 +514,26 @@ namespace aRandomKiwi.ARS
                     float num = 0f;
                     int num2 = 0;
                     bool first = true;
+
+                    //Order according to the user's choice
+                    if (Utils.DialogNeedOrdering)
+                    {
+                        if(Settings.currentSavesOrderMode == 1)
+                            ___files = ___files.OrderByDescending(o => o.LastWriteTime).ToList();
+                        else if (Settings.currentSavesOrderMode == 2)
+                            ___files = ___files.OrderBy(o => o.LastWriteTime).ToList();
+                        else if (Settings.currentSavesOrderMode == 3)
+                            ___files = ___files.OrderByDescending(o => o.FileName).ToList();
+                        else if (Settings.currentSavesOrderMode == 4)
+                            ___files = ___files.OrderBy(o => o.FileName).ToList();
+                        else if (Settings.currentSavesOrderMode == 5)
+                            ___files = ___files.OrderByDescending(o => o.FileInfo.Length).ToList();
+                        else if (Settings.currentSavesOrderMode == 6)
+                            ___files = ___files.OrderBy(o => o.FileInfo.Length).ToList();
+
+                        Utils.DialogNeedOrdering = false;
+                    }
+
 
                     foreach (SaveFileInfo current in ___files)
                     {

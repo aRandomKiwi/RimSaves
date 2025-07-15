@@ -26,6 +26,7 @@ namespace aRandomKiwi.ARS
         public static long nbMinSecBetweenIncidentsTsPositive = 0;
         public static bool enableLiteMode = false;
         public static int maxSaveCharLength = 96;
+        public static int currentSavesOrderMode = 1;
 
 
         public static bool SectionGeneralExpanded = false;
@@ -160,6 +161,7 @@ namespace aRandomKiwi.ARS
             Scribe_Values.Look<long>(ref nbMinSecBetweenIncidentsTsPositive, "nbMinSecBetweenIncidentsTsPositive", 0);
             Scribe_Values.Look<bool>(ref enableLiteMode, "enableLiteMode", false);
             Scribe_Values.Look<int>(ref maxSaveCharLength, "maxSaveCharLength", 96);
+            Scribe_Values.Look<int>(ref currentSavesOrderMode, "currentSavesOrderMode", 1);            
         } 
     }
 }

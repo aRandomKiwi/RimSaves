@@ -436,6 +436,7 @@ namespace aRandomKiwi.ARS
             //Change of current file
             Settings.curFolder = cfolder;
             Utils.curModRef.WriteSettings();
+            Utils.DialogNeedOrdering = true;
             Traverse.Create(instance).Method("ReloadFiles").GetValue();
         }
 
@@ -667,9 +668,56 @@ namespace aRandomKiwi.ARS
             return new String(output);
         }
 
+
+        public static void showSaveOrderModeList()
+        {
+            List<FloatMenuOption> list = new List<FloatMenuOption>();
+            list.Add(new FloatMenuOption(Utils.OPTNSTART + "ARS_SaveOrderByDateDESC".Translate(), delegate
+            {
+                Settings.currentSavesOrderMode = 1;
+                Utils.DialogNeedOrdering = true;
+            }, MenuOptionPriority.Default, null, null, 0f, null, null));
+
+            list.Add(new FloatMenuOption(Utils.OPTNSTART + "ARS_SaveOrderByDateASC".Translate(), delegate
+            {
+                Settings.currentSavesOrderMode = 2;
+                Utils.DialogNeedOrdering = true;
+            }, MenuOptionPriority.Default, null, null, 0f, null, null));
+
+            list.Add(new FloatMenuOption(Utils.OPTNSTART + "ARS_SaveOrderByNameDESC".Translate(), delegate
+            {
+                Settings.currentSavesOrderMode = 3;
+                Utils.DialogNeedOrdering = true;
+            }, MenuOptionPriority.Default, null, null, 0f, null, null));
+
+            list.Add(new FloatMenuOption(Utils.OPTNSTART + "ARS_SaveOrderByNameASC".Translate(), delegate
+            {
+                Settings.currentSavesOrderMode = 4;
+                Utils.DialogNeedOrdering = true;
+            }, MenuOptionPriority.Default, null, null, 0f, null, null));
+
+            list.Add(new FloatMenuOption(Utils.OPTNSTART + "ARS_SaveOrderBySizeDESC".Translate(), delegate
+            {
+                Settings.currentSavesOrderMode = 5;
+                Utils.DialogNeedOrdering = true;
+            }, MenuOptionPriority.Default, null, null, 0f, null, null));
+
+            list.Add(new FloatMenuOption(Utils.OPTNSTART + "ARS_SaveOrderBySizeASC".Translate(), delegate
+            {
+                Settings.currentSavesOrderMode = 6;
+                Utils.DialogNeedOrdering = true;
+            }, MenuOptionPriority.Default, null, null, 0f, null, null));
+
+
+
+            FloatMenu fm = new FloatMenu(list);
+            Find.WindowStack.Add(fm);
+        }
+
         public static List<string> negativeIncidents = null;
         public static List<string> positiveIncidents = null;
         static public bool focusedNameArea = false;
+        static public bool DialogNeedOrdering = true;
 
         public static GCQS GCQSI;
         public static readonly string VFOLDERSEP = "#§#";
