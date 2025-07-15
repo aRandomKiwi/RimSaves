@@ -22,9 +22,9 @@
 	<packageId>aRandomKiwi.RimSaves</packageId>
     <description><![CDATA[
 Save menu improvements.
-Organize your saves into folders, no more autosave overwriting between colonies in different folders, saves previews, search, quicksaves, rename/duplicate saves, mass saves removing...
+Organize your saves into folders, no more autosave overwriting between colonies in different folders, saves previews, search, quicksaves, saves sorting, rename/duplicate saves, mass saves removing...
 
-Version NX <color=#FFD800>rev22</color> for Rimworld.
+Version NX <color=#FFD800>rev24</color> for Rimworld.
 ]]>
 </description>
 

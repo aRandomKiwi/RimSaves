@@ -4,7 +4,7 @@
 
 <p align="center">
 	<a href="https://github.com/aRandomKiwi/RimThemes/releases">
-		<img src="https://img.shields.io/badge/release-NX rev22-4BC51D.svg?style=flat" alt="NX rev22" />
+		<img src="https://img.shields.io/badge/release-NX rev24-4BC51D.svg?style=flat" alt="NX rev24" />
     </a>
 	<img src="https://img.shields.io/github/downloads-pre/aRandomKiwi/RimThemes/total.svg?style=popout-square&color=green" alt="Github Total Downloads" />
 	<a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1713367505">
@@ -37,6 +37,7 @@ No more mess with your multiple colonies saves, autosaves overwrites,... now sim
 * Duplicate, Rename saves
 * Mass saves removing (remove the parent folder)
 * Quicksave/Quickload (CTRL+HOME to quicksave and CTRL+END to quickload or F5/F9 (see mod's settings) but you need to release the F5 and F9 key binding in RimWorld's key settings to avoid conflicts )
+* Sort your saves by date, name, size
 
 ## Important
 
