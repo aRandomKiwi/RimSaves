@@ -424,8 +424,11 @@ namespace aRandomKiwi.ARS
                     cb(cfolder);
                 }, MenuOptionPriority.Default, null, null, 0f, null, null));
             }
-            if(list.Count != 0)
-                Find.WindowStack.Add(new FloatMenu(list));
+            if (list.Count != 0)
+            {
+                FloatMenu fm = new FloatMenu(list);
+                Find.WindowStack.Add(fm);
+            }
         }
 
         public static void changeFolder(string cfolder, Dialog_FileList instance)
@@ -666,6 +669,7 @@ namespace aRandomKiwi.ARS
 
         public static List<string> negativeIncidents = null;
         public static List<string> positiveIncidents = null;
+        static public bool focusedNameArea = false;
 
         public static GCQS GCQSI;
         public static readonly string VFOLDERSEP = "#§#";

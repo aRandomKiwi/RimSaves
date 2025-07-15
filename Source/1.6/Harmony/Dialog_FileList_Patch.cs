@@ -30,6 +30,8 @@ namespace aRandomKiwi.ARS
                 {
                     return true;
                 }
+                Utils.focusedNameArea = false;
+
                 __result = new Vector2(1036f, 700f);
                 Utils.initDialog = true;
                 Utils.selectedSave = "";
@@ -158,7 +160,7 @@ namespace aRandomKiwi.ARS
                     {
                         //__instance.DoTypeInField(inRect.AtZero());
                         //Traverse.Create(__instance).Method("DoTypeInField", inRect.AtZero()).GetValue();
-                        DoTypeInField(inRect.AtZero(), ref ___typingName, ref ___focusedNameArea,  ref __instance);
+                        DoTypeInField(inRect.AtZero(), ref ___typingName,  ref __instance);
                     }
 
                     //Selected map meta data
@@ -468,6 +470,7 @@ namespace aRandomKiwi.ARS
                     float num = 0f;
                     int num2 = 0;
                     bool first = true;
+
                     foreach (SaveFileInfo current in ___files)
                     {
                         if (num + vector.y >= ___scrollPosition.y && num <= ___scrollPosition.y + outRect.height)
@@ -1018,9 +1021,6 @@ namespace aRandomKiwi.ARS
 
                     if (Widgets.ButtonImage(new Rect(inRect.width - 168, inRect.height + 5, 167, 40), Tex.texLogo, Color.white, Color.green))
                     {
-                        if (isSaveDialog)
-                            __instance.Close(false);
-
                         var dialog = new Dialog_ModSettings(Utils.curModRef);
 
                         Traverse.Create(dialog).Field<Mod>("selMod").Value = Utils.curModRef;
@@ -1036,7 +1036,9 @@ namespace aRandomKiwi.ARS
                 }
             }
 
-            static private void DoTypeInField(Rect rect, ref string typingName, ref bool focusedNameArea, ref Dialog_FileList instance)
+            
+
+            static private void DoTypeInField(Rect rect, ref string typingName, ref Dialog_FileList instance)
             {
                 Widgets.BeginGroup(rect);
                 bool flag = Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Return;
@@ -1051,11 +1053,10 @@ namespace aRandomKiwi.ARS
                     typingName = str;
                 }
 
-
-                if (!focusedNameArea)
+                if (!Utils.focusedNameArea)
                 {
+                    Utils.focusedNameArea = true;
                     UI.FocusControl("MapNameField", instance);
-                    focusedNameArea = true;
                 }
                 if (Widgets.ButtonText(new Rect(420f, y, rect.width - 400f - 20f, 35f), "SaveGameButton".Translate()) || flag)
                 {
