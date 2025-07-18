@@ -4,7 +4,7 @@
 
 <p align="center">
 	<a href="https://github.com/aRandomKiwi/RimThemes/releases">
-		<img src="https://img.shields.io/badge/release-NX rev25-4BC51D.svg?style=flat" alt="NX rev25" />
+		<img src="https://img.shields.io/badge/release-NX rev26-4BC51D.svg?style=flat" alt="NX rev26" />
     </a>
 	<img src="https://img.shields.io/github/downloads-pre/aRandomKiwi/RimThemes/total.svg?style=popout-square&color=green" alt="Github Total Downloads" />
 	<a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1713367505">
