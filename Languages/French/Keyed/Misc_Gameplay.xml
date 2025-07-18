@@ -64,4 +64,7 @@
 	
 	<ARS_ToolTipSelAllSaves>Sélectionner toutes les sauvegardes</ARS_ToolTipSelAllSaves>
 	<ARS_ToolTipUnSelAllSaves>Déselectionner toutes les sauvegardes</ARS_ToolTipUnSelAllSaves>
+	
+	<ARS_StatusTextP1>{0} sauvegardes</ARS_StatusTextP1>
+	<ARS_StatusTextP2>{0} sélectionnées {1}</ARS_StatusTextP2>
 </LanguageData>

@@ -64,4 +64,7 @@
 	
 	<ARS_ToolTipSelAllSaves>Select all saves</ARS_ToolTipSelAllSaves>
 	<ARS_ToolTipUnSelAllSaves>Unselect all saves</ARS_ToolTipUnSelAllSaves>
+	
+	<ARS_StatusTextP1>{0} saves</ARS_StatusTextP1>
+	<ARS_StatusTextP2>{0} selected {1}</ARS_StatusTextP2>
 </LanguageData>

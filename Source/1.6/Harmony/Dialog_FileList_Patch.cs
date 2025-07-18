@@ -77,6 +77,7 @@ namespace aRandomKiwi.ARS
                             nbRow++;
                     }
 
+                    long selectedSavesSize = 0;
                     bool isSaveDialog = (__instance is Dialog_SaveFileList_Save);
                     Vector2 vector = new Vector2(inRect.width-15-40, 40f);
                     inRect.height -= 45f;
@@ -269,7 +270,7 @@ namespace aRandomKiwi.ARS
                     //Folder icon
                     Widgets.ButtonImage(new Rect(340f, 36f, 32f, 32f), Tex.texFolder, Color.white, Color.white);
                     GUI.color = Color.green;
-                    if (Widgets.ButtonText(folderSelRect, Settings.curFolder+ " " + "ARS_nbSaves".Translate(Utils.getNbSavesInVF(Settings.curFolder))))
+                    if (Widgets.ButtonText(folderSelRect, Settings.curFolder))
                     {
                         Utils.showFolderList(delegate(string cfolder)
                         {
@@ -520,7 +521,10 @@ namespace aRandomKiwi.ARS
                     if (Widgets.ButtonImageWithBG(folderSelAllSaves, controlCheckSaves, new Vector2(24, 24)))
                     {
                         if (Utils.selectedSaves.Count() != 0)
+                        {
                             Utils.selectedSaves.Clear();
+                            SoundDefOf.Checkbox_TurnedOff.PlayOneShotOnCamera();
+                        }
                         else
                         {
                             foreach (SaveFileInfo current in ___files)
@@ -530,6 +534,7 @@ namespace aRandomKiwi.ARS
                                 if (!Utils.selectedSaves.Contains(prefixedFileName))
                                     Utils.selectedSaves.Add(prefixedFileName);
                             }
+                            SoundDefOf.Checkbox_TurnedOn.PlayOneShotOnCamera();
                         }
                     }
                     TooltipHandler.TipRegion(folderSelAllSaves, controlCheckSavesTooltip.Translate());
@@ -590,6 +595,9 @@ namespace aRandomKiwi.ARS
                             }
 
                             GUI.BeginGroup(rect);
+                            
+                            if(Utils.selectedSaves.Contains(prefixedFileName))
+                                selectedSavesSize += current.FileInfo.Length;
 
                             Texture2D texSel = Tex.texUnSel;
                             if (Utils.selectedSaves.Contains(prefixedFileName))
@@ -1112,12 +1120,27 @@ namespace aRandomKiwi.ARS
                     }
                     TooltipHandler.TipRegion(saveFolder, "ARS_OpenSaveFolder".Translate());
 
-                    if (Widgets.ButtonImage(new Rect(inRect.width - 168, inRect.height + 5, 167, 40), Tex.texLogo, Color.white, Color.green))
+                    if (Widgets.ButtonImage(new Rect(inRect.width - 52, inRect.height+5, 40, 40), Tex.texMoreSettings, Color.white, Color.green))
                     {
                         var dialog = new Dialog_ModSettings(Utils.curModRef);
 
                         Traverse.Create(dialog).Field<Mod>("selMod").Value = Utils.curModRef;
                         Find.WindowStack.Add(dialog);
+                    }
+
+                    Rect statusNbSavesRect = new Rect(inRect.width / 2 + 100, inRect.height + 15, 150, 40);
+
+                    GUI.color = Color.gray;
+                    Widgets.Label(statusNbSavesRect, "ARS_StatusTextP1".Translate(Utils.getNbSavesInVF(Settings.curFolder)));
+                    GUI.color = Color.white;
+
+                    if (Utils.selectedSaves.Count() != 0)
+                    {
+                        Rect statusTextRect = new Rect(inRect.width / 2 + 260, inRect.height + 15, 240, 40);
+                        Widgets.Label(new Rect(inRect.width / 2 + 230, inRect.height + 15, 20, 40), "|");
+                        GUI.color = Color.green;
+                        Widgets.Label(statusTextRect, "ARS_StatusTextP2".Translate(Utils.selectedSaves.Count(), Utils.FormatSize(selectedSavesSize)));
+                        GUI.color = Color.white;
                     }
 
                     return false;

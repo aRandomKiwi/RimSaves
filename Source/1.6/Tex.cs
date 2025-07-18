@@ -32,6 +32,7 @@ namespace aRandomKiwi.ARS
         public static readonly Texture2D texUnSel = ContentFinder<Texture2D>.Get("UI/UnSel", true);
         public static readonly Texture2D texCheckAll = ContentFinder<Texture2D>.Get("UI/CheckAll", true);
         public static readonly Texture2D texUnCheckAll = ContentFinder<Texture2D>.Get("UI/UnCheckAll", true);
+        public static readonly Texture2D texMoreSettings = ContentFinder<Texture2D>.Get("UI/MoreSettings", true);
 
         public static readonly Texture2D texOrderDateASC = ContentFinder<Texture2D>.Get("UI/orderDateASC", true);
         public static readonly Texture2D texOrderDateDESC = ContentFinder<Texture2D>.Get("UI/orderDateDESC", true);
