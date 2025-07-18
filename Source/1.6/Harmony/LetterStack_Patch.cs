@@ -31,6 +31,8 @@ namespace aRandomKiwi.ARS
                 string name = "BadEvent";
                 if (Settings.addEventLabelSuffix)
                     name = name + "." + Utils.SanitizeFileName(let.Label);
+                if (Settings.maxBadEvent != 0)
+                    Utils.keepLatestSaves("BadEvent", Settings.maxBadEvent-1);
                 Utils.GCQSI.quicksave(name);
             }
             else if (Settings.saveOnPositiveIncident && Utils.positiveIncidents.Contains(let.def.defName))
@@ -44,6 +46,8 @@ namespace aRandomKiwi.ARS
                 string name = "GoodEvent";
                 if (Settings.addEventLabelSuffix)
                     name = name + "." + Utils.SanitizeFileName(let.Label);
+                if (Settings.maxGoodEvent != 0)
+                    Utils.keepLatestSaves("GoodEvent", Settings.maxGoodEvent-1);
                 Utils.GCQSI.quicksave(name);
             }
         }

@@ -634,40 +634,9 @@ namespace aRandomKiwi.ARS
                                     if (Settings.curFolder != "Default")
                                         prefix = Settings.curFolder + Utils.VFOLDERSEP;
 
-                                    //If preview associated
-                                    string pathPreviewBase = Utils.getBasePathRSPreviews();
-                                    string pathPreview = "";
-                                    pathPreview = Path.Combine(pathPreviewBase, prefixedFileName + ".dat");
-                                    if(!File.Exists(pathPreview))
-                                        pathPreview = Path.Combine(pathPreviewBase, prefixedFileName + ".jpg");
-
-                                    if (File.Exists(pathPreview))
-                                    {
-                                        try
-                                        {
-                                            System.IO.File.Delete(pathPreview);
-                                        }
-                                        catch (UnauthorizedAccessException)
-                                        {
-                                            Log.Message("Cannot delete "+pathPreview);
-                                        }
-                                    }
-
-                                    //If associated meta
-                                    string pathMeta = Utils.getBasePathRSMeta();
-                                    pathMeta = Path.Combine(pathMeta, prefixedFileName + ".dat");
-
-                                    if (File.Exists(pathMeta))
-                                    {
-                                        try
-                                        {
-                                            System.IO.File.Delete(pathMeta);
-                                        }
-                                        catch (UnauthorizedAccessException)
-                                        {
-                                            Log.Message("Cannot delete "+ pathMeta);
-                                        }
-                                    }
+                                    //Delete metas
+                                    Utils.deleteSaveMetas(prefixedFileName);
+                                    
 
                                     //If folder selected == folder deleted then reset
                                     if (Utils.selectedSave == prefixedFileName)

@@ -17,6 +17,9 @@
 	<ARS_SettingsSecsMinBetweenIncidents>Minimum number of seconds between each saves triggered by an incident ({0})</ARS_SettingsSecsMinBetweenIncidents>
 	<ARS_SettingsLiteMode>Enable the light UI mode</ARS_SettingsLiteMode>
 	<ARS_SettingsMaxSaveCharLength>Maximum number of characters for saves names ( {0} )</ARS_SettingsMaxSaveCharLength>
+	<ARS_SettingsNbBadEventAutosaves>Maximum number of autosaves during a negative incident ( {0} )</ARS_SettingsNbBadEventAutosaves>
+	<ARS_SettingsNbGoodEventAutosaves>Maximum number of autosaves during a positive incident ( {0} )</ARS_SettingsNbGoodEventAutosaves>
+	<ARS_SettingsAutosavesIllimited>illimited</ARS_SettingsAutosavesIllimited>
 	
 	<ARS_ConfirmRemoveFolderTitle>Delete folder</ARS_ConfirmRemoveFolderTitle>
 	<ARS_ConfirmRemoveFolderDesc>Do you really want to remove this folder ? all contained saves will be removed too !</ARS_ConfirmRemoveFolderDesc>

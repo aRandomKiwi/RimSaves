@@ -714,6 +714,70 @@ namespace aRandomKiwi.ARS
             Find.WindowStack.Add(fm);
         }
 
+        public static void deleteSaveMetas(string prefixedFileName)
+        {
+            //Preview
+            string pathPreviewBase = Utils.getBasePathRSPreviews();
+            string pathPreview = "";
+            pathPreview = Path.Combine(pathPreviewBase, prefixedFileName + ".dat");
+            if (!File.Exists(pathPreview))
+                pathPreview = Path.Combine(pathPreviewBase, prefixedFileName + ".jpg");
+
+            if (File.Exists(pathPreview))
+            {
+                try
+                {
+                    System.IO.File.Delete(pathPreview);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Log.Message("Cannot delete " + pathPreview);
+                }
+            }
+
+            //If associated meta
+            string pathMeta = Utils.getBasePathRSMeta();
+            pathMeta = Path.Combine(pathMeta, prefixedFileName + ".dat");
+
+            if (File.Exists(pathMeta))
+            {
+                try
+                {
+                    System.IO.File.Delete(pathMeta);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Log.Message("Cannot delete " + pathMeta);
+                }
+            }
+        }
+
+        public static void keepLatestSaves(string predicate, int max)
+        {
+            string path = Path.Combine(GenFilePaths.SaveDataFolderPath, "Saves");
+            string prefix = "";
+            if (Settings.curFolder != "Default")
+                prefix = Settings.curFolder + Utils.VFOLDERSEP;
+
+            DirectoryInfo directoryInfo = new DirectoryInfo(path);
+            IOrderedEnumerable<FileInfo> res;
+
+            res = from f in directoryInfo.GetFiles()
+                  where f.Extension == ".rws" && f.Name.StartsWith(prefix + predicate)
+                  orderby f.LastWriteTime descending
+                  select f;
+
+            foreach(var el in res.Skip(max))
+            {
+                string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(el.Name);
+                string prefixedFileName = Utils.addPrefix(fileNameWithoutExtension, false);
+                //Remove save file
+                el.Delete();
+                //Remove metas
+                deleteSaveMetas(prefixedFileName);
+            }
+        }
+
         public static List<string> negativeIncidents = null;
         public static List<string> positiveIncidents = null;
         static public bool focusedNameArea = false;

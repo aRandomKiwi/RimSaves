@@ -27,6 +27,8 @@ namespace aRandomKiwi.ARS
         public static bool enableLiteMode = false;
         public static int maxSaveCharLength = 96;
         public static int currentSavesOrderMode = 1;
+        public static int maxBadEvent = 0;
+        public static int maxGoodEvent = 0;
 
 
         public static bool SectionGeneralExpanded = false;
@@ -112,6 +114,26 @@ namespace aRandomKiwi.ARS
                     nbMinSecBetweenIncidents = (int)list.Slider(nbMinSecBetweenIncidents, 1, 200);
                 }
                 list.CheckboxLabeled("ARS_SettingsQuicksaveOnIncidentLabelSuffix".Translate(), ref addEventLabelSuffix);
+
+                string nbAutosavesBE = "";
+
+                if (maxBadEvent == 0)
+                    nbAutosavesBE = "ARS_SettingsAutosavesIllimited".Translate();
+                else
+                    nbAutosavesBE = Settings.maxBadEvent.ToString();
+
+                list.Label("ARS_SettingsNbBadEventAutosaves".Translate(nbAutosavesBE));
+                maxBadEvent = (int)list.Slider(maxBadEvent, 0, 200);
+
+                string nbAutosavesGE = "";
+
+                if (maxGoodEvent == 0)
+                    nbAutosavesGE = "ARS_SettingsAutosavesIllimited".Translate();
+                else
+                    nbAutosavesGE = Settings.maxGoodEvent.ToString();
+
+                list.Label("ARS_SettingsNbGoodEventAutosaves".Translate(nbAutosavesGE));
+                maxGoodEvent = (int)list.Slider(maxGoodEvent, 0, 200);
             }
 
             //Quicksaves key binding
@@ -161,7 +183,9 @@ namespace aRandomKiwi.ARS
             Scribe_Values.Look<long>(ref nbMinSecBetweenIncidentsTsPositive, "nbMinSecBetweenIncidentsTsPositive", 0);
             Scribe_Values.Look<bool>(ref enableLiteMode, "enableLiteMode", false);
             Scribe_Values.Look<int>(ref maxSaveCharLength, "maxSaveCharLength", 96);
-            Scribe_Values.Look<int>(ref currentSavesOrderMode, "currentSavesOrderMode", 1);            
+            Scribe_Values.Look<int>(ref currentSavesOrderMode, "currentSavesOrderMode", 1);
+            Scribe_Values.Look<int>(ref maxBadEvent, "maxBadEvent", 0);
+            Scribe_Values.Look<int>(ref maxGoodEvent, "maxGoodEvent", 0);
         } 
     }
 }

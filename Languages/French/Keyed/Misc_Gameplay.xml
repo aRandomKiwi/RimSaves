@@ -17,6 +17,9 @@
 	<ARS_SettingsSecsMinBetweenIncidents>Nombre de secondes minimum entre chaque sauvegardes déclenchées par un incident ({0})</ARS_SettingsSecsMinBetweenIncidents>
 	<ARS_SettingsLiteMode>Activer le mode d'interface épuré</ARS_SettingsLiteMode>
 	<ARS_SettingsMaxSaveCharLength>Nombre de caractéres maximum pour le nom des sauvegardes ( {0} )</ARS_SettingsMaxSaveCharLength>
+	<ARS_SettingsNbBadEventAutosaves>Nombre maximum d'autosaves lors d'un incident négatif ( {0} )</ARS_SettingsNbBadEventAutosaves>
+	<ARS_SettingsNbGoodEventAutosaves>Nombre maximum d'autosaves lors d'un incident positif ( {0} )</ARS_SettingsNbGoodEventAutosaves>
+	<ARS_SettingsAutosavesIllimited>illimité</ARS_SettingsAutosavesIllimited>
 	
 	<ARS_ConfirmRemoveFolderTitle>Supprimer dossier</ARS_ConfirmRemoveFolderTitle>
 	<ARS_ConfirmRemoveFolderDesc>Souhaitez-vous vraiment supprimer ce dossier ? tous les fichiers contenus seront supprimés également !</ARS_ConfirmRemoveFolderDesc>
