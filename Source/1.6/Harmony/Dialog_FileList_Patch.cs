@@ -537,8 +537,7 @@ namespace aRandomKiwi.ARS
 
                     foreach (SaveFileInfo current in ___files)
                     {
-                        if (num + vector.y >= ___scrollPosition.y && num <= ___scrollPosition.y + outRect.height)
-                        {
+
                             string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(current.FileInfo.Name);
                             string prefixedFileName = Utils.addPrefix(fileNameWithoutExtension, false);
                             if (fileNameWithoutExtension.Contains(Utils.VFOLDERSEP))
@@ -1055,7 +1054,6 @@ namespace aRandomKiwi.ARS
 
                             if (first && Utils.selectedSave == "")
                                 Utils.selectedSave = prefixedFileName;
-                        }
                         num += vector.y;
                         num2++;
                     }
