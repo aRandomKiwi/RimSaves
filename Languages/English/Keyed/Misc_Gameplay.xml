@@ -2,6 +2,7 @@
 <LanguageData>
 	<ARS_SettingsGeneralSection>Global settings</ARS_SettingsGeneralSection>
 	<ARS_SettingsIncidentsSection>Incidents</ARS_SettingsIncidentsSection>
+	<ARS_SettingsQSGeneralSection>Quicksaves</ARS_SettingsQSGeneralSection>
 	<ARS_SettingsQSSection>Quicksave shortcut</ARS_SettingsQSSection>
 	<ARS_SettingsBindingHomeEnd>Quicksave : CTRL+HOME, Quickload : CTRL+END</ARS_SettingsBindingHomeEnd>
 	<ARS_SettingsBindingF5F9>Quicksave : F5, Quickload : F9</ARS_SettingsBindingF5F9>

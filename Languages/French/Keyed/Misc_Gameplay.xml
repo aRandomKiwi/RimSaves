@@ -2,6 +2,7 @@
 <LanguageData>
 	<ARS_SettingsGeneralSection>Paramétres généraux</ARS_SettingsGeneralSection>
 	<ARS_SettingsIncidentsSection>Incidents</ARS_SettingsIncidentsSection>
+	<ARS_SettingsQSGeneralSection>Sauvegardes rapides</ARS_SettingsQSGeneralSection>
 	<ARS_SettingsQSSection>Sauvegarde rapide (raccourcis clavier)</ARS_SettingsQSSection>
 	<ARS_SettingsBindingHomeEnd>Sauvegarde rapide : CTRL+HOME, chargement rapide : CTRL+END</ARS_SettingsBindingHomeEnd>
 	<ARS_SettingsBindingF5F9>Sauvegarde rapide : F5, chargement rapide : F9</ARS_SettingsBindingF5F9>
