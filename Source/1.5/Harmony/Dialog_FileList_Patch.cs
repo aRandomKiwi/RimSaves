@@ -625,42 +625,49 @@ namespace aRandomKiwi.ARS
                                 FileInfo localFile = current.FileInfo;
                                 Action confirm = delegate
                                 {
-                                    if (Utils.selectedSaves.Contains(prefixedFileName))
-                                        Utils.selectedSaves.Remove(prefixedFileName);
-
-                                    localFile.Delete();
-
-                                    string prefix = "";
-                                    if (Settings.curFolder != "Default")
-                                        prefix = Settings.curFolder + Utils.VFOLDERSEP;
-
-                                    //Delete metas
-                                    Utils.deleteSaveMetas(prefixedFileName);
-                                    
-
-                                    //If folder selected == folder deleted then reset
-                                    if (Utils.selectedSave == prefixedFileName)
+                                    try
                                     {
-                                        Utils.selectedSave = "";
-                                        if (Utils.selectedSaves.Contains(prefixedFileName))
-                                            Utils.selectedSaves.Remove(prefixedFileName);
-                                    }
-
-                                    if (needToBeDeleted)
-                                    {
-                                        if (Utils.selectedSavesToDelete.Contains(prefixedFileName))
-                                            Utils.selectedSavesToDelete.Remove(prefixedFileName);
                                         if (Utils.selectedSaves.Contains(prefixedFileName))
                                             Utils.selectedSaves.Remove(prefixedFileName);
 
-                                        //Widgets.EndScrollView();
-                                        needReload = true;
+                                        localFile.Delete();
+
+                                        string prefix = "";
+                                        if (Settings.curFolder != "Default")
+                                            prefix = Settings.curFolder + Utils.VFOLDERSEP;
+
+                                        //Delete metas
+                                        Utils.deleteSaveMetas(prefixedFileName);
+
+
+                                        //If folder selected == folder deleted then reset
+                                        if (Utils.selectedSave == prefixedFileName)
+                                        {
+                                            Utils.selectedSave = "";
+                                            if (Utils.selectedSaves.Contains(prefixedFileName))
+                                                Utils.selectedSaves.Remove(prefixedFileName);
+                                        }
+
+                                        if (needToBeDeleted)
+                                        {
+                                            if (Utils.selectedSavesToDelete.Contains(prefixedFileName))
+                                                Utils.selectedSavesToDelete.Remove(prefixedFileName);
+                                            if (Utils.selectedSaves.Contains(prefixedFileName))
+                                                Utils.selectedSaves.Remove(prefixedFileName);
+
+                                            //Widgets.EndScrollView();
+                                            needReload = true;
+                                        }
+                                        else
+                                        {
+                                            Traverse.Create(__instance).Method("ReloadFiles").GetValue();
+                                        }
+                                        //__instance.ReloadFiles();
                                     }
-                                    else
+                                    catch(Exception e)
                                     {
-                                        Traverse.Create(__instance).Method("ReloadFiles").GetValue();
+                                        Utils.logMsg("DeleteSave : "+e.Message);
                                     }
-                                    //__instance.ReloadFiles();
                                 };
                                 if (needToBeDeleted)
                                 {
@@ -679,129 +686,149 @@ namespace aRandomKiwi.ARS
                             {
                                 Action<string> confirm = delegate (string cfolder)
                                 {
-                                    if (Utils.selectedSaves.Contains(prefixedFileName))
-                                        Utils.selectedSaves.Remove(prefixedFileName);
-
-                                    string newFile;
-                                    //File stored in Default?
-                                    if (!current.FileInfo.FullName.Contains(Utils.VFOLDERSEP))
+                                    try
                                     {
-                                        string dir = Path.GetDirectoryName(current.FileInfo.FullName);
-                                        newFile = dir + Path.DirectorySeparatorChar + cfolder + Utils.VFOLDERSEP + current.FileInfo.Name;
-                                    }
-                                    else
-                                    {
-                                        string tmpPath = current.FileInfo.FullName;
-                                        //Search and delete / xxxx§§§
-                                        int pos1;
-                                        int pos2;
+                                        if (Utils.selectedSaves.Contains(prefixedFileName))
+                                            Utils.selectedSaves.Remove(prefixedFileName);
 
-                                        Utils.getVFPosFromPath(tmpPath, out pos1, out pos2);
-
-                                        //If destination folder is the default then we sueeze the signature of VFOLDER
-                                        if (cfolder == "Default")
-                                            pos2 += 3;
-
-                                        //Log.Message("toSubstitute : " + pos2 + " " + pos1);
-                                        string toSubstitute = tmpPath.Substring(pos1, pos2 - pos1);
-                                        //Log.Message("toSubstitute : " + toSubstitute);
-                                        if (cfolder == "Default")
-                                            newFile = Utils.ReplaceFirst(tmpPath,toSubstitute, "");
-                                        else
-                                            newFile = Utils.ReplaceFirst(tmpPath,toSubstitute, cfolder);
-                                    }
-
-                                    //Check the existence of a file with the same name in the destination, if necessary we add a particle to the file to be moved
-                                    if (File.Exists(newFile))
-                                    {
-                                        string tmp;
-                                        for (int j = 1; j != 100; j++)
+                                        string newFile;
+                                        //File stored in Default?
+                                        if (!current.FileInfo.FullName.Contains(Utils.VFOLDERSEP))
                                         {
-                                            tmp = newFile;
-                                            tmp = tmp.Replace(".rws", " #" + j + ".rws");
-                                            if (!File.Exists(tmp))
+                                            string dir = Path.GetDirectoryName(current.FileInfo.FullName);
+                                            newFile = dir + Path.DirectorySeparatorChar + cfolder + Utils.VFOLDERSEP + current.FileInfo.Name;
+                                        }
+                                        else
+                                        {
+                                            string tmpPath = current.FileInfo.FullName;
+                                            //Search and delete / xxxx§§§
+                                            int pos1;
+                                            int pos2;
+
+                                            Utils.getVFPosFromPath(tmpPath, out pos1, out pos2);
+
+                                            //If destination folder is the default then we sueeze the signature of VFOLDER
+                                            bool isDefault = cfolder.ToLower() == "default";
+                                            if (isDefault)
+                                                pos2 += 3;
+
+                                            //Log.Message("toSubstitute : " + pos2 + " " + pos1);
+                                            string toSubstitute = tmpPath.Substring(pos1, pos2 - pos1);
+                                            //Log.Message("toSubstitute : " + toSubstitute);
+                                            if (isDefault)
+                                                newFile = Utils.ReplaceFirst(tmpPath, toSubstitute, "");
+                                            else
+                                                newFile = Utils.ReplaceFirst(tmpPath, toSubstitute, cfolder);
+                                        }
+
+                                        //Check the existence of a file with the same name in the destination, if necessary we add a particle to the file to be moved
+                                        if (File.Exists(newFile))
+                                        {
+                                            string tmp;
+                                            for (int j = 1; j != 100; j++)
                                             {
-                                                Messages.Message("ARS_WarningFileMoveAlreadyExist".Translate(Path.GetFileName(newFile), Path.GetFileName(tmp)), MessageTypeDefOf.NeutralEvent, false);
-                                                newFile = tmp;
-                                                break;
+                                                tmp = newFile;
+                                                tmp = Utils.replaceLastOccurrence(tmp, ".rws", " #" + j + ".rws");
+                                                if (!File.Exists(tmp))
+                                                {
+                                                    Messages.Message("ARS_WarningFileMoveAlreadyExist".Translate(Path.GetFileName(newFile), Path.GetFileName(tmp)), MessageTypeDefOf.NeutralEvent, false);
+                                                    newFile = tmp;
+                                                    break;
+                                                }
                                             }
                                         }
-                                    }
 
+                                        //Move the backup to the new folder
+                                        //Log.Message(newFile);
+                                        System.IO.File.Move(current.FileInfo.FullName, newFile);
 
-                                    //Move the backup to the new folder
-                                    //Log.Message(newFile);
-                                    System.IO.File.Move(current.FileInfo.FullName, newFile);
-
-                                    //We MOVE also the preview if there is preview
-                                    string pathPreviewBase = Utils.getBasePathRSPreviews();
-                                    string pathPreview = "";
-                                    pathPreview = Path.Combine(pathPreviewBase, prefixedFileName + ".dat");
-                                    if(!File.Exists(pathPreview))
-                                        pathPreview = Path.Combine(pathPreviewBase, prefixedFileName + ".jpg");
-
-                                    if (File.Exists(pathPreview))
-                                    {
-                                        string newPathPreview = Utils.getBasePathRSPreviews();
-
-                                        string lastPart = newFile.Split(Path.DirectorySeparatorChar).Last();
-
-                                        newPathPreview = Path.Combine(newPathPreview, lastPart);
-                                        newPathPreview = Utils.replaceLastOccurrence(newPathPreview, ".rws", ".dat");
-
-                                        try
+                                        //We MOVE also the preview if there is preview
+                                        string pathPreviewBase = Utils.getBasePathRSPreviews();
+                                        string pathPreview = "";
+                                        pathPreview = Path.Combine(pathPreviewBase, prefixedFileName + ".dat");
+                                        if (!File.Exists(pathPreview))
+                                            pathPreview = Path.Combine(pathPreviewBase, prefixedFileName + ".jpg");
+                                        if (File.Exists(pathPreview))
                                         {
-                                            System.IO.File.Move(pathPreview, newPathPreview);
+                                            string newPathPreview = Utils.getBasePathRSPreviews();
+
+                                            string lastPart = newFile.Split(Path.DirectorySeparatorChar).Last();
+
+                                            newPathPreview = Path.Combine(newPathPreview, lastPart);
+                                            newPathPreview = Utils.replaceLastOccurrence(newPathPreview, ".rws", ".dat");
+
+                                            try
+                                            {
+                                                System.IO.File.Move(pathPreview, newPathPreview);
+                                            }
+                                            catch (Exception)
+                                            {
+                                                try
+                                                {
+                                                    System.IO.File.Copy(pathPreview, newPathPreview);
+                                                }
+                                                catch (Exception)
+                                                {
+
+                                                }
+                                            }
+                                            //Updating the preview cache
+                                            Utils.updateCachedPreviewPath(pathPreview, newPathPreview);
                                         }
-                                        catch (UnauthorizedAccessException)
+                                        //We MOVE also the meta if there is preview
+                                        string pathMeta = Utils.getBasePathRSMeta();
+                                        pathMeta = Path.Combine(pathMeta, prefixedFileName + ".dat");
+
+                                        if (File.Exists(pathMeta))
                                         {
-                                            System.IO.File.Copy(pathPreview, newPathPreview);
+                                            string newPathMeta = Utils.getBasePathRSMeta();
+
+                                            string lastPart = newFile.Split(Path.DirectorySeparatorChar).Last();
+
+                                            newPathMeta = Path.Combine(newPathMeta, lastPart);
+                                            newPathMeta = Utils.replaceLastOccurrence(newPathMeta, ".rws", ".dat");
+                                            try
+                                            {
+                                                System.IO.File.Move(pathMeta, newPathMeta);
+                                            }
+                                            catch (Exception)
+                                            {
+                                                try
+                                                {
+                                                    System.IO.File.Copy(pathMeta, newPathMeta);
+                                                }
+                                                catch (Exception)
+                                                {
+
+                                                }
+                                            }
+                                            //Updating the preview cache
+                                            Utils.updateCachedMetaPath(pathMeta, newPathMeta);
                                         }
-                                        //Updating the preview cache
-                                        Utils.updateCachedPreviewPath(pathPreview, newPathPreview);
-                                    }
-                                    //We MOVE also the meta if there is preview
-                                    string pathMeta = Utils.getBasePathRSMeta();
-                                    pathMeta = Path.Combine(pathMeta, prefixedFileName + ".dat");
 
-                                    if (File.Exists(pathMeta))
-                                    {
-                                        string newPathMeta = Utils.getBasePathRSMeta();
-
-                                        string lastPart = newFile.Split(Path.DirectorySeparatorChar).Last();
-
-                                        newPathMeta = Path.Combine(newPathMeta, lastPart);
-                                        newPathMeta = Utils.replaceLastOccurrence(newPathMeta, ".rws", ".dat");
-                                        try
+                                        //Si dossier selectionné == dossier déplacé alors reset
+                                        if (Utils.selectedSave == prefixedFileName)
                                         {
-                                            System.IO.File.Move(pathMeta, newPathMeta);
+                                            Utils.selectedSave = "";
+                                            Utils.selectedSaves.Clear();
                                         }
-                                        catch (UnauthorizedAccessException)
+
+                                        //Window refresh
+                                        if (concernedByMassMove)
                                         {
-                                            System.IO.File.Copy(pathMeta, newPathMeta);
+                                            needReload = true;
+                                            if (Utils.selectedSavesToMove.Contains(prefixedFileName))
+                                                Utils.selectedSavesToMove.Remove(prefixedFileName);
+                                            if (Utils.selectedSavesToMove.Count == 0)
+                                                Utils.selectedSavesToMoveFolder = "";
                                         }
-                                        //Updating the preview cache
-                                        Utils.updateCachedMetaPath(pathMeta, newPathMeta);
+                                        else
+                                            Utils.changeFolder(Settings.curFolder, __instance);
                                     }
-
-                                    //Si dossier selectionné == dossier déplacé alors reset
-                                    if (Utils.selectedSave == prefixedFileName)
+                                    catch(Exception e)
                                     {
-                                        Utils.selectedSave = "";
-                                        Utils.selectedSaves.Clear();
+                                        Utils.logMsg("MoveSave : "+e.Message);
                                     }
-
-                                    //Window refresh
-                                    if (concernedByMassMove)
-                                    {
-                                        needReload = true;
-                                        if (Utils.selectedSavesToMove.Contains(prefixedFileName))
-                                            Utils.selectedSavesToMove.Remove(prefixedFileName);
-                                        if (Utils.selectedSavesToMove.Count == 0)
-                                            Utils.selectedSavesToMoveFolder = "";
-                                    }
-                                    else
-                                        Utils.changeFolder(Settings.curFolder, __instance);
                                 };
                                 if (concernedByMassMove)
                                 {

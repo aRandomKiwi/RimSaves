@@ -729,7 +729,7 @@ namespace aRandomKiwi.ARS
                 {
                     System.IO.File.Delete(pathPreview);
                 }
-                catch (UnauthorizedAccessException)
+                catch (Exception)
                 {
                     Log.Message("Cannot delete " + pathPreview);
                 }
@@ -745,7 +745,7 @@ namespace aRandomKiwi.ARS
                 {
                     System.IO.File.Delete(pathMeta);
                 }
-                catch (UnauthorizedAccessException)
+                catch (Exception)
                 {
                     Log.Message("Cannot delete " + pathMeta);
                 }
@@ -798,6 +798,6 @@ namespace aRandomKiwi.ARS
         public static readonly string VFOLDERSEP = "#§#";
         public static readonly string OPTNSTART = "-            ";
         public static RimSaves curModRef;
-        public static readonly string RSRelease = "RimSaves NX rev25";
+        public static readonly string RSRelease = "RimSaves NX rev26";
     }
 }
