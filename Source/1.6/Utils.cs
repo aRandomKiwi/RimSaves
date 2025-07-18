@@ -729,7 +729,7 @@ namespace aRandomKiwi.ARS
                 {
                     System.IO.File.Delete(pathPreview);
                 }
-                catch (UnauthorizedAccessException)
+                catch (Exception)
                 {
                     Log.Message("Cannot delete " + pathPreview);
                 }
@@ -745,7 +745,7 @@ namespace aRandomKiwi.ARS
                 {
                     System.IO.File.Delete(pathMeta);
                 }
-                catch (UnauthorizedAccessException)
+                catch (Exception)
                 {
                     Log.Message("Cannot delete " + pathMeta);
                 }
@@ -776,6 +776,17 @@ namespace aRandomKiwi.ARS
                 //Remove metas
                 deleteSaveMetas(prefixedFileName);
             }
+        }
+
+        public static string ReplaceFirst(string str, string term, string replace)
+        {
+            int position = str.IndexOf(term);
+            if (position < 0)
+            {
+                return str;
+            }
+            str = str.Substring(0, position) + replace + str.Substring(position + term.Length);
+            return str;
         }
 
         public static List<string> negativeIncidents = null;
