@@ -61,4 +61,7 @@
 	<ARS_SaveOrderByNameDESC>Trie par nom décroissant</ARS_SaveOrderByNameDESC>
 	<ARS_SaveOrderBySizeASC>Trie par taille croissante</ARS_SaveOrderBySizeASC>
 	<ARS_SaveOrderBySizeDESC>Trie par taille décroissante</ARS_SaveOrderBySizeDESC>
+	
+	<ARS_ToolTipSelAllSaves>Sélectionner toutes les sauvegardes</ARS_ToolTipSelAllSaves>
+	<ARS_ToolTipUnSelAllSaves>Déselectionner toutes les sauvegardes</ARS_ToolTipUnSelAllSaves>
 </LanguageData>

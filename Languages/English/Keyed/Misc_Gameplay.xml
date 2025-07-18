@@ -61,4 +61,7 @@
 	<ARS_SaveOrderByNameDESC>Sort by name descending</ARS_SaveOrderByNameDESC>
 	<ARS_SaveOrderBySizeASC>Sort by ascending size</ARS_SaveOrderBySizeASC>
 	<ARS_SaveOrderBySizeDESC>Sort by descending size</ARS_SaveOrderBySizeDESC>
+	
+	<ARS_ToolTipSelAllSaves>Select all saves</ARS_ToolTipSelAllSaves>
+	<ARS_ToolTipUnSelAllSaves>Unselect all saves</ARS_ToolTipUnSelAllSaves>
 </LanguageData>

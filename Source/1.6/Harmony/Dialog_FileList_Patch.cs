@@ -104,7 +104,7 @@ namespace aRandomKiwi.ARS
 
                     //Drawing the folder selector
                     Rect folderSelRect = new Rect(inRect.AtZero());
-                    folderSelRect.width = inRect.width - 340f-150f-8f-36f-36f;
+                    folderSelRect.width = inRect.width - 340f-150f-8f-36f-36f - 36f;
                     folderSelRect.x = 374f;
                     folderSelRect.y += 36f;
                     folderSelRect.height = 32f;
@@ -125,6 +125,10 @@ namespace aRandomKiwi.ARS
 
                     Rect folderSelRectBtnDel = new Rect(folderSelRectBtnMassMove);
                     folderSelRectBtnDel.x += folderSelRectBtnMassMove.width + 4;
+
+                    Rect folderSelAllSaves = new Rect(folderSelRectBtnDel);
+                    folderSelAllSaves.x += folderSelRectBtnDel.width + 4;
+
 
 
                     //Preview image
@@ -504,6 +508,33 @@ namespace aRandomKiwi.ARS
                         TooltipHandler.TipRegion(folderSelRectBtnDel, "ARS_ToolTipDelFolder".Translate());
 
                     GUI.color = Color.white;
+
+                    Texture2D controlCheckSaves = Tex.texCheckAll;
+                    string controlCheckSavesTooltip = "ARS_ToolTipSelAllSaves";
+                    if (Utils.selectedSaves.Count() != 0)
+                    {
+                        controlCheckSaves = Tex.texUnCheckAll;
+                        controlCheckSavesTooltip = "ARS_ToolTipUnSelAllSaves";
+                    }
+
+                    if (Widgets.ButtonImageWithBG(folderSelAllSaves, controlCheckSaves, new Vector2(24, 24)))
+                    {
+                        if (Utils.selectedSaves.Count() != 0)
+                            Utils.selectedSaves.Clear();
+                        else
+                        {
+                            foreach (SaveFileInfo current in ___files)
+                            {
+                                string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(current.FileInfo.Name);
+                                string prefixedFileName = Utils.addPrefix(fileNameWithoutExtension, false);
+                                if (!Utils.selectedSaves.Contains(prefixedFileName))
+                                    Utils.selectedSaves.Add(prefixedFileName);
+                            }
+                        }
+                    }
+                    TooltipHandler.TipRegion(folderSelAllSaves, controlCheckSavesTooltip.Translate());
+
+
                     if (isSaveDialog)
                     {
                         outRect.height -= 45;
