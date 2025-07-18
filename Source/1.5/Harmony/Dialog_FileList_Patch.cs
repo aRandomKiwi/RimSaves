@@ -30,6 +30,9 @@ namespace aRandomKiwi.ARS
                 {
                     return true;
                 }
+                Utils.focusedNameArea = false;
+                Utils.DialogNeedOrdering = true;
+
                 __result = new Vector2(1036f, 700f);
                 Utils.initDialog = true;
                 Utils.selectedSave = "";
@@ -52,7 +55,7 @@ namespace aRandomKiwi.ARS
         {
             [HarmonyPrefix]
             public static bool Listener(Dialog_FileList __instance, Rect inRect, 
-                ref List<SaveFileInfo> ___files, ref float ___bottomAreaHeight, ref Vector2 ___scrollPosition, ref string ___interactButLabel, ref string ___typingName)
+                ref List<SaveFileInfo> ___files, ref float ___bottomAreaHeight, ref Vector2 ___scrollPosition, ref string ___interactButLabel, ref string ___typingName, bool ___focusedNameArea)
             {
                 try
                 {
@@ -74,6 +77,7 @@ namespace aRandomKiwi.ARS
                             nbRow++;
                     }
 
+                    long selectedSavesSize = 0;
                     bool isSaveDialog = (__instance is Dialog_SaveFileList_Save);
                     Vector2 vector = new Vector2(inRect.width-15-40, 40f);
                     inRect.height -= 45f;
@@ -101,14 +105,18 @@ namespace aRandomKiwi.ARS
 
                     //Drawing the folder selector
                     Rect folderSelRect = new Rect(inRect.AtZero());
-                    folderSelRect.width = inRect.width - 340f-150f-8f-36f;
+                    folderSelRect.width = inRect.width - 340f-150f-8f-36f-36f - 36f;
                     folderSelRect.x = 374f;
                     folderSelRect.y += 36f;
                     folderSelRect.height = 32f;
 
-                    Rect folderSelRectBtnAdd = new Rect(folderSelRect);
+                    Rect folderContentOrder = new Rect(folderSelRect);
+                    folderContentOrder.width = 32f;
+                    folderContentOrder.x = folderSelRect.x + folderSelRect.width + 4;
+
+                    Rect folderSelRectBtnAdd = new Rect(folderContentOrder);
                     folderSelRectBtnAdd.width = 32f;
-                    folderSelRectBtnAdd.x = folderSelRect.x+folderSelRect.width+4;
+                    folderSelRectBtnAdd.x = folderContentOrder.x+ folderContentOrder.width+4;
 
                     Rect folderSelRectBtnEdit = new Rect(folderSelRectBtnAdd);
                     folderSelRectBtnEdit.x += folderSelRectBtnAdd.width + 4;
@@ -119,6 +127,10 @@ namespace aRandomKiwi.ARS
                     Rect folderSelRectBtnDel = new Rect(folderSelRectBtnMassMove);
                     folderSelRectBtnDel.x += folderSelRectBtnMassMove.width + 4;
 
+                    Rect folderSelAllSaves = new Rect(folderSelRectBtnDel);
+                    folderSelAllSaves.x += folderSelRectBtnDel.width + 4;
+
+
 
                     //Preview image
                     Texture2D preview = Tex.texBGNoPreview;
@@ -126,10 +138,13 @@ namespace aRandomKiwi.ARS
                     //Check if no preview for the save selected
                     if (Utils.selectedSave != "")
                     {
-                        string previewpath=Utils.getBasePathRSPreviews();
-                        previewpath = Path.Combine(previewpath, Utils.selectedSave)+".jpg";
+                        string previewpathBase=Utils.getBasePathRSPreviews();
+                        string previewpath = "";
+                        previewpath = Path.Combine(previewpathBase, Utils.selectedSave)+".dat";
+                        if(!File.Exists(previewpath))
+                            previewpath = Path.Combine(previewpathBase, Utils.selectedSave) + ".jpg";
 
-                       Texture2D tmp = Utils.loadPreview(previewpath);
+                        Texture2D tmp = Utils.loadPreview(previewpath);
                         if (tmp != null)
                             preview = tmp;
                     }
@@ -154,7 +169,8 @@ namespace aRandomKiwi.ARS
                     if (isSaveDialog)
                     {
                         //__instance.DoTypeInField(inRect.AtZero());
-                        Traverse.Create(__instance).Method("DoTypeInField", inRect.AtZero()).GetValue();
+                        //Traverse.Create(__instance).Method("DoTypeInField", inRect.AtZero()).GetValue();
+                        DoTypeInField(inRect.AtZero(), ref ___typingName,  ref __instance);
                     }
 
                     //Selected map meta data
@@ -254,7 +270,7 @@ namespace aRandomKiwi.ARS
                     //Folder icon
                     Widgets.ButtonImage(new Rect(340f, 36f, 32f, 32f), Tex.texFolder, Color.white, Color.white);
                     GUI.color = Color.green;
-                    if (Widgets.ButtonText(folderSelRect, Settings.curFolder+ " " + "ARS_nbSaves".Translate(Utils.getNbSavesInVF(Settings.curFolder))))
+                    if (Widgets.ButtonText(folderSelRect, Settings.curFolder))
                     {
                         Utils.showFolderList(delegate(string cfolder)
                         {
@@ -270,6 +286,45 @@ namespace aRandomKiwi.ARS
                             Utils.changeFolder(cfolder, __instance);
                         },"");
                     }
+
+                    GUI.color = Color.white;
+                    Texture2D texOrder = null;
+                    if (Settings.currentSavesOrderMode == 1)
+                        texOrder = Tex.texOrderDateDESC;
+                    else if (Settings.currentSavesOrderMode == 2)
+                        texOrder = Tex.texOrderDateASC;
+                    else if (Settings.currentSavesOrderMode == 3)
+                        texOrder = Tex.texOrderNameDESC;
+                    else if (Settings.currentSavesOrderMode == 4)
+                        texOrder = Tex.texOrderNameASC;
+                    else if (Settings.currentSavesOrderMode == 5)
+                        texOrder = Tex.texOrderSizeDESC;
+                    else if (Settings.currentSavesOrderMode == 6)
+                        texOrder = Tex.texOrderSizeASC;
+
+                    if (Widgets.ButtonImageWithBG(folderContentOrder, texOrder, new Vector2(24, 24)))
+                    {
+                        Utils.showSaveOrderModeList();
+                    }
+
+                    string toolTipOrderSaves = "";
+
+                    if (Settings.currentSavesOrderMode == 1)
+                        toolTipOrderSaves = "ARS_SaveOrderByDateDESC".Translate();
+                    else if (Settings.currentSavesOrderMode == 2)
+                        toolTipOrderSaves = "ARS_SaveOrderByDateASC".Translate();
+                    else if (Settings.currentSavesOrderMode == 3)
+                        toolTipOrderSaves = "ARS_SaveOrderByNameDESC".Translate();
+                    else if (Settings.currentSavesOrderMode == 4)
+                        toolTipOrderSaves = "ARS_SaveOrderByNameASC".Translate();
+                    else if (Settings.currentSavesOrderMode == 5)
+                        toolTipOrderSaves = "ARS_SaveOrderBySizeDESC".Translate();
+                    else if (Settings.currentSavesOrderMode == 6)
+                        toolTipOrderSaves = "ARS_SaveOrderBySizeASC".Translate();
+
+                    TooltipHandler.TipRegion(folderContentOrder, toolTipOrderSaves);
+
+
                     GUI.color = Color.white;
                     if (Widgets.ButtonImageWithBG(folderSelRectBtnAdd, Tex.texAdd, new Vector2(24,24)))
                     {
@@ -389,14 +444,14 @@ namespace aRandomKiwi.ARS
                                 if (curPrefix == "")
                                 {
                                     res = from f in directoryInfo.GetFiles()
-                                          where f.Extension == ".jpg" && !f.FullName.Contains(Utils.VFOLDERSEP)
+                                          where (f.Extension == ".jpg" || f.Extension == ".dat") && !f.FullName.Contains(Utils.VFOLDERSEP)
                                           orderby f.LastWriteTime descending
                                           select f;
                                 }
                                 else
                                 {
                                     res = from f in directoryInfo.GetFiles()
-                                          where f.Extension == ".jpg" && f.FullName.Contains(curPrefix)
+                                          where (f.Extension == ".jpg" || f.Extension == ".dat") && f.FullName.Contains(curPrefix)
                                           orderby f.LastWriteTime descending
                                           select f;
                                 }
@@ -454,6 +509,37 @@ namespace aRandomKiwi.ARS
                         TooltipHandler.TipRegion(folderSelRectBtnDel, "ARS_ToolTipDelFolder".Translate());
 
                     GUI.color = Color.white;
+
+                    Texture2D controlCheckSaves = Tex.texCheckAll;
+                    string controlCheckSavesTooltip = "ARS_ToolTipSelAllSaves";
+                    if (Utils.selectedSaves.Count() != 0)
+                    {
+                        controlCheckSaves = Tex.texUnCheckAll;
+                        controlCheckSavesTooltip = "ARS_ToolTipUnSelAllSaves";
+                    }
+
+                    if (Widgets.ButtonImageWithBG(folderSelAllSaves, controlCheckSaves, new Vector2(24, 24)))
+                    {
+                        if (Utils.selectedSaves.Count() != 0)
+                        {
+                            Utils.selectedSaves.Clear();
+                            SoundDefOf.Checkbox_TurnedOff.PlayOneShotOnCamera();
+                        }
+                        else
+                        {
+                            foreach (SaveFileInfo current in ___files)
+                            {
+                                string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(current.FileInfo.Name);
+                                string prefixedFileName = Utils.addPrefix(fileNameWithoutExtension, false);
+                                if (!Utils.selectedSaves.Contains(prefixedFileName))
+                                    Utils.selectedSaves.Add(prefixedFileName);
+                            }
+                            SoundDefOf.Checkbox_TurnedOn.PlayOneShotOnCamera();
+                        }
+                    }
+                    TooltipHandler.TipRegion(folderSelAllSaves, controlCheckSavesTooltip.Translate());
+
+
                     if (isSaveDialog)
                     {
                         outRect.height -= 45;
@@ -464,10 +550,30 @@ namespace aRandomKiwi.ARS
                     float num = 0f;
                     int num2 = 0;
                     bool first = true;
+
+                    //Order according to the user's choice
+                    if (Utils.DialogNeedOrdering)
+                    {
+                        if(Settings.currentSavesOrderMode == 1)
+                            ___files = ___files.OrderByDescending(o => o.LastWriteTime).ToList();
+                        else if (Settings.currentSavesOrderMode == 2)
+                            ___files = ___files.OrderBy(o => o.LastWriteTime).ToList();
+                        else if (Settings.currentSavesOrderMode == 3)
+                            ___files = ___files.OrderByDescending(o => o.FileName).ToList();
+                        else if (Settings.currentSavesOrderMode == 4)
+                            ___files = ___files.OrderBy(o => o.FileName).ToList();
+                        else if (Settings.currentSavesOrderMode == 5)
+                            ___files = ___files.OrderByDescending(o => o.FileInfo.Length).ToList();
+                        else if (Settings.currentSavesOrderMode == 6)
+                            ___files = ___files.OrderBy(o => o.FileInfo.Length).ToList();
+
+                        Utils.DialogNeedOrdering = false;
+                    }
+
+
                     foreach (SaveFileInfo current in ___files)
                     {
-                        if (num + vector.y >= ___scrollPosition.y && num <= ___scrollPosition.y + outRect.height)
-                        {
+
                             string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(current.FileInfo.Name);
                             string prefixedFileName = Utils.addPrefix(fileNameWithoutExtension, false);
                             if (fileNameWithoutExtension.Contains(Utils.VFOLDERSEP))
@@ -489,6 +595,9 @@ namespace aRandomKiwi.ARS
                             }
 
                             GUI.BeginGroup(rect);
+                            
+                            if(Utils.selectedSaves.Contains(prefixedFileName))
+                                selectedSavesSize += current.FileInfo.Length;
 
                             Texture2D texSel = Tex.texUnSel;
                             if (Utils.selectedSaves.Contains(prefixedFileName))
@@ -511,7 +620,7 @@ namespace aRandomKiwi.ARS
 
                             Rect rect2 = new Rect(rect.width - 72f, (rect.height - 28f) / 2f, 28f, 28f);
                             bool needToBeDeleted = Utils.selectedSavesToDelete.Contains(prefixedFileName);
-                            if (Widgets.ButtonImage(rect2,Tex.texDeleteX2, Color.white, GenUI.SubtleMouseoverColor) || needToBeDeleted)
+                            if (needToBeDeleted || (!Settings.enableLiteMode && Widgets.ButtonImage(rect2,Tex.texDeleteX2, Color.white, GenUI.SubtleMouseoverColor)))
                             {
                                 FileInfo localFile = current.FileInfo;
                                 Action confirm = delegate
@@ -525,23 +634,9 @@ namespace aRandomKiwi.ARS
                                     if (Settings.curFolder != "Default")
                                         prefix = Settings.curFolder + Utils.VFOLDERSEP;
 
-                                    //If preview associated
-                                    string pathPreview = Utils.getBasePathRSPreviews();
-                                    pathPreview = Path.Combine(pathPreview, prefixedFileName + ".jpg");
-
-                                    if (File.Exists(pathPreview))
-                                    {
-                                        System.IO.File.Delete(pathPreview);
-                                    }
-
-                                    //If associated meta
-                                    string pathMeta = Utils.getBasePathRSMeta();
-                                    pathMeta = Path.Combine(pathMeta, prefixedFileName + ".dat");
-
-                                    if (File.Exists(pathMeta))
-                                    {
-                                        System.IO.File.Delete(pathMeta);
-                                    }
+                                    //Delete metas
+                                    Utils.deleteSaveMetas(prefixedFileName);
+                                    
 
                                     //If folder selected == folder deleted then reset
                                     if (Utils.selectedSave == prefixedFileName)
@@ -575,11 +670,12 @@ namespace aRandomKiwi.ARS
                                 else
                                     Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation("ConfirmDelete".Translate(localFile.Name), confirm, true, null, WindowLayer.SubSuper));
                             }
-                            TooltipHandler.TipRegion(rect2, "DeleteThisSavegame".Translate());
+                            if(!Settings.enableLiteMode)
+                                TooltipHandler.TipRegion(rect2, "DeleteThisSavegame".Translate());
 
                             Rect rect20 = new Rect(rect.width - 108f, (rect.height - 36f) / 2f, 36f, 36f);
                             bool concernedByMassMove = Utils.selectedSavesToMove.Contains(prefixedFileName);
-                            if (Widgets.ButtonImage(rect20, Tex.texMove, Color.white, GenUI.SubtleMouseoverColor) || concernedByMassMove)
+                            if (concernedByMassMove || (!Settings.enableLiteMode && Widgets.ButtonImage(rect20, Tex.texMove, Color.white, GenUI.SubtleMouseoverColor)))
                             {
                                 Action<string> confirm = delegate (string cfolder)
                                 {
@@ -610,9 +706,9 @@ namespace aRandomKiwi.ARS
                                         string toSubstitute = tmpPath.Substring(pos1, pos2 - pos1);
                                         //Log.Message("toSubstitute : " + toSubstitute);
                                         if (cfolder == "Default")
-                                            newFile = tmpPath.Replace(toSubstitute, "");
+                                            newFile = Utils.ReplaceFirst(tmpPath,toSubstitute, "");
                                         else
-                                            newFile = tmpPath.Replace(toSubstitute, cfolder);
+                                            newFile = Utils.ReplaceFirst(tmpPath,toSubstitute, cfolder);
                                     }
 
                                     //Check the existence of a file with the same name in the destination, if necessary we add a particle to the file to be moved
@@ -632,13 +728,17 @@ namespace aRandomKiwi.ARS
                                         }
                                     }
 
+
                                     //Move the backup to the new folder
                                     //Log.Message(newFile);
                                     System.IO.File.Move(current.FileInfo.FullName, newFile);
 
                                     //We MOVE also the preview if there is preview
-                                    string pathPreview = Utils.getBasePathRSPreviews();
-                                    pathPreview = Path.Combine(pathPreview, prefixedFileName + ".jpg");
+                                    string pathPreviewBase = Utils.getBasePathRSPreviews();
+                                    string pathPreview = "";
+                                    pathPreview = Path.Combine(pathPreviewBase, prefixedFileName + ".dat");
+                                    if(!File.Exists(pathPreview))
+                                        pathPreview = Path.Combine(pathPreviewBase, prefixedFileName + ".jpg");
 
                                     if (File.Exists(pathPreview))
                                     {
@@ -647,13 +747,19 @@ namespace aRandomKiwi.ARS
                                         string lastPart = newFile.Split(Path.DirectorySeparatorChar).Last();
 
                                         newPathPreview = Path.Combine(newPathPreview, lastPart);
-                                        newPathPreview = Utils.replaceLastOccurrence(newPathPreview, ".rws", ".jpg");
+                                        newPathPreview = Utils.replaceLastOccurrence(newPathPreview, ".rws", ".dat");
 
-                                        System.IO.File.Move(pathPreview, newPathPreview);
+                                        try
+                                        {
+                                            System.IO.File.Move(pathPreview, newPathPreview);
+                                        }
+                                        catch (UnauthorizedAccessException)
+                                        {
+                                            System.IO.File.Copy(pathPreview, newPathPreview);
+                                        }
                                         //Updating the preview cache
                                         Utils.updateCachedPreviewPath(pathPreview, newPathPreview);
                                     }
-
                                     //We MOVE also the meta if there is preview
                                     string pathMeta = Utils.getBasePathRSMeta();
                                     pathMeta = Path.Combine(pathMeta, prefixedFileName + ".dat");
@@ -666,8 +772,14 @@ namespace aRandomKiwi.ARS
 
                                         newPathMeta = Path.Combine(newPathMeta, lastPart);
                                         newPathMeta = Utils.replaceLastOccurrence(newPathMeta, ".rws", ".dat");
-
-                                        System.IO.File.Move(pathMeta, newPathMeta);
+                                        try
+                                        {
+                                            System.IO.File.Move(pathMeta, newPathMeta);
+                                        }
+                                        catch (UnauthorizedAccessException)
+                                        {
+                                            System.IO.File.Copy(pathMeta, newPathMeta);
+                                        }
                                         //Updating the preview cache
                                         Utils.updateCachedMetaPath(pathMeta, newPathMeta);
                                     }
@@ -699,12 +811,48 @@ namespace aRandomKiwi.ARS
                                 else
                                     Utils.showFolderList(confirm, Settings.curFolder);
                             }
-                            TooltipHandler.TipRegion(rect20, "ARS_ToolTipMoveSave".Translate());
+                            if(!Settings.enableLiteMode)
+                                TooltipHandler.TipRegion(rect20, "ARS_ToolTipMoveSave".Translate());
 
-                            Rect rect21 = new Rect(rect.width - 144f, (rect.height - 36f) / 2f, 36f, 36f);
+                            Rect rect21;
+                            if (Settings.enableLiteMode)
+                                rect21 = rect2;
+                            else
+                                rect21 = new Rect(rect.width - 144f, (rect.height - 36f) / 2f, 36f, 36f);
+
                             if (Widgets.ButtonImage(rect21, Tex.texMore, Color.white, GenUI.SubtleMouseoverColor))
                             {
                                 List<FloatMenuOption> listFO = new List<FloatMenuOption>();
+
+                                if (Settings.enableLiteMode)
+                                {
+                                    listFO.Add(new FloatMenuOption(Utils.OPTNSTART + ___interactButLabel, delegate
+                                    {
+                                        Utils.saveToLoad = prefixedFileName;
+                                        //__instance.DoFileInteraction(Path.GetFileNameWithoutExtension(current.FileInfo.Name));
+                                        Traverse.Create(__instance).Method("DoFileInteraction", Path.GetFileNameWithoutExtension(current.FileInfo.Name)).GetValue();
+                                    }, MenuOptionPriority.Default, null, null, 0f, null, null));
+
+                                    listFO.Add(new FloatMenuOption(Utils.OPTNSTART + "ARS_ToolTipMoveSave".Translate(), delegate
+                                    {
+                                        Utils.showFolderList(delegate (string cfolder)
+                                        {
+                                            Utils.selectedSavesToMove.Add(prefixedFileName);
+                                            Utils.selectedSavesToMoveFolder = cfolder;
+                                        }, Settings.curFolder);
+                                    }, MenuOptionPriority.Default, null, null, 0f, null, null));
+
+                                    listFO.Add(new FloatMenuOption(Utils.OPTNSTART + "DeleteThisSavegame".Translate(), delegate
+                                    {
+
+                                        FileInfo localFile = current.FileInfo;
+                                        Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation("ConfirmDelete".Translate(localFile.Name), delegate
+                                        {
+                                            Utils.selectedSavesToDelete.Add(prefixedFileName);
+                                        }, true, null, WindowLayer.SubSuper));
+                                    }, MenuOptionPriority.Default, null, null, 0f, null, null));
+                                }
+
                                 listFO.Add(new FloatMenuOption(Utils.OPTNSTART + "ARS_OP_RENAME".Translate(), delegate
                                 {
                                     Find.WindowStack.Add(new Dialog_Input(delegate (string value)
@@ -719,8 +867,11 @@ namespace aRandomKiwi.ARS
                                         //Effective name change
                                         System.IO.File.Move(current.FileInfo.FullName, path);
 
-                                        string pathPreview = Utils.getBasePathRSPreviews();
-                                        pathPreview = Path.Combine(pathPreview, prefixedFileName + ".jpg");
+                                        string pathPreviewBase = Utils.getBasePathRSPreviews();
+                                        string pathPreview = "";
+                                        pathPreview = Path.Combine(pathPreviewBase, prefixedFileName + ".dat");
+                                        if (!File.Exists(pathPreview))
+                                            pathPreview = Path.Combine(pathPreviewBase, prefixedFileName + ".jpg");
 
                                         if (File.Exists(pathPreview))
                                         {
@@ -729,7 +880,7 @@ namespace aRandomKiwi.ARS
                                             if (Settings.curFolder != "Default")
                                                 prefix = Settings.curFolder + Utils.VFOLDERSEP;
 
-                                            newPathPreview = Path.Combine(newPathPreview, prefix + value + ".jpg");
+                                            newPathPreview = Path.Combine(newPathPreview, prefix + value + ".dat");
 
                                             System.IO.File.Move(pathPreview, newPathPreview);
                                             //Updating the preview cache
@@ -801,8 +952,11 @@ namespace aRandomKiwi.ARS
                                         System.IO.File.Copy(current.FileInfo.FullName, path);
 
                                         //If preview associated
-                                        string pathPreview = Utils.getBasePathRSPreviews();
-                                        pathPreview = Path.Combine(pathPreview, prefixedFileName + ".jpg");
+                                        string pathPreviewBase = Utils.getBasePathRSPreviews();
+                                        string pathPreview = "";
+                                        pathPreview = Path.Combine(pathPreviewBase, prefixedFileName + ".dat");
+                                        if (!File.Exists(pathPreview))
+                                            pathPreview = Path.Combine(pathPreviewBase, prefixedFileName + ".jpg");
 
                                         if (File.Exists(pathPreview))
                                         {
@@ -811,7 +965,7 @@ namespace aRandomKiwi.ARS
                                             if (Settings.curFolder != "Default")
                                                 prefix = Settings.curFolder + Utils.VFOLDERSEP;
 
-                                            newPathPreview = Path.Combine(newPathPreview, prefix + value + ".jpg");
+                                            newPathPreview = Path.Combine(newPathPreview, prefix + value + ".dat");
 
                                             System.IO.File.Copy(pathPreview, newPathPreview);
                                         }
@@ -859,26 +1013,41 @@ namespace aRandomKiwi.ARS
 
                             Text.Font = GameFont.Small;
                             Rect rect3 = new Rect(rect21.x - 100f, (rect.height - 36f) / 2f, 100f, 36f);
-                            if (Widgets.ButtonText(rect3, ___interactButLabel, true, false, true))
+                            if (!Settings.enableLiteMode && Widgets.ButtonText(rect3, ___interactButLabel, true, false, true))
                             {
-                                Utils.loadedSave = prefixedFileName;
+                                Utils.saveToLoad = prefixedFileName;
                                 //__instance.DoFileInteraction(Path.GetFileNameWithoutExtension(current.FileInfo.Name));
                                 Traverse.Create(__instance).Method("DoFileInteraction", Path.GetFileNameWithoutExtension(current.FileInfo.Name)).GetValue();
                             }
-                            Rect rect4 = new Rect(rect3.x - 94f, 0f, 94f, rect.height);
+                            Rect rect4;
+                            if (Settings.enableLiteMode)
+                                rect4 = new Rect(rect2.x - 94f, 0f, 94f, rect.height);
+                            else
+                                rect4 = new Rect(rect3.x - 94f, 0f, 94f, rect.height);
+
                             Dialog_FileList.DrawDateAndVersion(current, rect4);
                             GUI.color = Color.white;
                             Text.Anchor = TextAnchor.UpperLeft;
                             //GUI.color = __instance.FileNameColor(current);
                             GUI.color = (Color)Traverse.Create(__instance).Method("FileNameColor", current).GetValue();
 
-                            Rect rect5 = new Rect(308f, 0f, rect4.x - 8f - 4f-36f, rect.height);
+                            Rect rect5;
+                            string tfFN;
+                            if (Settings.enableLiteMode)
+                            {
+                                rect5 = new Rect(308f, 0f, rect4.x - 308f, rect.height);
+                                tfFN = fileNameWithoutExtension.Truncate(rect4.x - 308f - 80f, null);
+                            }
+                            else
+                            {
+                                tfFN = fileNameWithoutExtension.Truncate(240f, null);
+                                rect5 = new Rect(308f, 0f, rect4.x - 320f, rect.height);
+                            }
                             Text.Anchor = TextAnchor.MiddleLeft;
                             Text.Font = GameFont.Small;
 
 
                             //Widgets.Label(rect5, fileNameWithoutExtension.Truncate(rect5.width * 1.8f, null));
-                            string tfFN = fileNameWithoutExtension.Truncate(290f, null);
                             if (Widgets.ButtonText(rect5, tfFN,false, false))
                             {
                                 Utils.selectedSave = prefixedFileName;
@@ -893,7 +1062,6 @@ namespace aRandomKiwi.ARS
 
                             if (first && Utils.selectedSave == "")
                                 Utils.selectedSave = prefixedFileName;
-                        }
                         num += vector.y;
                         num2++;
                     }
@@ -921,11 +1089,27 @@ namespace aRandomKiwi.ARS
                     }
                     TooltipHandler.TipRegion(saveFolder, "ARS_OpenSaveFolder".Translate());
 
-                    if (Widgets.ButtonImage(new Rect(inRect.width - 168, inRect.height + 5, 167, 40), Tex.texLogo, Color.white, Color.green))
+                    if (Widgets.ButtonImage(new Rect(inRect.width - 52, inRect.height+5, 40, 40), Tex.texMoreSettings, Color.white, Color.green))
                     {
                         var dialog = new Dialog_ModSettings(Utils.curModRef);
+
                         Traverse.Create(dialog).Field<Mod>("selMod").Value = Utils.curModRef;
                         Find.WindowStack.Add(dialog);
+                    }
+
+                    Rect statusNbSavesRect = new Rect(inRect.width / 2 + 100, inRect.height + 15, 150, 40);
+
+                    GUI.color = Color.gray;
+                    Widgets.Label(statusNbSavesRect, "ARS_StatusTextP1".Translate(Utils.getNbSavesInVF(Settings.curFolder)));
+                    GUI.color = Color.white;
+
+                    if (Utils.selectedSaves.Count() != 0)
+                    {
+                        Rect statusTextRect = new Rect(inRect.width / 2 + 260, inRect.height + 15, 240, 40);
+                        Widgets.Label(new Rect(inRect.width / 2 + 230, inRect.height + 15, 20, 40), "|");
+                        GUI.color = Color.green;
+                        Widgets.Label(statusTextRect, "ARS_StatusTextP2".Translate(Utils.selectedSaves.Count(), Utils.FormatSize(selectedSavesSize)));
+                        GUI.color = Color.white;
                     }
 
                     return false;
@@ -935,6 +1119,44 @@ namespace aRandomKiwi.ARS
                     Utils.logMsg("Error : " + e.Message+"\nStackTrace : "+e.StackTrace);
                     return true;
                 }
+            }
+
+            
+
+            static private void DoTypeInField(Rect rect, ref string typingName, ref Dialog_FileList instance)
+            {
+                Widgets.BeginGroup(rect);
+                bool flag = Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Return;
+                float y = rect.height - 35f;
+                Text.Font = GameFont.Small;
+                Text.Anchor = TextAnchor.MiddleLeft;
+                GUI.SetNextControlName("MapNameField");
+                string str = Widgets.TextField(new Rect(5f, y, 400f, 35f), typingName, Settings.maxSaveCharLength);
+
+                if (!(str.Length > Settings.maxSaveCharLength))
+                {
+                    typingName = str;
+                }
+
+                if (!Utils.focusedNameArea)
+                {
+                    Utils.focusedNameArea = true;
+                    UI.FocusControl("MapNameField", instance);
+                }
+                if (Widgets.ButtonText(new Rect(420f, y, rect.width - 400f - 20f, 35f), "SaveGameButton".Translate()) || flag)
+                {
+                    if (typingName.NullOrEmpty())
+                    {
+                        Messages.Message("NeedAName".Translate(), MessageTypeDefOf.RejectInput, historical: false);
+                    }
+                    else
+                    {
+                        Traverse.Create(instance).Method("DoFileInteraction", typingName?.Trim()).GetValue();
+                        //DoFileInteraction(typingName?.Trim());
+                    }
+                }
+                Text.Anchor = TextAnchor.UpperLeft;
+                Widgets.EndGroup();
             }
         }
     }

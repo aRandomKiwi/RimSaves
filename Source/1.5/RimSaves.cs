@@ -38,9 +38,9 @@ namespace aRandomKiwi.ARS
                 }
 
                 IOrderedEnumerable<FileInfo>  listSaves = from f in directoryInfo.GetFiles()
-                                           where f.Extension == ".rws"
-                                           orderby f.LastWriteTime descending
-                                           select f;
+                                    where f.Extension == ".rws"
+                                    orderby f.LastWriteTime descending
+                                    select f;
                 int pos1;
                 int pos2;
 
@@ -67,7 +67,7 @@ namespace aRandomKiwi.ARS
                         }
 
                         //If not already present we add it
-                        if (!present) {
+                        if (!present && !Settings.folders.Contains(vf, StringComparer.OrdinalIgnoreCase) &&  vf.ToLower() != "default") {
                             Settings.folders.Add(vf);
                             this.WriteSettings();
                          }

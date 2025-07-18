@@ -24,9 +24,15 @@ namespace aRandomKiwi.ARS
         public static int nbMinSecBetweenIncidents = 5;
         public static long nbMinSecBetweenIncidentsTsNegative = 0;
         public static long nbMinSecBetweenIncidentsTsPositive = 0;
+        public static bool enableLiteMode = false;
+        public static int maxSaveCharLength = 96;
+        public static int currentSavesOrderMode = 1;
+        public static int maxBadEvent = 0;
+        public static int maxGoodEvent = 0;
 
 
         public static bool SectionGeneralExpanded = false;
+        public static bool SectionQuicksavesExpanded = false;
         public static bool SectionIncidentsExpanded = false;
         public static bool SectionQSKeysBindingExpanded = false;
 
@@ -64,10 +70,32 @@ namespace aRandomKiwi.ARS
 
             if (SectionGeneralExpanded)
             {
-                list.CheckboxLabeled("ARS_SettingsUniqueQuicksaveName".Translate(), ref uniqueQuicksaveName);
+                list.CheckboxLabeled("ARS_SettingsLiteMode".Translate(), ref enableLiteMode);
                 list.CheckboxLabeled("ARS_SettingsUniqueSavenameOnSave".Translate(), ref uniqueSaveName);
 
                 list.CheckboxLabeled("ARS_SettingsDisableAutosaves".Translate(), ref disableAutosave);
+
+                list.Label("ARS_SettingsNbAutosave".Translate(Settings.nbAutosave));
+                nbAutosave = (int)list.Slider(nbAutosave, 2, 150);
+
+                list.Label("ARS_SettingsMaxSaveCharLength".Translate(Settings.maxSaveCharLength));
+                maxSaveCharLength = (int)list.Slider(maxSaveCharLength, 40, 200);
+            }
+
+            //Quicksaves
+            if (SectionQuicksavesExpanded)
+                GUI.color = Color.gray;
+            else
+                GUI.color = Color.green;
+            if (list.ButtonText("ARS_SettingsQSGeneralSection".Translate()))
+            {
+                SectionQuicksavesExpanded = !SectionQuicksavesExpanded;
+            }
+            GUI.color = Color.white;
+
+            if (SectionQuicksavesExpanded)
+            {
+                list.CheckboxLabeled("ARS_SettingsUniqueQuicksaveName".Translate(), ref uniqueQuicksaveName);
                 if (keyBinding != 3)
                     list.CheckboxLabeled("ARS_SettingsDisableQuicksavesNotifs".Translate(), ref disableQuicksavesNotifs);
 
@@ -80,10 +108,9 @@ namespace aRandomKiwi.ARS
                     if (prevMaxQuicksaves != maxQuicksaves && maxQuicksaves < nextQuicksaves)
                         nextQuicksaves = 1;
                 }
-
-                list.Label("ARS_SettingsNbAutosave".Translate(Settings.nbAutosave));
-                nbAutosave = (int)list.Slider(nbAutosave, 2, 150);
             }
+
+
             //QuickSaves on incidents
             if (SectionIncidentsExpanded)
                 GUI.color = Color.gray;
@@ -103,6 +130,26 @@ namespace aRandomKiwi.ARS
                 {
                     list.Label("ARS_SettingsSecsMinBetweenIncidents".Translate(Settings.nbMinSecBetweenIncidents));
                     nbMinSecBetweenIncidents = (int)list.Slider(nbMinSecBetweenIncidents, 1, 200);
+
+                    string nbAutosavesBE = "";
+
+                    if (maxBadEvent == 0)
+                        nbAutosavesBE = "ARS_SettingsAutosavesIllimited".Translate();
+                    else
+                        nbAutosavesBE = Settings.maxBadEvent.ToString();
+
+                    list.Label("ARS_SettingsNbBadEventAutosaves".Translate(nbAutosavesBE));
+                    maxBadEvent = (int)list.Slider(maxBadEvent, 0, 200);
+
+                    string nbAutosavesGE = "";
+
+                    if (maxGoodEvent == 0)
+                        nbAutosavesGE = "ARS_SettingsAutosavesIllimited".Translate();
+                    else
+                        nbAutosavesGE = Settings.maxGoodEvent.ToString();
+
+                    list.Label("ARS_SettingsNbGoodEventAutosaves".Translate(nbAutosavesGE));
+                    maxGoodEvent = (int)list.Slider(maxGoodEvent, 0, 200);
                 }
                 list.CheckboxLabeled("ARS_SettingsQuicksaveOnIncidentLabelSuffix".Translate(), ref addEventLabelSuffix);
             }
@@ -152,6 +199,11 @@ namespace aRandomKiwi.ARS
             Scribe_Values.Look<int>(ref nbMinSecBetweenIncidents, "nbMinSecBetweenIncidents", 5);
             Scribe_Values.Look<long>(ref nbMinSecBetweenIncidentsTsNegative, "nbMinSecBetweenIncidentsTsNegative", 0);
             Scribe_Values.Look<long>(ref nbMinSecBetweenIncidentsTsPositive, "nbMinSecBetweenIncidentsTsPositive", 0);
+            Scribe_Values.Look<bool>(ref enableLiteMode, "enableLiteMode", false);
+            Scribe_Values.Look<int>(ref maxSaveCharLength, "maxSaveCharLength", 96);
+            Scribe_Values.Look<int>(ref currentSavesOrderMode, "currentSavesOrderMode", 1);
+            Scribe_Values.Look<int>(ref maxBadEvent, "maxBadEvent", 0);
+            Scribe_Values.Look<int>(ref maxGoodEvent, "maxGoodEvent", 0);
         } 
     }
 }

@@ -52,5 +52,17 @@ namespace aRandomKiwi.ARS
                 }
             }
         }
+
+        [HarmonyPatch(typeof(GameDataSaveLoader), "LoadGame", new Type[] { typeof(string) })]
+        public class LoadGame
+        {
+            [HarmonyPrefix]
+            public static bool Listener(string saveFileName)
+            {
+                Utils.loadedSave = Utils.saveToLoad;
+                Utils.saveToLoad = "";
+                return true;
+            }
+        }
     }
 }

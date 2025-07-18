@@ -20,6 +20,7 @@ namespace aRandomKiwi.ARS
         public static string filter="";
         public static bool initDialog = false;
         public static string selectedSave = "";
+        public static string saveToLoad = "";
         public static string loadedSave = "";
         public static List<string> selectedSaves = new List<string>();
         public static List<string> selectedSavesToDelete = new List<string>();
@@ -81,7 +82,7 @@ namespace aRandomKiwi.ARS
                 directoryInfo.Create();
             }
 
-            return ret;
+            return folderSepRectify(ret);
         }
 
         public static string getBasePathSaves()
@@ -94,7 +95,7 @@ namespace aRandomKiwi.ARS
                 directoryInfo.Create();
             }
 
-            return ret;
+            return folderSepRectify(ret);
         }
 
         public static string getBasePathRSMeta()
@@ -113,7 +114,18 @@ namespace aRandomKiwi.ARS
                 directoryInfo.Create();
             }
 
-            return ret;
+            return folderSepRectify(ret);
+        }
+
+        public static string folderSepRectify(string path)
+        {
+            if (Path.DirectorySeparatorChar == '\\')
+            {
+                return path.Replace('/', '\\');
+            }
+            else
+                return path.Replace('\\', '/');
+                    
         }
 
         public static Texture2D loadPreview(string fullPath)
@@ -357,7 +369,16 @@ namespace aRandomKiwi.ARS
             if (!File.Exists(fullPath))
                 return null;
             var texture = new Texture2D(w, h, TextureFormat.RGBA32, false);
-            texture.LoadImage(File.ReadAllBytes(fullPath));
+            byte[] oFileBytes = null;
+            using (System.IO.FileStream fs = System.IO.File.Open(fullPath, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.ReadWrite | System.IO.FileShare.Delete))
+            {
+                int numBytesToRead = Convert.ToInt32(fs.Length);
+                oFileBytes = new byte[(numBytesToRead)];
+                fs.Read(oFileBytes, 0, numBytesToRead);
+                fs.Close();
+                fs.Dispose();
+                texture.LoadImage(oFileBytes);
+            }
             return texture;
         }
 
@@ -403,8 +424,11 @@ namespace aRandomKiwi.ARS
                     cb(cfolder);
                 }, MenuOptionPriority.Default, null, null, 0f, null, null));
             }
-            if(list.Count != 0)
-                Find.WindowStack.Add(new FloatMenu(list));
+            if (list.Count != 0)
+            {
+                FloatMenu fm = new FloatMenu(list);
+                Find.WindowStack.Add(fm);
+            }
         }
 
         public static void changeFolder(string cfolder, Dialog_FileList instance)
@@ -412,6 +436,7 @@ namespace aRandomKiwi.ARS
             //Change of current file
             Settings.curFolder = cfolder;
             Utils.curModRef.WriteSettings();
+            Utils.DialogNeedOrdering = true;
             Traverse.Create(instance).Method("ReloadFiles").GetValue();
         }
 
@@ -506,7 +531,7 @@ namespace aRandomKiwi.ARS
             string text2 = Utils.getBasePathRSPreviews();
             directoryInfo = new DirectoryInfo(text2);
             res = from f in directoryInfo.GetFiles()
-                  where f.Extension == ".jpg" && f.FullName.Contains(curPrefix)
+                  where (f.Extension == ".jpg" || f.Extension == ".dat") && f.FullName.Contains(curPrefix)
                   orderby f.LastWriteTime descending
                   select f;
 
@@ -644,13 +669,135 @@ namespace aRandomKiwi.ARS
         }
 
 
+        public static void showSaveOrderModeList()
+        {
+            List<FloatMenuOption> list = new List<FloatMenuOption>();
+            list.Add(new FloatMenuOption(Utils.OPTNSTART + "ARS_SaveOrderByDateDESC".Translate(), delegate
+            {
+                Settings.currentSavesOrderMode = 1;
+                Utils.DialogNeedOrdering = true;
+            }, MenuOptionPriority.Default, null, null, 0f, null, null));
+
+            list.Add(new FloatMenuOption(Utils.OPTNSTART + "ARS_SaveOrderByDateASC".Translate(), delegate
+            {
+                Settings.currentSavesOrderMode = 2;
+                Utils.DialogNeedOrdering = true;
+            }, MenuOptionPriority.Default, null, null, 0f, null, null));
+
+            list.Add(new FloatMenuOption(Utils.OPTNSTART + "ARS_SaveOrderByNameDESC".Translate(), delegate
+            {
+                Settings.currentSavesOrderMode = 3;
+                Utils.DialogNeedOrdering = true;
+            }, MenuOptionPriority.Default, null, null, 0f, null, null));
+
+            list.Add(new FloatMenuOption(Utils.OPTNSTART + "ARS_SaveOrderByNameASC".Translate(), delegate
+            {
+                Settings.currentSavesOrderMode = 4;
+                Utils.DialogNeedOrdering = true;
+            }, MenuOptionPriority.Default, null, null, 0f, null, null));
+
+            list.Add(new FloatMenuOption(Utils.OPTNSTART + "ARS_SaveOrderBySizeDESC".Translate(), delegate
+            {
+                Settings.currentSavesOrderMode = 5;
+                Utils.DialogNeedOrdering = true;
+            }, MenuOptionPriority.Default, null, null, 0f, null, null));
+
+            list.Add(new FloatMenuOption(Utils.OPTNSTART + "ARS_SaveOrderBySizeASC".Translate(), delegate
+            {
+                Settings.currentSavesOrderMode = 6;
+                Utils.DialogNeedOrdering = true;
+            }, MenuOptionPriority.Default, null, null, 0f, null, null));
+
+
+
+            FloatMenu fm = new FloatMenu(list);
+            Find.WindowStack.Add(fm);
+        }
+
+        public static void deleteSaveMetas(string prefixedFileName)
+        {
+            //Preview
+            string pathPreviewBase = Utils.getBasePathRSPreviews();
+            string pathPreview = "";
+            pathPreview = Path.Combine(pathPreviewBase, prefixedFileName + ".dat");
+            if (!File.Exists(pathPreview))
+                pathPreview = Path.Combine(pathPreviewBase, prefixedFileName + ".jpg");
+
+            if (File.Exists(pathPreview))
+            {
+                try
+                {
+                    System.IO.File.Delete(pathPreview);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Log.Message("Cannot delete " + pathPreview);
+                }
+            }
+
+            //If associated meta
+            string pathMeta = Utils.getBasePathRSMeta();
+            pathMeta = Path.Combine(pathMeta, prefixedFileName + ".dat");
+
+            if (File.Exists(pathMeta))
+            {
+                try
+                {
+                    System.IO.File.Delete(pathMeta);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Log.Message("Cannot delete " + pathMeta);
+                }
+            }
+        }
+
+        public static void keepLatestSaves(string predicate, int max)
+        {
+            string path = Path.Combine(GenFilePaths.SaveDataFolderPath, "Saves");
+            string prefix = "";
+            if (Settings.curFolder != "Default")
+                prefix = Settings.curFolder + Utils.VFOLDERSEP;
+
+            DirectoryInfo directoryInfo = new DirectoryInfo(path);
+            IOrderedEnumerable<FileInfo> res;
+
+            res = from f in directoryInfo.GetFiles()
+                  where f.Extension == ".rws" && f.Name.StartsWith(prefix + predicate)
+                  orderby f.LastWriteTime descending
+                  select f;
+
+            foreach(var el in res.Skip(max))
+            {
+                string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(el.Name);
+                string prefixedFileName = Utils.addPrefix(fileNameWithoutExtension, false);
+                //Remove save file
+                el.Delete();
+                //Remove metas
+                deleteSaveMetas(prefixedFileName);
+            }
+        }
+
+        public static string ReplaceFirst(string str, string term, string replace)
+        {
+            int position = str.IndexOf(term);
+            if (position < 0)
+            {
+                return str;
+            }
+            str = str.Substring(0, position) + replace + str.Substring(position + term.Length);
+            return str;
+        }
+
         public static List<string> negativeIncidents = null;
         public static List<string> positiveIncidents = null;
+        static public bool focusedNameArea = false;
+        static public bool DialogNeedOrdering = true;
 
         public static GCQS GCQSI;
         public static readonly string VFOLDERSEP = "#§#";
         public static readonly string OPTNSTART = "-            ";
         public static RimSaves curModRef;
-        public static readonly string RSRelease = "RimSaves NX";
+        public static readonly string RSRelease = "RimSaves NX rev25";
     }
 }

@@ -37,7 +37,7 @@ namespace aRandomKiwi.ARS
                     {
                         //Return only path which dont contain the virtual folder signature
                         __result = from f in directoryInfo.GetFiles()
-                                   where f.Extension == ".rws" && !f.FullName.Contains(Utils.VFOLDERSEP)
+                                   where f.Extension == ".rws" && (!f.FullName.Contains(Utils.VFOLDERSEP) || f.FullName.ToLower().Contains("default" + Utils.VFOLDERSEP) )
                                    orderby f.LastWriteTime descending
                                    select f;
                     }
