@@ -522,7 +522,15 @@ namespace aRandomKiwi.ARS
                     {
                         if (Utils.selectedSaves.Count() != 0)
                         {
-                            Utils.selectedSaves.Clear();
+                            foreach (SaveFileInfo current in ___files)
+                            {
+                                string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(current.FileInfo.Name);
+                                string prefixedFileName = Utils.addPrefix(fileNameWithoutExtension, false);
+                                if (!fileNameWithoutExtension.ToLower().Contains(Utils.filter.ToLower()))
+                                    continue;
+                                if (Utils.selectedSaves.Contains(prefixedFileName))
+                                    Utils.selectedSaves.Remove(prefixedFileName);
+                            }
                             SoundDefOf.Checkbox_TurnedOff.PlayOneShotOnCamera();
                         }
                         else
@@ -531,6 +539,8 @@ namespace aRandomKiwi.ARS
                             {
                                 string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(current.FileInfo.Name);
                                 string prefixedFileName = Utils.addPrefix(fileNameWithoutExtension, false);
+                                if (!fileNameWithoutExtension.ToLower().Contains(Utils.filter.ToLower()))
+                                    continue;
                                 if (!Utils.selectedSaves.Contains(prefixedFileName))
                                     Utils.selectedSaves.Add(prefixedFileName);
                             }
